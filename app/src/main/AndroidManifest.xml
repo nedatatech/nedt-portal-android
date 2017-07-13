@@ -16,13 +16,17 @@
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
     </activity>
-    <activity android:name=".CustomerActivity">
+    <activity android:name=".CustomerActivity"
+              android:parentActivityName=".MainActivity" >
     </activity>
-    <activity android:name=".JobActivity">
+    <activity android:name=".JobActivity"
+              android:parentActivityName=".MainActivity" >
     </activity>
-    <activity android:name=".InventoryActivity">
+    <activity android:name=".InventoryActivity"
+              android:parentActivityName=".MainActivity" >
     </activity>
-    <activity android:name=".CompanyActivity">
+    <activity android:name=".CompanyActivity"
+              android:parentActivityName=".MainActivity" >
     </activity>
   </application>
 
