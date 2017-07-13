@@ -4,4 +4,7 @@
   <string name="string_jobData">Job Database</string>
   <string name="string_invData">Inventory Database</string>
   <string name="string_companyPro">Company Profile</string>
+  <string name="button_test">Test Button</string>
+  <string name="input_text">Text Field</string>
+  <string name="input_float">Number Field</string>
 </resources>
