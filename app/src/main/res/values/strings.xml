@@ -1,3 +1,7 @@
 <resources>
   <string name="app_name">DataTech Portal</string>
+  <string name="string_cusData">Customer Database</string>
+  <string name="string_jobData">Job Database</string>
+  <string name="string_invData">Inventory Database</string>
+  <string name="string_companyPro">Company Profile</string>
 </resources>
