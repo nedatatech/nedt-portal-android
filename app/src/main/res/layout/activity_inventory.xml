@@ -39,15 +39,6 @@
         android:onClick="textButton"
         android:text="@string/button_test"/>
 
-    <Button
-        android:id="@+id/invNumberButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_column="1"
-        android:layout_row="1"
-        android:onClick="numberButton"
-        android:text="@string/button_test"/>
-
     <EditText
         android:id="@+id/invEditFloat"
         android:layout_width="wrap_content"
@@ -58,6 +49,15 @@
         android:hint="@string/input_float"
         android:inputType="number"
         />
+
+    <Button
+        android:id="@+id/invNumberButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="1"
+        android:layout_row="1"
+        android:onClick="numberButton"
+        android:text="@string/button_test"/>
 
   </GridLayout>
 
