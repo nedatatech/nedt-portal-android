@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context="com.nedatatech.datatechportal.CustomerMainActivity">
+
+
+  <Button
+      android:id="@+id/customerEdit_button"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/buttonText_customerAddEdit"/>
+
+  <Button
+      android:id="@+id/customerSearch_button"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/buttonText_customerSearch"/>
+
+  <Button
+      android:id="@+id/customerList_button"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/buttonText_customerList"/>
+
+</LinearLayout>

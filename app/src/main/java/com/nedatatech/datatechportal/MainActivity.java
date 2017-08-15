@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
   }
 
   public void customerButton(View view){
-    Intent customerStart = new Intent(this, CustomerActivity.class);
+    Intent customerStart = new Intent(this, CustomerMainActivity.class);
     startActivity(customerStart);
   }
 

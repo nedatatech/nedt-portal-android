@@ -7,4 +7,16 @@
   <string name="button_test">Test Button</string>
   <string name="input_text">Text Field</string>
   <string name="input_float">Number Field</string>
+  <string name="buttonText_customerAddEdit">Add/Edit/Delete</string>
+  <string name="buttonText_customerSearch">Search Customer</string>
+  <string name="buttonText_customerList">List All Customers</string>
+  <string name="string_customerID">Customer ID</string>
+  <string name="string_firstName">First Name</string>
+  <string name="string_lastName">Last Name</string>
+  <string name="string_email">Email</string>
+  <string name="string_phone">Phone</string>
+  <string name="string_street">Street</string>
+  <string name="string_city">City</string>
+  <string name="string_state">State</string>
+  <string name="string_zipCode">Zip Code</string>
 </resources>
