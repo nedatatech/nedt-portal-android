@@ -85,7 +85,8 @@ public class CustomerAddEditActivity extends AppCompatActivity {
     cancelButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-
+        dataOps.closeDB(); // Should close the database here in case the user won't come back to this activity.
+        finish(); // Kill this activity so multiples aren't produced. (Back Stack).
       }
     });
   }

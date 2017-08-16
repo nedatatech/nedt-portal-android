@@ -29,6 +29,7 @@
               android:parentActivityName=".MainActivity" >
     </activity>
     <activity android:name=".CustomerAddEditActivity"
+              android:label="@string/customer_editLabel"
               android:parentActivityName=".CustomerMainActivity" >
     </activity>
   </application>

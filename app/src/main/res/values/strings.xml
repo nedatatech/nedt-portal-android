@@ -1,5 +1,8 @@
 <resources>
   <string name="app_name">DataTech Portal</string>
+  <string name="customer_editLabel">Edit Customer</string>
+  <string name="customer_searchLabel">Search Customer</string>
+  <string name="customer_listLabel">List All Customers</string>
 
   <string name="string_cusData">Customer Database</string>
   <string name="string_jobData">Job Database</string>
