@@ -1,15 +1,11 @@
 <resources>
   <string name="app_name">DataTech Portal</string>
+
   <string name="string_cusData">Customer Database</string>
   <string name="string_jobData">Job Database</string>
   <string name="string_invData">Inventory Database</string>
   <string name="string_companyPro">Company Profile</string>
-  <string name="button_test">Test Button</string>
-  <string name="input_text">Text Field</string>
-  <string name="input_float">Number Field</string>
-  <string name="buttonText_customerAddEdit">Add/Edit/Delete</string>
-  <string name="buttonText_customerSearch">Search Customer</string>
-  <string name="buttonText_customerList">List All Customers</string>
+
   <string name="string_customerID">Customer ID</string>
   <string name="string_firstName">First Name</string>
   <string name="string_lastName">Last Name</string>
@@ -19,4 +15,16 @@
   <string name="string_city">City</string>
   <string name="string_state">State</string>
   <string name="string_zipCode">Zip Code</string>
+
+  <string name="buttonText_add">ADD</string>
+  <string name="buttonText_update">UPDATE</string>
+  <string name="buttonText_delete">DELETE</string>
+  <string name="buttonText_cancel">CANCEL</string>
+  <string name="buttonText_customerAddEdit">Add/Edit/Delete</string>
+  <string name="buttonText_customerSearch">Search Customer</string>
+  <string name="buttonText_customerList">List All Customers</string>
+
+  <string name="button_test">Test Button</string> <!--not needed-->
+  <string name="input_text">Text Field</string> <!--not needed-->
+  <string name="input_float">Number Field</string> <!--not needed-->
 </resources>

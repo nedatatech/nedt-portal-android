@@ -53,7 +53,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
   Will only call when database version is manually changed here in code. PROBABLY WANT TO IMPROVE.*/
   @Override
   public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-    // Have read that some logging is recommended here.
+    // Have read that some logging is recommended here. Also likely better to use an if to see if the database version has changed.
     db.execSQL("DROP TABLE IF EXISTS " + TABLE_CUSTOMERS + ";"); //ToDo Should use alter table instead if data needs to persist when upgraded.
     db.execSQL(CREATE_TABLE);
   }

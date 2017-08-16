@@ -28,6 +28,9 @@
     <activity android:name=".CompanyActivity"
               android:parentActivityName=".MainActivity" >
     </activity>
+    <activity android:name=".CustomerAddEditActivity"
+              android:parentActivityName=".CustomerMainActivity" >
+    </activity>
   </application>
 
 </manifest>

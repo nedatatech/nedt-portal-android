@@ -8,11 +8,14 @@ import android.view.View;
 public class MainActivity extends AppCompatActivity {
 
 
+  private DatabaseOperations dataOps;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+    dataOps = new DatabaseOperations(this);
+    dataOps.openDB(); // May want to manage this better. Not necessarily needed here and also should be on a background thread for performance when the database gets bigger.
   }
 
   public void customerButton(View view){
@@ -34,4 +37,16 @@ public class MainActivity extends AppCompatActivity {
     Intent companyStart = new Intent(this, CompanyActivity.class);
     startActivity(companyStart);
   }
+
+  // Calling this method just to make sure the App gets closed out and the database closed properly.
+  @Override
+  public void onBackPressed() {
+    super.onBackPressed();
+    finish();
+    dataOps.closeDB(); /* For now calling this here should guarantee the database isn't still performing any operations in the background and helps with security.
+                          Though this may cause problems for having access still in actual database operating activities. need to look more into onBackPressed
+                          and if its called here by starting new activities too.*/
+  }
 }
+/* ToDo Should probably call the onPause and onResume methods for safety and open and close the
+ToDo database respectively but will want to test and see how this affects performance.*/

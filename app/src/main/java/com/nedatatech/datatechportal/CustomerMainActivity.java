@@ -1,5 +1,6 @@
 package com.nedatatech.datatechportal;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,6 +21,8 @@ public class CustomerMainActivity extends AppCompatActivity {
     buttonAddEdit.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
+        Intent startAddEdit = new Intent(CustomerMainActivity.this, CustomerAddEditActivity.class);
+        startActivity(startAddEdit); // May need back stack maintenance.
 
       }
     });

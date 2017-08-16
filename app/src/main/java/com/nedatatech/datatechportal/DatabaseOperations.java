@@ -56,6 +56,7 @@ public class DatabaseOperations {
     return customer;
   }
 
+  //ToDo Need to create more methods for searching based on more criteria and being able to return results for more than one match.
   // Finds and returns one search result. Should probably close the cursor in each method also.
   public Customer getCustomer(long searchID) { // Check here for a search error when testing. Spaces around ? may not be necessary.
     Cursor cursor = database.query(DatabaseHelper.TABLE_CUSTOMERS, CUSTOMER_ALL_COLUMNS, DatabaseHelper.COLUMN_ID + " = ?",
