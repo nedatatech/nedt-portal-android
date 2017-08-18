@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
   <string name="app_name">DataTech Portal</string>
   <string name="customer_editLabel">Edit Customer</string>
   <string name="customer_searchLabel">Search Customer</string>
@@ -20,9 +20,10 @@
   <string name="string_zipCode">Zip Code</string>
 
   <string name="buttonText_add">ADD</string>
+  <string name="buttonText_search">SEARCH</string>
   <string name="buttonText_update">UPDATE</string>
   <string name="buttonText_delete">DELETE</string>
-  <string name="buttonText_cancel">CANCEL</string>
+  <string name="buttonText_cancel" tools:ignore="ButtonCase">CANCEL</string>
   <string name="buttonText_customerAddEdit">Add/Edit/Delete</string>
   <string name="buttonText_customerSearch">Search Customer</string>
   <string name="buttonText_customerList">List All Customers</string>

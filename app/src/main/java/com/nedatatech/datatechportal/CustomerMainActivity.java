@@ -31,6 +31,8 @@ public class CustomerMainActivity extends AppCompatActivity {
     buttonSearch.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
+        Intent startSearchActivity = new Intent(CustomerMainActivity.this, CustomerSearchActivity.class);
+        startActivity(startSearchActivity); // May need back stack maintenance.
 
       }
     });
@@ -42,6 +44,8 @@ public class CustomerMainActivity extends AppCompatActivity {
 
       }
     });
+
+    /* ToDo Add Code for when to actually kill this activity. Maybe on BACK button.*/
 
 
 

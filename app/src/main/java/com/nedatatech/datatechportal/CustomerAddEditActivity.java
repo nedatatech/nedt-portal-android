@@ -1,5 +1,6 @@
 package com.nedatatech.datatechportal;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -20,6 +21,7 @@ public class CustomerAddEditActivity extends AppCompatActivity {
   private EditText stateText;
   private EditText zipcodeText;
   private Button addButton;
+  private Button searchButton;
   private Button updateButton;
   private Button deleteButton;
   private Button cancelButton;
@@ -62,6 +64,15 @@ public class CustomerAddEditActivity extends AppCompatActivity {
         dataOps.addCustomer(customerNew);
         finish(); // This can go with a back to main or upwards navigation if it turns out we need to manage the back stack better.
         // Should probably close the database here depending on how navigating around the app gets handled.
+      }
+    });
+
+    searchButton = (Button) findViewById(R.id.search_addEditBtn);
+    searchButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Intent startSearchActivity = new Intent(CustomerAddEditActivity.this, CustomerSearchActivity.class);
+        startActivity(startSearchActivity); /* May need to finish here depending on how the search params will be retrieved and returned to this classes layout.*/
       }
     });
 

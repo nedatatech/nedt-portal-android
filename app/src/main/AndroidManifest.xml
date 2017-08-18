@@ -32,6 +32,10 @@
               android:label="@string/customer_editLabel"
               android:parentActivityName=".CustomerMainActivity" >
     </activity>
+    <activity android:name=".CustomerSearchActivity"
+              android:label="@string/customer_searchLabel"
+              android:parentActivityName=".CustomerMainActivity" > <!--Could be different based on how back stack is being managed.-->
+    </activity>
   </application>
 
 </manifest>

@@ -4,6 +4,7 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
+
   <EditText
       android:id="@+id/customerId_editText"
       android:layout_width="match_parent"
@@ -89,6 +90,13 @@
         android:text="@string/buttonText_add"/>
 
     <Button
+        android:id="@+id/search_addEditBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/buttonText_search"/>
+
+    <Button
         android:id="@+id/update_addEditBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -108,6 +116,12 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="@string/buttonText_cancel"/>
+
+
   </LinearLayout>
 
 </LinearLayout>
+
+
+
+

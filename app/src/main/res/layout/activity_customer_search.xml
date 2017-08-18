@@ -1,7 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:orientation="vertical">
 
-</android.support.constraint.ConstraintLayout>
+  <EditText
+      android:id="@+id/custSearchID_editText"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:ems="10"
+      android:hint="@string/string_customerID"
+      android:inputType="number"
+      android:textSize="14sp"/>
+
+  <EditText
+      android:id="@+id/custSearchFName_editText"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:ems="10"
+      android:hint="@string/string_firstName"
+      android:inputType="textPersonName"
+      android:textSize="14sp"/>
+
+  <EditText
+      android:id="@+id/custSearchLName_editText"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:ems="10"
+      android:hint="@string/string_lastName"
+      android:inputType="textPersonName"
+      android:textSize="14sp"/>
+
+  <EditText
+      android:id="@+id/custSearchEmail_editText"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:ems="10"
+      android:hint="@string/string_email"
+      android:inputType="textEmailAddress"
+      android:textSize="14sp"/>
+
+  <EditText
+      android:id="@+id/CustSearchPhone_editText"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:ems="10"
+      android:hint="@string/string_phone"
+      android:inputType="phone"
+      android:textSize="14sp"/>
+
+  <EditText
+      android:id="@+id/custSearchStreet_editText"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:ems="10"
+      android:hint="@string/string_street"
+      android:inputType="textPostalAddress"
+      android:textSize="14sp"/>
+
+  <EditText
+      android:id="@+id/CustSearchCity_editText"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:ems="10"
+      android:hint="@string/string_city"
+      android:inputType="textPersonName"
+      android:textSize="14sp"/>
+
+  <EditText
+      android:id="@+id/CustSearchState"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:ems="10"
+      android:hint="@string/string_state"
+      android:inputType="textPersonName"
+      android:textSize="14sp"/>
+
+  <EditText
+      android:id="@+id/CustSearchZip_editText"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:ems="10"
+      android:hint="@string/string_zipCode"
+      android:inputType="number"
+      android:textSize="14sp"/>
+
+  <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:orientation="horizontal">
+
+    <Button
+        android:id="@+id/CustSearch_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_weight="1"
+        android:text="@string/buttonText_search"
+        android:textSize="12sp"/>
+
+    <Button
+        android:id="@+id/custCancel_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_weight="1"
+        android:text="@string/buttonText_cancel"
+        android:textSize="12sp"/>
+
+  </LinearLayout>
+
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      >
+
+    <ListView
+        android:id="@+id/custSearchResults_listView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+  </ScrollView>
+</LinearLayout>
