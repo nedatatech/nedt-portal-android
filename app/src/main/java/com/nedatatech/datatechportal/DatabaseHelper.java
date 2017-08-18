@@ -16,6 +16,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
   private static final String DATABASE_NAME = "DataTechRecords.db";
   private static final int DATABASE_VERSION = 1;
 
+  /*Could use an interface to simplify setting things up like the names of the strings for the table names. "See friends project"*/
+
   public static final String TABLE_CUSTOMERS = "customers";
   // This set of strings defines the column identifiers for the people table. Changing columns identifiers or adding/removing any of them should start here.
   public static final String COLUMN_ID = "customer_id";
@@ -34,7 +36,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
   private static final String CREATE_TABLE = "CREATE TABLE " + TABLE_CUSTOMERS + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
           + COLUMN_FIRST_NAME + " TEXT NOT NULL , " + COLUMN_LAST_NAME + " TEXT NOT NULL, " + COLUMN_EMAIL + " TEXT, " + COLUMN_PHONE + " TEXT NOT NULL, "
           + COLUMN_STREET + " TEXT NOT NULL, " + COLUMN_CITY + " TEXT NOT NULL, " + COLUMN_STATE + " TEXT NOT NULL, " + COLUMN_ZIPCODE + " TEXT)";
-  // Should zip be an integer?
+  // Should zip be an integer? Also May want to be able to leave more columns able to be null. Name and Phone are definitely necessities.
+  // Radio Button for wether work has been done or not may be helpful. Also will need to be able to list the jobs from that table based on a customer.
 
   // This method is required for this class to help with creating the database. LEARN MORE ABOUT THIS.
   public DatabaseHelper(Context context) {
