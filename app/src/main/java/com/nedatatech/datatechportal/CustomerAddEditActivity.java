@@ -28,6 +28,7 @@ public class CustomerAddEditActivity extends AppCompatActivity {
 
   private DatabaseOperations dataOps;
   private Customer customerNew;
+  private Customer customerOld; // For working in this class with the search result.
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +88,7 @@ public class CustomerAddEditActivity extends AppCompatActivity {
     deleteButton = (Button) findViewById(R.id.delete_addEditBtn);
     deleteButton.setOnClickListener(new View.OnClickListener() {
       @Override
-      public void onClick(View v) {
+      public void onClick(View v) { // ToDo Make a Dialog to confirm that deleting is meant to happen. Maybe also move the delete button more away from others.
 
       }
     });
@@ -101,4 +102,30 @@ public class CustomerAddEditActivity extends AppCompatActivity {
       }
     });
   }
+
+  public void displayResult(long customerSearchID) { // Will need to pass an array here to display the results I think.
+
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // ToDo Make a method for calling the editTexts and pass in the data from the Search Activity into each field. ContentProvider or values.put() with an intent?
 }

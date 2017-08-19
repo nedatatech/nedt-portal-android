@@ -47,6 +47,12 @@ public class MainActivity extends AppCompatActivity {
                           Though this may cause problems for having access still in actual database operating activities. need to look more into onBackPressed
                           and if its called here by starting new activities too.*/
   }
+
+  @Override
+  protected void onDestroy() {
+    super.onDestroy(); // Should close the Database here but only destroy the main activity when the user chooses to close the whole app.
+                        // Will need to do some research and testing on this further.
+  }
 }
 /* ToDo Should probably call the onPause and onResume methods for safety and open and close the
 ToDo database respectively but will want to test and see how this affects performance.*/

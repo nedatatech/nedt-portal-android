@@ -45,7 +45,7 @@
       android:textSize="14sp"/>
 
   <EditText
-      android:id="@+id/CustSearchPhone_editText"
+      android:id="@+id/custSearchPhone_editText"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:ems="10"
@@ -63,7 +63,7 @@
       android:textSize="14sp"/>
 
   <EditText
-      android:id="@+id/CustSearchCity_editText"
+      android:id="@+id/custSearchCity_editText"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:ems="10"
@@ -72,7 +72,7 @@
       android:textSize="14sp"/>
 
   <EditText
-      android:id="@+id/CustSearchState"
+      android:id="@+id/custSearchState_editText"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:ems="10"
@@ -81,7 +81,7 @@
       android:textSize="14sp"/>
 
   <EditText
-      android:id="@+id/CustSearchZip_editText"
+      android:id="@+id/custSearchZip_editText"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:ems="10"
@@ -96,7 +96,7 @@
       android:orientation="horizontal">
 
     <Button
-        android:id="@+id/CustSearch_button"
+        android:id="@+id/custSearch_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
