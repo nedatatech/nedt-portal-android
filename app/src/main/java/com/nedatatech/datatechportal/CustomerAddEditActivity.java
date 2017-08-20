@@ -94,6 +94,8 @@ public class CustomerAddEditActivity extends AppCompatActivity {
     deleteButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) { // ToDo Make a Dialog to confirm that deleting is meant to happen. Maybe also move the delete button more away from others.
+        searchByID();
+        dataOps.removeCustomer(customerOld); // Gonna need to confirm that it worked or clear the text fields.
 
       }
     });
@@ -110,8 +112,7 @@ public class CustomerAddEditActivity extends AppCompatActivity {
 
   // Throws an error (cursor index out of bounds) when the entered id does not have a row to return. will need to catch this and display a toast or similar.
   public void displayResult() { // Will need to pass an array here to display the results I think.
-    userInputID = Long.parseLong(customerIDText.getText().toString()); // Getting this input from here is temp until more search methods are set up to populate the list view.
-    customerOld = dataOps.getCustomer(userInputID); // Line also temp until list view is ready.
+    searchByID();
     customerIDText.setText(String.valueOf(customerOld.getCustomerID())); // The rest of these lines will probably change based on list views.
     firstNameText.setText(customerOld.getCustomerFirstName());
     lastNameText.setText(customerOld.getCustomerLastName());
@@ -121,6 +122,11 @@ public class CustomerAddEditActivity extends AppCompatActivity {
     cityText.setText(customerOld.getCustomerCity());
     stateText.setText(customerOld.getCustomerState());
     zipcodeText.setText(customerOld.getCustomerZipcode());
+  }
+
+  public void searchByID() {
+    userInputID = Long.parseLong(customerIDText.getText().toString()); // Getting this input from here is temp until more search methods are set up to populate the list view.
+    customerOld = dataOps.getCustomer(userInputID); // Line also temp until list view is ready.
   }
 
 
