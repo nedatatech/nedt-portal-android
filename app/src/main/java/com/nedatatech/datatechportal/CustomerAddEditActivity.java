@@ -29,6 +29,7 @@ public class CustomerAddEditActivity extends AppCompatActivity {
   private DatabaseOperations dataOps;
   private Customer customerNew;
   private Customer customerOld; // For working in this class with the search result.
+  private long userInputID; // Temp variable for searching by user input primary key for now.
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,7 @@ public class CustomerAddEditActivity extends AppCompatActivity {
     stateText = (EditText) findViewById(R.id.customerState_editText);
     zipcodeText = (EditText) findViewById(R.id.customerZipcode_editText);
 
+    // Will need to keep the add button from adding blank entries to the database when there is absolutely no info in the text lines. i.e. Accidentally Pressing the button.
     addButton = (Button) findViewById(R.id.add_addEditBtn);
     addButton.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -72,8 +74,10 @@ public class CustomerAddEditActivity extends AppCompatActivity {
     searchButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        Intent startSearchActivity = new Intent(CustomerAddEditActivity.this, CustomerSearchActivity.class);
-        startActivity(startSearchActivity); /* May need to finish here depending on how the search params will be retrieved and returned to this classes layout.*/
+        // Temp commented out until search is happening in the search class. Will need the intent for starting the search class when ready.
+        /*Intent startSearchActivity = new Intent(CustomerAddEditActivity.this, CustomerSearchActivity.class);
+        startActivity(startSearchActivity);*/ /* May need to finish here depending on how the search params will be retrieved and returned to this classes layout.*/
+        displayResult(); // Will likely change when search class and list view is done.
       }
     });
 
@@ -85,6 +89,7 @@ public class CustomerAddEditActivity extends AppCompatActivity {
       }
     });
 
+    // Will need a toast to make sure the user has searched for the person to delete before they can. will need it to check for input first or rethink the way that update and delete are being laid out.
     deleteButton = (Button) findViewById(R.id.delete_addEditBtn);
     deleteButton.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -103,27 +108,20 @@ public class CustomerAddEditActivity extends AppCompatActivity {
     });
   }
 
-  public void displayResult(long customerSearchID) { // Will need to pass an array here to display the results I think.
-
-
+  // Throws an error (cursor index out of bounds) when the entered id does not have a row to return. will need to catch this and display a toast or similar.
+  public void displayResult() { // Will need to pass an array here to display the results I think.
+    userInputID = Long.parseLong(customerIDText.getText().toString()); // Getting this input from here is temp until more search methods are set up to populate the list view.
+    customerOld = dataOps.getCustomer(userInputID); // Line also temp until list view is ready.
+    customerIDText.setText(String.valueOf(customerOld.getCustomerID())); // The rest of these lines will probably change based on list views.
+    firstNameText.setText(customerOld.getCustomerFirstName());
+    lastNameText.setText(customerOld.getCustomerLastName());
+    emailText.setText(customerOld.getCustomerEmail());
+    phoneText.setText(customerOld.getCustomerPhone());
+    streetText.setText(customerOld.getCustomerStreet());
+    cityText.setText(customerOld.getCustomerCity());
+    stateText.setText(customerOld.getCustomerState());
+    zipcodeText.setText(customerOld.getCustomerZipcode());
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
