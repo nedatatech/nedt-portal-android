@@ -31,5 +31,5 @@
 
   <string name="button_test">Test Button</string> <!--not needed-->
   <string name="input_text">Text Field</string> <!--not needed-->
-  <string name="input_float">Number Field</string>
+  <string name="input_float">Number Field</string> <!--not needed-->
 </resources>

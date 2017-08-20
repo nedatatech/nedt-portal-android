@@ -41,8 +41,7 @@ public class DatabaseOperations {
 
   public Customer addCustomer(Customer customer) {
     ContentValues values = new ContentValues();
-    /* values.put(DatabaseHelper.COLUMN_ID, customer``.getCustomerID()); Hopefully this is being done right. Check here if there are errors later.
-                                                                 May not need this ID line due to having the long with the insert method below.*/
+    //values.put(DatabaseHelper.COLUMN_ID, customer.getCustomerID()); // Not gonna need this unless its decided that we want to be able to set our own id's separate from the primary keys.
     values.put(DatabaseHelper.COLUMN_FIRST_NAME, customer.getCustomerFirstName());
     values.put(DatabaseHelper.COLUMN_LAST_NAME, customer.getCustomerLastName());
     values.put(DatabaseHelper.COLUMN_EMAIL, customer.getCustomerEmail());
@@ -51,7 +50,7 @@ public class DatabaseOperations {
     values.put(DatabaseHelper.COLUMN_CITY, customer.getCustomerCity());
     values.put(DatabaseHelper.COLUMN_STATE, customer.getCustomerState());
     values.put(DatabaseHelper.COLUMN_ZIPCODE, customer.getCustomerZipcode());
-    long insertID = database.insert(DatabaseHelper.TABLE_CUSTOMERS, null, values); // I think this is where I can edit ways to handle empty inputs for columns that allow it.
+    long insertID = database.insert(DatabaseHelper.TABLE_CUSTOMERS, null, values); // I think the insert method is where I can edit ways to handle empty inputs for columns that allow it.
     customer.setCustomerID(insertID);
     return customer;
   }
@@ -64,9 +63,10 @@ public class DatabaseOperations {
     if (cursor != null) {
       cursor.moveToFirst();
     }
-    // research this for more understanding. May throw an exception.
+    // Research this for more understanding.
     Customer customerResult = new Customer(Long.parseLong(cursor.getString(0)), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4),
             cursor.getString(5), cursor.getString(6), cursor.getString(7), cursor.getString(8));
+    cursor.close(); // Is closing the cursor here the proper place?
     return customerResult;
   }
 
@@ -89,7 +89,7 @@ public class DatabaseOperations {
         customer.setCustomerZipcode(cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_ZIPCODE)));
         customerList.add(customer);
       }
-    }
+    } cursor.close(); // Is closing the cursor here the proper place?
     return customerList;
   }
 
