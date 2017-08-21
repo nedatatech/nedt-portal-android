@@ -85,7 +85,16 @@ public class CustomerAddEditActivity extends AppCompatActivity {
     updateButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-
+        customerOld.setCustomerFirstName(firstNameText.getText().toString());
+        customerOld.setCustomerLastName(lastNameText.getText().toString());
+        customerOld.setCustomerEmail(emailText.getText().toString());
+        customerOld.setCustomerPhone(phoneText.getText().toString());
+        customerOld.setCustomerStreet(streetText.getText().toString());
+        customerOld.setCustomerCity(cityText.getText().toString());
+        customerOld.setCustomerState(stateText.getText().toString());
+        customerOld.setCustomerZipcode(zipcodeText.getText().toString());
+        dataOps.updateCustomer(customerOld);
+        // May end up wanting to close database here and finish the activity so accidental changes arent made. Could just clear the text fields and popup a toast.
       }
     });
 

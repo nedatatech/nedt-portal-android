@@ -56,7 +56,6 @@ public class CustomerSearchActivity extends AppCompatActivity {
     searchButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) { // Will need to call the methods from the to do on this classes file.
-        // Need to clear the list view first in order to free it for a new search without having to leave and reenter the activity.
         searchCustomers();
       }
     });
@@ -74,25 +73,21 @@ public class CustomerSearchActivity extends AppCompatActivity {
   }
 
   public void searchCustomers() { // May be better or easier to do this with a combination of if and switch statements.
-    searchID = Long.parseLong(searchIDText.getText().toString()); // Error if the line is actually empty??
-    if(searchID > 0) { // Need a way of checking if the ID is null or has a value.
-      custSearchResult = dataOps.getCustomer(searchID); // Gets the customer result based on ID.
-      custResultList.add(custSearchResult); // Adds the customer object to the customer array. This will need to be dynamically repeated for other search criteria.
-      custAdapter = new CustomerAdapter(this, custResultList);
-      custResultView.setAdapter(custAdapter);
+    if (searchIDText.getText().toString().trim().length() != 0) {
+      searchID = Long.parseLong(searchIDText.getText().toString()); // Error if the line is actually empty??
+      if (searchID > 0) { // Could do the if conditions based on the current size of the array index.
+        custResultList.clear(); // Clears the array which clears the list view so the new result can be displayed.
+        custSearchResult = dataOps.getCustomer(searchID); // Gets the customer result based on ID.
+        custResultList.add(custSearchResult); // Adds the customer object to the customer array. This will need to be dynamically repeated for other search criteria.
+        custAdapter = new CustomerAdapter(this, custResultList);
+        custResultView.setAdapter(custAdapter);
+      }
     } else {
       Toast.makeText(this, "Need to Fill in the ID Field!", Toast.LENGTH_LONG).show();
-      // ToDo This toast will never show because there is a fatal error when it tries to search with an empty field. Need to Fix.
+      // ToDo Set up String labels for the fields in the adapter for the list view to display. i.e. ID, Name, Email, etc...
+      // ToDo Still errors when the entered ID is greater than the actual size of the database or the array here??
     }
   }
-
-
-
-
-
-
-
-
 
 
 }

@@ -66,7 +66,7 @@ public class DatabaseOperations {
     // Research this for more understanding.
     Customer customerResult = new Customer(Long.parseLong(cursor.getString(0)), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4),
             cursor.getString(5), cursor.getString(6), cursor.getString(7), cursor.getString(8));
-    cursor.close(); // Is closing the cursor here the proper place?
+    cursor.close(); // Is closing the cursor here the proper place? Likely not when searching for multiple results.
     return customerResult;
   }
 
@@ -105,7 +105,7 @@ public class DatabaseOperations {
     values.put(DatabaseHelper.COLUMN_STATE, customer.getCustomerState());
     values.put(DatabaseHelper.COLUMN_ZIPCODE, customer.getCustomerZipcode());
 
-    return database.update(DatabaseHelper.TABLE_CUSTOMERS, values, // Watch for errors in the spaces around the ? and =.
+    return database.update(DatabaseHelper.TABLE_CUSTOMERS, values,
             DatabaseHelper.COLUMN_ID + " = ? ", new String[]{String.valueOf(customer.getCustomerID())});
   }
 
