@@ -41,6 +41,8 @@ public class CustomerMainActivity extends AppCompatActivity {
     buttonList.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
+        Intent startListActivity = new Intent(CustomerMainActivity.this, CustomerListAllActivity.class);
+        startActivity(startListActivity);
 
       }
     });

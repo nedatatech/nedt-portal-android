@@ -16,25 +16,33 @@
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
     </activity>
-    <activity android:name=".CustomerMainActivity"
-              android:parentActivityName=".MainActivity" >
+    <activity
+        android:name=".CustomerMainActivity"
+        android:parentActivityName=".MainActivity">
     </activity>
-    <activity android:name=".JobActivity"
-              android:parentActivityName=".MainActivity" >
+    <activity
+        android:name=".JobActivity"
+        android:parentActivityName=".MainActivity">
     </activity>
-    <activity android:name=".InventoryActivity"
-              android:parentActivityName=".MainActivity" >
+    <activity
+        android:name=".InventoryActivity"
+        android:parentActivityName=".MainActivity">
     </activity>
-    <activity android:name=".CompanyActivity"
-              android:parentActivityName=".MainActivity" >
+    <activity
+        android:name=".CompanyActivity"
+        android:parentActivityName=".MainActivity">
     </activity>
-    <activity android:name=".CustomerAddEditActivity"
-              android:label="@string/customer_editLabel"
-              android:parentActivityName=".CustomerMainActivity" >
+    <activity
+        android:name=".CustomerAddEditActivity"
+        android:label="@string/customer_editLabel"
+        android:parentActivityName=".CustomerMainActivity">
     </activity>
-    <activity android:name=".CustomerSearchActivity"
-              android:label="@string/customer_searchLabel"
-              android:parentActivityName=".CustomerMainActivity" > <!--Could be different based on how back stack is being managed.-->
+    <activity
+        android:name=".CustomerSearchActivity"
+        android:label="@string/customer_searchLabel"
+        android:parentActivityName=".CustomerMainActivity"> <!-- Could be different based on how back stack is being managed. -->
+    </activity>
+    <activity android:name=".CustomerListAllActivity">
     </activity>
   </application>
 
