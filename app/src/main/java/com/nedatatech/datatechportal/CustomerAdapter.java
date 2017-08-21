@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 
 public class CustomerAdapter extends ArrayAdapter<Customer> {
+
   public CustomerAdapter(Context context, ArrayList<Customer> customers) {
     super(context, 0, customers);
   }
