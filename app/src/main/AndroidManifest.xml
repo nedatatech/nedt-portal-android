@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.nedatatech.datatechportal">
+    package="com.nedatatech.datatechportal">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
 
   <application
       android:allowBackup="true"
@@ -11,39 +13,48 @@
       android:theme="@style/AppTheme">
     <activity android:name=".MainActivity">
       <intent-filter>
-        <action android:name="android.intent.action.MAIN"/>
+        <action android:name="android.intent.action.MAIN" />
 
-        <category android:name="android.intent.category.LAUNCHER"/>
+        <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
     <activity
         android:name=".CustomerMainActivity"
-        android:parentActivityName=".MainActivity">
-    </activity>
+        android:parentActivityName=".MainActivity"></activity>
     <activity
         android:name=".JobActivity"
-        android:parentActivityName=".MainActivity">
-    </activity>
+        android:parentActivityName=".MainActivity"></activity>
     <activity
         android:name=".InventoryActivity"
-        android:parentActivityName=".MainActivity">
-    </activity>
+        android:parentActivityName=".MainActivity"></activity>
     <activity
         android:name=".CompanyActivity"
-        android:parentActivityName=".MainActivity">
-    </activity>
+        android:parentActivityName=".MainActivity"></activity>
     <activity
         android:name=".CustomerAddEditActivity"
         android:label="@string/customer_editLabel"
-        android:parentActivityName=".CustomerMainActivity">
-    </activity>
+        android:parentActivityName=".CustomerMainActivity"></activity>
     <activity
         android:name=".CustomerSearchActivity"
         android:label="@string/customer_searchLabel"
         android:parentActivityName=".CustomerMainActivity"> <!-- Could be different based on how back stack is being managed. -->
     </activity>
-    <activity android:name=".CustomerListAllActivity">
+    <activity android:name=".CustomerListAllActivity"></activity>
+    <!--
+    <activity android:name=".Authenticate"></activity>
+    <activity android:name=".ParseJSON"></activity>
+
+    <activity
+        android:name=".Authenticate"
+        android:theme="@android:style/Theme.Translucent.NoTitleBar">
+
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+
     </activity>
+    -->
   </application>
 
 </manifest>
