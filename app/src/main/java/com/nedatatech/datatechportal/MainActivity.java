@@ -42,10 +42,10 @@ public class MainActivity extends AppCompatActivity {
   @Override
   public void onBackPressed() {
     super.onBackPressed();
-    finish();
     dataOps.closeDB(); /* For now calling this here should guarantee the database isn't still performing any operations in the background and helps with security.
                           Though this may cause problems for having access still in actual database operating activities. need to look more into onBackPressed
                           and if its called here by starting new activities too.*/
+    finish();
   }
 
   @Override

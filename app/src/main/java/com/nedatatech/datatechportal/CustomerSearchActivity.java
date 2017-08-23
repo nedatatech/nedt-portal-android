@@ -6,25 +6,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class CustomerSearchActivity extends AppCompatActivity {
+  // ToDo Finish setting up code for the new drop down parameter list thats been added to the layout.
 
   private Button searchButton;
   private Button cancelButton;
   private EditText searchIDText;
-  private EditText searchFNameText;
-  private EditText searchLNameText;
-  private EditText searchEmailText;
-  private EditText searchPhoneText;
-  private EditText searchStreetText;
-  private EditText searchCityText;
-  private EditText searchStateText;
-  private EditText searchZipText;
+  private EditText searchParamText;
+  private Spinner paramSpinner;
+
   private ListView custResultView;
 
   private long searchID;
@@ -43,14 +39,7 @@ public class CustomerSearchActivity extends AppCompatActivity {
     custResultList = new ArrayList<>(); // Will need to get the method that searches, to iterate through the results and for each result add the customer to the list.
 
     searchIDText = (EditText) findViewById(R.id.custSearchID_editText);
-    searchFNameText = (EditText) findViewById(R.id.custSearchFName_editText);
-    searchLNameText = (EditText) findViewById(R.id.custSearchLName_editText);
-    searchEmailText = (EditText) findViewById(R.id.custSearchEmail_editText);
-    searchPhoneText = (EditText) findViewById(R.id.custSearchPhone_editText);
-    searchStreetText = (EditText) findViewById(R.id.custSearchStreet_editText);
-    searchCityText = (EditText) findViewById(R.id.custSearchCity_editText);
-    searchStateText = (EditText) findViewById(R.id.custSearchState_editText);
-    searchZipText = (EditText) findViewById(R.id.custSearchZip_editText);
+    searchParamText = (EditText) findViewById(R.id.custSearchParam_editText);
 
     searchButton = (Button) findViewById(R.id.custSearch_button);
     searchButton.setOnClickListener(new View.OnClickListener() {
@@ -69,7 +58,6 @@ public class CustomerSearchActivity extends AppCompatActivity {
       }
     });
 
-// ToDo Write Methods for searching based on whether a user has entered certain search criteria on certain lines in the layout. Switch or IF Else??
   }
 
   public void searchCustomers() { // May be better or easier to do this with a combination of if and switch statements.
