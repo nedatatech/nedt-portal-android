@@ -73,7 +73,7 @@ public class CustomerSearchActivity extends AppCompatActivity {
   }
 
   public void searchCustomers() { // May be better or easier to do this with a combination of if and switch statements.
-    if (searchIDText.getText().toString().trim().length() != 0) {
+    if (searchIDText.getText().toString().trim().length() != 0) { // Need to do better error handling. crashes when searching for a deleted index also index higher than exists.
       searchID = Long.parseLong(searchIDText.getText().toString()); // Error if the line is actually empty??
       if (searchID > 0) { // Could do the if conditions based on the current size of the array index.
         custResultList.clear(); // Clears the array which clears the list view so the new result can be displayed.
