@@ -73,9 +73,27 @@ public class DatabaseOperations {
     return customerResult;
   }
 
-  /*public ArrayList<Customer> searchFNameResults(String firstName) {
-    // Will be a cursor searching by "where" and returning multiple results.
-  }*/
+  public ArrayList<Customer> searchCustomers(String columnType, String searchInput) {
+    Cursor cursor = database.query(DatabaseContract.CustomerColumns.TABLE_CUSTOMERS, CUSTOMER_ALL_COLUMNS,
+            columnType + " LIKE ?", new String[]{searchInput}, null, null, null, null);
+    ArrayList<Customer> customerList = new ArrayList<>();
+    if (cursor.getCount() > 0) {
+      while (cursor.moveToNext()) {
+        Customer customer = new Customer();
+        customer.setCustomerID(cursor.getLong(cursor.getColumnIndex(BaseColumns._ID)));
+        customer.setCustomerFirstName(cursor.getString(cursor.getColumnIndex(DatabaseContract.CustomerColumns.COLUMN_FIRST_NAME)));
+        customer.setCustomerLastName(cursor.getString(cursor.getColumnIndex(DatabaseContract.CustomerColumns.COLUMN_LAST_NAME)));
+        customer.setCustomerEmail(cursor.getString(cursor.getColumnIndex(DatabaseContract.CustomerColumns.COLUMN_EMAIL)));
+        customer.setCustomerPhone(cursor.getString(cursor.getColumnIndex(DatabaseContract.CustomerColumns.COLUMN_PHONE)));
+        customer.setCustomerStreet(cursor.getString(cursor.getColumnIndex(DatabaseContract.CustomerColumns.COLUMN_STREET)));
+        customer.setCustomerCity(cursor.getString(cursor.getColumnIndex(DatabaseContract.CustomerColumns.COLUMN_CITY)));
+        customer.setCustomerState(cursor.getString(cursor.getColumnIndex(DatabaseContract.CustomerColumns.COLUMN_STATE)));
+        customer.setCustomerZipcode(cursor.getString(cursor.getColumnIndex(DatabaseContract.CustomerColumns.COLUMN_ZIPCODE)));
+        customerList.add(customer);
+      }
+    } cursor.close();
+   return customerList;
+  }
 
   // Finds and returns the entire table in a list. Could be an error here when checking for column indexes.
   public List<Customer> getAllCustomers() {

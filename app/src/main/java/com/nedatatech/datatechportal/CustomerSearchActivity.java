@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -27,7 +26,7 @@ public class CustomerSearchActivity extends AppCompatActivity implements Adapter
   private Spinner paramSpinner;
 
   private String[] spinnerItems = {"ID", "First Name", "Last Name", "Email", "Phone", "Street", "City", "State", "Zip Code"};
-  private String searchType;
+  private String selectedSearchType, inputSearchParam;
   private ArrayAdapter<String> spinnerAdapter;
   private long searchID;
   private DatabaseOperations dataOps;
@@ -75,39 +74,39 @@ public class CustomerSearchActivity extends AppCompatActivity implements Adapter
   public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
     switch(position) { // Tested by printing string selections to edit text in layout. works perfectly. Rewrite search in database operations to work this way now.
       case 0:
-        searchType = BaseColumns._ID;
+        selectedSearchType = BaseColumns._ID;
 
         break;
       case 1:
-        searchType = DatabaseContract.CustomerColumns.COLUMN_FIRST_NAME;
+        selectedSearchType = DatabaseContract.CustomerColumns.COLUMN_FIRST_NAME;
 
         break;
       case 2:
-        searchType = DatabaseContract.CustomerColumns.COLUMN_LAST_NAME;
+        selectedSearchType = DatabaseContract.CustomerColumns.COLUMN_LAST_NAME;
 
         break;
       case 3:
-        searchType = DatabaseContract.CustomerColumns.COLUMN_EMAIL;
+        selectedSearchType = DatabaseContract.CustomerColumns.COLUMN_EMAIL;
 
         break;
       case 4:
-        searchType = DatabaseContract.CustomerColumns.COLUMN_PHONE;
+        selectedSearchType = DatabaseContract.CustomerColumns.COLUMN_PHONE;
 
         break;
       case 5:
-        searchType = DatabaseContract.CustomerColumns.COLUMN_STREET;
+        selectedSearchType = DatabaseContract.CustomerColumns.COLUMN_STREET;
 
         break;
       case 6:
-        searchType = DatabaseContract.CustomerColumns.COLUMN_CITY;
+        selectedSearchType = DatabaseContract.CustomerColumns.COLUMN_CITY;
 
         break;
       case 7:
-        searchType = DatabaseContract.CustomerColumns.COLUMN_STATE;
+        selectedSearchType = DatabaseContract.CustomerColumns.COLUMN_STATE;
 
         break;
       case 8:
-        searchType = DatabaseContract.CustomerColumns.COLUMN_ZIPCODE;
+        selectedSearchType = DatabaseContract.CustomerColumns.COLUMN_ZIPCODE;
 
         break;
       // Is a default needed?
@@ -125,11 +124,11 @@ public class CustomerSearchActivity extends AppCompatActivity implements Adapter
   // Need to rewrite this method also to work with the new spinner drop down.
   public void searchCustomers() { // May be better or easier to do this with a combination of if and switch statements.
     if (searchParamText.getText().toString().trim().length() != 0) { // Need to do better error handling. crashes when searching for a deleted index also index higher than exists.
-      searchID = Long.parseLong(searchParamText.getText().toString()); // Error if the line is actually empty??
-      if (searchID > 0) { // Could do the if conditions based on the current size of the array index.
+      inputSearchParam = searchParamText.getText().toString(); // Error if the line is actually empty??
+      if (inputSearchParam != "") { // Could do the if conditions based on the current size of the array index.
         custResultList.clear(); // Clears the array which clears the list view so the new result can be displayed.
-        custSearchResult = dataOps.getCustomer(searchID); // Gets the customer result based on ID.
-        custResultList.add(custSearchResult); // Adds the customer object to the customer array. This will need to be dynamically repeated for other search criteria.
+        custResultList = dataOps.searchCustomers(selectedSearchType, inputSearchParam); // Gets the customer result based on ID.
+        // Not Needed?? custResultList.add(custSearchResult); // Adds the customer object to the customer array. This will need to be dynamically repeated for other search criteria.
         custAdapter = new CustomerAdapter(this, custResultList);
         custResultView.setAdapter(custAdapter);
       }

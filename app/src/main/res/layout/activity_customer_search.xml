@@ -39,7 +39,7 @@
       android:layout_height="wrap_content"
       android:ems="10"
       android:hint="@string/string_searchParam"
-      android:inputType="text|number"
+      android:inputType="text"
       android:textSize="14sp"
       />
 
