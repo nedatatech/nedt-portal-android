@@ -41,7 +41,7 @@ public class CustomerSearchActivity extends AppCompatActivity implements Adapter
     dataOps = new DatabaseOperations(this);
     dataOps.openDB(); // Needs to be on a different thread for performance. ASyncTask??
     custResultView = (ListView) findViewById(R.id.custSearchResults_listView);
-    custResultList = new ArrayList<>(); // Will need to get the method that searches, to iterate through the results and for each result add the customer to the list.
+
 
     searchIDText = (EditText) findViewById(R.id.custSearchID_editText);
     searchParamText = (EditText) findViewById(R.id.custSearchParam_editText);
@@ -72,46 +72,36 @@ public class CustomerSearchActivity extends AppCompatActivity implements Adapter
 
   @Override
   public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-    switch(position) { // Tested by printing string selections to edit text in layout. works perfectly. Rewrite search in database operations to work this way now.
+    switch(position) {
       case 0:
         selectedSearchType = BaseColumns._ID;
-
         break;
       case 1:
         selectedSearchType = DatabaseContract.CustomerColumns.COLUMN_FIRST_NAME;
-
         break;
       case 2:
         selectedSearchType = DatabaseContract.CustomerColumns.COLUMN_LAST_NAME;
-
         break;
       case 3:
         selectedSearchType = DatabaseContract.CustomerColumns.COLUMN_EMAIL;
-
         break;
       case 4:
         selectedSearchType = DatabaseContract.CustomerColumns.COLUMN_PHONE;
-
         break;
       case 5:
         selectedSearchType = DatabaseContract.CustomerColumns.COLUMN_STREET;
-
         break;
       case 6:
         selectedSearchType = DatabaseContract.CustomerColumns.COLUMN_CITY;
-
         break;
       case 7:
         selectedSearchType = DatabaseContract.CustomerColumns.COLUMN_STATE;
-
         break;
       case 8:
         selectedSearchType = DatabaseContract.CustomerColumns.COLUMN_ZIPCODE;
-
         break;
       // Is a default needed?
     }
-
   }
 
 
@@ -126,8 +116,9 @@ public class CustomerSearchActivity extends AppCompatActivity implements Adapter
     if (searchParamText.getText().toString().trim().length() != 0) { // Need to do better error handling. crashes when searching for a deleted index also index higher than exists.
       inputSearchParam = searchParamText.getText().toString(); // Error if the line is actually empty??
       if (inputSearchParam != "") { // Could do the if conditions based on the current size of the array index.
+        custResultList = new ArrayList<>(); // Will need to get the method that searches, to iterate through the results and for each result add the customer to the list.
         custResultList.clear(); // Clears the array which clears the list view so the new result can be displayed.
-        custResultList = dataOps.searchCustomers(selectedSearchType, inputSearchParam); // Gets the customer result based on ID.
+        custResultList = dataOps.searchCustomers(selectedSearchType, inputSearchParam);
         // Not Needed?? custResultList.add(custSearchResult); // Adds the customer object to the customer array. This will need to be dynamically repeated for other search criteria.
         custAdapter = new CustomerAdapter(this, custResultList);
         custResultView.setAdapter(custAdapter);

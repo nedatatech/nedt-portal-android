@@ -75,10 +75,12 @@ public class DatabaseOperations {
 
   public ArrayList<Customer> searchCustomers(String columnType, String searchInput) {
     Cursor cursor = database.query(DatabaseContract.CustomerColumns.TABLE_CUSTOMERS, CUSTOMER_ALL_COLUMNS,
-            columnType + " LIKE ?", new String[]{searchInput}, null, null, null, null);
+            columnType + " LIKE '%" + searchInput + "%'", null, null, null, null, null);
     ArrayList<Customer> customerList = new ArrayList<>();
     if (cursor.getCount() > 0) {
-      while (cursor.moveToNext()) {
+      int cursorCount = cursor.getCount();
+      for(int i = 1; i <= cursorCount; i++) {
+        cursor.moveToNext();
         Customer customer = new Customer();
         customer.setCustomerID(cursor.getLong(cursor.getColumnIndex(BaseColumns._ID)));
         customer.setCustomerFirstName(cursor.getString(cursor.getColumnIndex(DatabaseContract.CustomerColumns.COLUMN_FIRST_NAME)));
