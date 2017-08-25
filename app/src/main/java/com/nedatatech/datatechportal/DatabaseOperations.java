@@ -29,7 +29,7 @@ public class DatabaseOperations {
 
   public DatabaseOperations(Context context) {
     Log.i(logTag, "Helper class has been accessed"); // Debug info.
-    dbHelper = new DatabaseHelper(context); // Can this be getContext() instead of just context??
+    dbHelper = new DatabaseHelper(context);
   }
 
   public void openDB() {
@@ -44,7 +44,7 @@ public class DatabaseOperations {
 
   public Customer addCustomer(Customer customer) {
     ContentValues values = new ContentValues();
-    //values.put(DatabaseHelper.COLUMN_ID, customer.getCustomerID()); // Not gonna need this unless its decided that we want to be able to set our own id's separate from the primary keys.
+    // May need some lines for an ID we can set and likely to add a notes column too. Will need to update everywhere if so.
     values.put(DatabaseContract.CustomerColumns.COLUMN_FIRST_NAME, customer.getCustomerFirstName());
     values.put(DatabaseContract.CustomerColumns.COLUMN_LAST_NAME, customer.getCustomerLastName());
     values.put(DatabaseContract.CustomerColumns.COLUMN_EMAIL, customer.getCustomerEmail());
@@ -58,9 +58,9 @@ public class DatabaseOperations {
     return customer;
   }
 
-  //ToDo Need to create more methods for searching based on more criteria and being able to return results for more than one match.
-  // Finds and returns one search result. Should probably close the cursor in each method also.
-  public Customer getCustomer(long searchID) { // Check here for a search error when testing. BaseColumns._ID
+  //ToDo Do testing on the delete related code to see if this is even needed now that the new search method works for any criteria.
+  // Finds and returns one search result by Primary Key only.
+  public Customer getCustomer(long searchID) { // Needed until final decision on handling delete.
     Cursor cursor = database.query(DatabaseContract.CustomerColumns.TABLE_CUSTOMERS, CUSTOMER_ALL_COLUMNS, BaseColumns._ID + " = ?",
             new String[]{String.valueOf(searchID)}, null, null, null, null);
     if (cursor != null) {
@@ -69,10 +69,11 @@ public class DatabaseOperations {
     // Research this for more understanding.
     Customer customerResult = new Customer(Long.parseLong(cursor.getString(0)), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4),
             cursor.getString(5), cursor.getString(6), cursor.getString(7), cursor.getString(8));
-    cursor.close(); // Is closing the cursor here the proper place? Likely not when searching for multiple results.
+    cursor.close();
     return customerResult;
   }
 
+  // Search method that returns results based on any columns fields and returns any rows that contain a match.
   public ArrayList<Customer> searchCustomers(String columnType, String searchInput) {
     Cursor cursor = database.query(DatabaseContract.CustomerColumns.TABLE_CUSTOMERS, CUSTOMER_ALL_COLUMNS,
             columnType + " LIKE '%" + searchInput + "%'", null, null, null, null, null);
@@ -92,12 +93,13 @@ public class DatabaseOperations {
         customer.setCustomerState(cursor.getString(cursor.getColumnIndex(DatabaseContract.CustomerColumns.COLUMN_STATE)));
         customer.setCustomerZipcode(cursor.getString(cursor.getColumnIndex(DatabaseContract.CustomerColumns.COLUMN_ZIPCODE)));
         customerList.add(customer);
+        Log.v(logTag, "Added Customer to Array");
       }
     } cursor.close();
    return customerList;
   }
 
-  // Finds and returns the entire table in a list. Could be an error here when checking for column indexes.
+  // Finds and returns the entire table in a list.
   public List<Customer> getAllCustomers() {
     Cursor cursor = database.query(DatabaseContract.CustomerColumns.TABLE_CUSTOMERS, CUSTOMER_ALL_COLUMNS, null, null, null, null, null);
 
@@ -116,7 +118,7 @@ public class DatabaseOperations {
         customer.setCustomerZipcode(cursor.getString(cursor.getColumnIndex(DatabaseContract.CustomerColumns.COLUMN_ZIPCODE)));
         customerList.add(customer);
       }
-    } cursor.close(); // Is closing the cursor here the proper place?
+    } cursor.close();
     return customerList;
   }
 

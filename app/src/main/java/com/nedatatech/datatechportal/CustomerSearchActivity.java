@@ -3,6 +3,7 @@ package com.nedatatech.datatechportal;
 import android.os.Bundle;
 import android.provider.BaseColumns;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,21 +17,18 @@ import java.util.ArrayList;
 
 
 public class CustomerSearchActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-  // ToDo Finish tying up drop down and search method to new search in operation class once that search is updated also.
 
   private Button searchButton;
   private Button cancelButton;
-  private EditText searchIDText; // Remove here and in layout file when all new search functions are updated.
   private EditText searchParamText;
   private ListView custResultView;
   private Spinner paramSpinner;
 
+  private final String logtag = "CustomerSearchActivity";
   private String[] spinnerItems = {"ID", "First Name", "Last Name", "Email", "Phone", "Street", "City", "State", "Zip Code"};
   private String selectedSearchType, inputSearchParam;
   private ArrayAdapter<String> spinnerAdapter;
-  private long searchID;
   private DatabaseOperations dataOps;
-  private Customer custSearchResult; // Some of these may need to be public if access ends up being needed from, other classes.
   private ArrayList<Customer> custResultList;
   private CustomerAdapter custAdapter;
 
@@ -42,8 +40,6 @@ public class CustomerSearchActivity extends AppCompatActivity implements Adapter
     dataOps.openDB(); // Needs to be on a different thread for performance. ASyncTask??
     custResultView = (ListView) findViewById(R.id.custSearchResults_listView);
 
-
-    searchIDText = (EditText) findViewById(R.id.custSearchID_editText);
     searchParamText = (EditText) findViewById(R.id.custSearchParam_editText);
 
     paramSpinner = (Spinner) findViewById(R.id.custSearch_spinner);
@@ -72,7 +68,7 @@ public class CustomerSearchActivity extends AppCompatActivity implements Adapter
 
   @Override
   public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-    switch(position) {
+    switch (position) {
       case 0:
         selectedSearchType = BaseColumns._ID;
         break;
@@ -111,16 +107,16 @@ public class CustomerSearchActivity extends AppCompatActivity implements Adapter
     // This method has to exist for the android framework.
   }
 
-  // Need to rewrite this method also to work with the new spinner drop down.
-  public void searchCustomers() { // May be better or easier to do this with a combination of if and switch statements.
-    if (searchParamText.getText().toString().trim().length() != 0) { // Need to do better error handling. crashes when searching for a deleted index also index higher than exists.
+  public void searchCustomers() { // May need to still do better error handling. crashes when searching for a deleted index also index higher than exists.
+    if (searchParamText.getText().toString().trim().length() != 0) {
       inputSearchParam = searchParamText.getText().toString(); // Error if the line is actually empty??
-      if (inputSearchParam != "") { // Could do the if conditions based on the current size of the array index.
-        custResultList = new ArrayList<>(); // Will need to get the method that searches, to iterate through the results and for each result add the customer to the list.
+      if (inputSearchParam != "") {
+        custResultList = new ArrayList<>();
         custResultList.clear(); // Clears the array which clears the list view so the new result can be displayed.
         custResultList = dataOps.searchCustomers(selectedSearchType, inputSearchParam);
-        // Not Needed?? custResultList.add(custSearchResult); // Adds the customer object to the customer array. This will need to be dynamically repeated for other search criteria.
+        Log.v(logtag, custResultList.toString()); // Debug info.
         custAdapter = new CustomerAdapter(this, custResultList);
+        Log.v(logtag, custAdapter.toString()); // Debug info.
         custResultView.setAdapter(custAdapter);
       }
     } else {

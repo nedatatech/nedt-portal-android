@@ -27,7 +27,7 @@ public class CustomerListAllActivity extends ListActivity {
     customerList = dataOps.getAllCustomers();
     // Should close database when access will not be needed anymore. MainActivity?
 
-    custAdapter = new ArrayAdapter<Customer>(this, android.R.layout.simple_list_item_1, customerList);
+    custAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, customerList);
     setListAdapter(custAdapter);
 
     cancelButton = (Button) findViewById(R.id.cancelListAll_button);
