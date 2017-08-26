@@ -47,7 +47,8 @@ public class CustomerMainActivity extends AppCompatActivity {
       }
     });
 
-    /* ToDo Add Code for when to actually kill this activity. Maybe on BACK button.*/
+    /* ToDo Add Code for when to actually kill this activity. Maybe on BACK button.
+    * ToDo May be a good place to add some general instructions for how to use the customer table.*/
 
 
 
