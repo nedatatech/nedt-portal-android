@@ -11,18 +11,19 @@ import com.android.volley.toolbox.Volley;
 import java.util.HashMap;
 import java.util.Map;
 
+
 import static com.nedatatech.datatechportal.ParseJSON.auth_token;
+import static com.nedatatech.datatechportal.InventoryActivity.recordId;
 
-public class ApiInterface {
-
-  public static final String api_base_url = "http://www.nedatatech.com:3000/api/nedt-portal";
+class ApiInterface {
+  private static final String api_base_url = "http://www.nedatatech.com:3000/api/nedt-portal";
   private Context mCtx;
   private int method;
   private String json_url;
-  private HashMap<String, String> params = new HashMap<>();
-  private HashMap<String, String> headers = new HashMap<>();
+  private final HashMap<String, String> params = new HashMap<>();
+  private final HashMap<String, String> headers = new HashMap<>();
 
-  protected void apiRequest(String request_type, Context context) {
+  void apiRequest(String request_type, Context context) {
 
     mCtx = context;
     switch (request_type) {
@@ -31,10 +32,20 @@ public class ApiInterface {
         json_url = api_base_url + "/authenticate";
         params.put("email", "example@mail.com");
         params.put("password", "123123123");
-        break;
+      break;
+      case "read":
+        this.method = Request.Method.GET;
+        json_url = api_base_url + "/items/" + recordId;
+        headers.put("Authorization:", auth_token);
+      break;
       case "update":
-        //do things
-        break;
+        this.method = Request.Method.PUT;
+        json_url = api_base_url + "/items/" + recordId;
+        headers.put("Authorization:", auth_token);
+        params.put("item[name]", "bullshit");
+        params.put("item[description]", "also bullshit");
+        params.put("item[quantity]", "numbers");
+      break;
       case "create":
         this.method = Request.Method.POST;
         json_url = api_base_url + "/items/create";
@@ -42,15 +53,17 @@ public class ApiInterface {
         params.put("item[name]", "example@mail.com");
         params.put("item[description]", "123123123");
         params.put("item[quantity]", "7");
-        break;
+      break;
       case "destroy":
-        //do things
-        break;
+        this.method = Request.Method.DELETE;
+        json_url = api_base_url + "/items/" + recordId;
+        headers.put("Authorization:", auth_token);
+      break;
     }
   sendRequest();
   }
 
-  protected void sendRequest(){
+  private void sendRequest(){
     StringRequest stringRequest;
     stringRequest = new StringRequest(method, json_url,
       new Response.Listener<String>() {
@@ -80,7 +93,7 @@ public class ApiInterface {
     requestQueue.add(stringRequest);
   }
 
-  public void showJSON(String json){
+  private void showJSON(String json){
     ParseJSON pj = new ParseJSON(json);
     pj.parseJSON();
   }
