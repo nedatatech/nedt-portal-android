@@ -40,21 +40,7 @@
         android:parentActivityName=".CustomerMainActivity"> <!-- Could be different based on how back stack is being managed. -->
     </activity>
     <activity android:name=".CustomerListAllActivity"></activity>
-    <!--
-    <activity android:name=".Authenticate"></activity>
-    <activity android:name=".ParseJSON"></activity>
 
-    <activity
-        android:name=".Authenticate"
-        android:theme="@android:style/Theme.Translucent.NoTitleBar">
-
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
-        <category android:name="android.intent.category.LAUNCHER" />
-      </intent-filter>
-
-    </activity>
-    -->
   </application>
 
 </manifest>
