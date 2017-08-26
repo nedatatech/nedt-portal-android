@@ -1,5 +1,9 @@
 package com.nedatatech.datatechportal;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.provider.BaseColumns;
 import android.support.v7.app.AppCompatActivity;
@@ -31,6 +35,7 @@ public class CustomerSearchActivity extends AppCompatActivity implements Adapter
   private DatabaseOperations dataOps;
   private ArrayList<Customer> custResultList;
   private CustomerAdapter custAdapter;
+
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
