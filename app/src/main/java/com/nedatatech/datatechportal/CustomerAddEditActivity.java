@@ -2,7 +2,9 @@ package com.nedatatech.datatechportal;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.BaseColumns;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,9 +32,12 @@ public class CustomerAddEditActivity extends AppCompatActivity {
   private Customer customerNew;
   private Customer customerOld; // For working in this class with the search result.
   private long userInputID; // Temp variable for searching by user input primary key for now.
+  private final int SEARCH_REQUEST_CODE = 1;
+  private String CANT_CHANGE_TEXT = "  -  Cannot change, only shown for reference.";
+  private String logtag = "Customer Add/Edit";
 
   @Override
-  protected void onCreate(Bundle savedInstanceState) {
+  protected void onCreate(final Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_customer_addedit);
 
@@ -73,9 +78,9 @@ public class CustomerAddEditActivity extends AppCompatActivity {
     searchButton = (Button) findViewById(R.id.search_addEditBtn);
     searchButton.setOnClickListener(new View.OnClickListener() {
       @Override
-      public void onClick(View v) {
+      public void onClick(View v) { // startActivity for result likely how this should go then get the result of the search activities edit button.
         Intent startSearchActivity = new Intent(CustomerAddEditActivity.this, CustomerSearchActivity.class);
-        startActivity(startSearchActivity); /* May need to finish here depending on how the search params will be retrieved and returned to this classes layout.*/
+        startActivityForResult(startSearchActivity, SEARCH_REQUEST_CODE); /* May need to finish here depending on how the search params will be retrieved and returned to this classes layout.*/
         // displayResult(); // Not needed until decided how to get search results from search activity.
         // May be an error when getting the results of the search and returning them here due to the cursor not existing. But the object should persist.
       }
@@ -117,6 +122,30 @@ public class CustomerAddEditActivity extends AppCompatActivity {
         finish(); // Kill this activity so multiples aren't produced. (Back Stack).
       }
     });
+  }
+
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) { // NEED TO SET RESULT IN SEARCH ACTIVITY.
+    Log.v(logtag, "Activity Result Triggered");
+    if(requestCode == SEARCH_REQUEST_CODE) {
+      Log.v(logtag, "Request Code Matched");
+      Log.v(logtag, String.valueOf(resultCode));
+      if(resultCode == RESULT_OK){
+        Log.v(logtag, "Result Code Matched"); // Will need to set the data to a customer object then set the text by that in order for update to work.
+        // long _id = getIntent().getLongExtra(BaseColumns._ID, 0);
+        //customerIDText.setText(getIntent().getStringExtra(BaseColumns._ID) + "%s" + CANT_CHANGE_TEXT); // MAY WANT TO JUST CHANGE THE LAYOUT TO AN UN-EDITABLE TEXT VIEW IN JAVA FOR JUST THIS PART.
+        String firstName = data.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_FIRST_NAME);
+        Log.v(logtag, firstName);
+        firstNameText.setText(firstName);
+        lastNameText.setText(data.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_LAST_NAME));
+        emailText.setText(data.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_EMAIL));
+        phoneText.setText(data.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_PHONE));
+        streetText.setText(data.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_STREET));
+        cityText.setText(data.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_CITY));
+        stateText.setText(data.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_STATE));
+        zipcodeText.setText(data.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_ZIPCODE));
+      }
+    }
   }
 
   // ToDo Make a method for calling the editTexts and pass in the data from the Search Activity into each field. ContentProvider or values.put() with an intent?

@@ -16,6 +16,7 @@ public class DatabaseContract {
     // The name of the Database table.
     public static final String TABLE_CUSTOMERS = "customers";
     // This set of strings defines the column identifiers for the people table. Changing columns identifiers or adding/removing any of them should start here.
+    // public static final String COLUMN_ID = _ID; // Possibly need to use and change everywhere like this for the adapter to work better in list views.
     public static final String COLUMN_FIRST_NAME = "first_name";
     public static final String COLUMN_LAST_NAME = "last_name";
     public static final String COLUMN_EMAIL = "email";
