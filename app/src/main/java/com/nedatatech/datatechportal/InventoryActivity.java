@@ -20,6 +20,6 @@ public class InventoryActivity extends AppCompatActivity {
   ApiInterface auth = new ApiInterface();
   if (auth_token == null){
     auth.apiRequest("authenticate",InventoryActivity.this);
-  }else{auth.apiRequest("update",InventoryActivity.this);}
+  }else{auth.apiRequest("create",InventoryActivity.this);}
   }
 }

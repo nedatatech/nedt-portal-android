@@ -48,7 +48,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
   // This method is required for this class to help with creating the table. PROBABLY WANT TO IMPROVE.
   @Override
   public void onCreate(SQLiteDatabase db) {
+<<<<<<< Updated upstream
     db.execSQL(CREATE_TABLE);
+=======
+    db.execSQL(DatabaseContract.CustomerColumns.CREATE_CUSTOMER_TABLE);
+    db.execSQL(DatabaseContract.ApiData.CREATE_API_DATA_TABLE);
+>>>>>>> Stashed changes
     Log.i(logTag, "Table has been created"); // Debug
   }
 
@@ -57,7 +62,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
   @Override
   public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     // Have read that some logging is recommended here. Also likely better to use an if to see if the database version has changed.
+<<<<<<< Updated upstream
     db.execSQL("DROP TABLE IF EXISTS " + TABLE_CUSTOMERS + ";"); //ToDo Should use alter table instead if data needs to persist when upgraded.
     db.execSQL(CREATE_TABLE);
+=======
+    db.execSQL("DROP TABLE IF EXISTS " + DatabaseContract.CustomerColumns.TABLE_CUSTOMERS + ";"); //ToDo Should use alter table instead if data needs to persist when upgraded.
+    db.execSQL(DatabaseContract.CustomerColumns.CREATE_CUSTOMER_TABLE);
+    db.execSQL("DROP TABLE IF EXISTS " + DatabaseContract.ApiData.TABLE_API_DATA  + ";"); //ToDo Should use alter table instead if data needs to persist when upgraded.
+    db.execSQL(DatabaseContract.ApiData.CREATE_API_DATA_TABLE);
+>>>>>>> Stashed changes
   }
 }
