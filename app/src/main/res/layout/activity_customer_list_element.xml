@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:id="@+id/CustomerResult_listItem"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:baselineAligned="false"
+              android:gravity="end"
+              android:orientation="horizontal"
+              android:padding="8dp"
+              tools:context=".CustomerSearchActivity"><!--Added for new code: Context Line--> <!--Could need to tweak this later depending how it ends up looking in the list.-->
+
+  <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:orientation="vertical"> <!--Could possibly try combining the TextViews into one multiline view. Might not display the column results properly though or be confusing-->
+
+    <TextView
+        android:id="@+id/custID_listItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="DebugText"
+        android:textSize="@dimen/dimen_custListText"/> <!--ToDo Erase all TextView DebugText when satisfied with view.-->
+
+    <TextView
+        android:id="@+id/custFName_listItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="DebugText"
+        android:textSize="@dimen/dimen_custListText"/>
+
+    <TextView
+        android:id="@+id/custLName_listItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="DebugText"
+        android:textSize="@dimen/dimen_custListText"/>
+
+    <TextView
+        android:id="@+id/custEmail_listItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="DebugText"
+        android:textSize="@dimen/dimen_custListText"/>
+
+    <TextView
+        android:id="@+id/custPhone_listItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="DebugText"
+        android:textSize="@dimen/dimen_custListText"/>
+
+    <TextView
+        android:id="@+id/custStreet_listItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="DebugText"
+        android:textSize="@dimen/dimen_custListText"/>
+
+    <TextView
+        android:id="@+id/custCity_listItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="DebugText"
+        android:textSize="@dimen/dimen_custListText"/>
+
+    <TextView
+        android:id="@+id/custState_listItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="DebugText"
+        android:textSize="@dimen/dimen_custListText"/>
+
+    <TextView
+        android:id="@+id/custZip_listItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="DebugText"
+        android:textSize="@dimen/dimen_custListText"/>
+  </LinearLayout>
+
+  <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="end"
+      android:layout_weight="0.01"
+      android:gravity="right"
+      android:orientation="horizontal">  <!--May need to adjust gravity and weight.-->
+
+    <Button
+        android:id="@+id/custEdit_listButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:hint="@string/buttonText_edit"
+        /> <!--Focusable stuff here now for testing new way to work around clicking from search activity.-->
+  </LinearLayout>
+</LinearLayout>

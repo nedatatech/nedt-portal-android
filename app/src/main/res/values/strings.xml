@@ -1,3 +1,37 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
   <string name="app_name">DataTech Portal</string>
+  <string name="customer_editLabel">Edit Customer</string>
+  <string name="customer_searchLabel">Search Customer</string>
+  <string name="customer_listLabel">List All Customers</string>
+
+  <string name="string_cusData">Customer Database</string>
+  <string name="string_jobData">Job Database</string>
+  <string name="string_invData">Inventory Database</string>
+  <string name="string_companyPro">Company Profile</string>
+
+  <string name="string_customerID">Customer ID</string>
+  <string name="string_firstName">First Name</string>
+  <string name="string_lastName">Last Name</string>
+  <string name="string_email">Email</string>
+  <string name="string_phone">Phone</string>
+  <string name="string_street">Street</string>
+  <string name="string_city">City</string>
+  <string name="string_state">State</string>
+  <string name="string_zipCode">Zip Code</string>
+  <string name="string_searchParam">Enter One Search Parameter</string>
+  <string name="string_searchInstr">Choose search parameter type from drop down</string>
+
+  <string name="buttonText_add">ADD</string>
+  <string name="buttonText_search">SEARCH</string>
+  <string name="buttonText_update">UPDATE</string>
+  <string name="buttonText_delete">DELETE</string>
+  <string name="buttonText_edit">EDIT</string>
+  <string name="buttonText_cancel" tools:ignore="ButtonCase">CANCEL</string>
+  <string name="buttonText_customerAddEdit">Add/Edit/Delete</string>
+  <string name="buttonText_customerSearch">Search Customer</string>
+  <string name="buttonText_customerList">List All Customers</string>
+
+  <string name="button_test">Test Button</string> <!--not needed-->
+  <string name="input_text">Text Field</string> <!--not needed-->
+  <string name="input_float">Number Field</string> <!--not needed-->
 </resources>
