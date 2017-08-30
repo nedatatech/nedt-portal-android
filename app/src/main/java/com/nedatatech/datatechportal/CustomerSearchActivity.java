@@ -41,15 +41,12 @@ public class CustomerSearchActivity extends AppCompatActivity implements Adapter
     dataOps = new DatabaseOperations(this);
     dataOps.openDB(); // Needs to be on a different thread for performance. ASyncTask??
     custResultView = (ListView) findViewById(R.id.custSearchResults_listView);
-
     searchParamText = (EditText) findViewById(R.id.custSearchParam_editText);
-
     paramSpinner = (Spinner) findViewById(R.id.custSearch_spinner);
     spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, spinnerItems);
     spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     paramSpinner.setAdapter(spinnerAdapter);
     paramSpinner.setOnItemSelectedListener(this);
-
     searchButton = (Button) findViewById(R.id.custSearch_button);
     searchButton.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -57,7 +54,6 @@ public class CustomerSearchActivity extends AppCompatActivity implements Adapter
         searchCustomers();
       }
     });
-
     cancelButton = (Button) findViewById(R.id.custCancel_button);
     cancelButton.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -84,6 +80,7 @@ public class CustomerSearchActivity extends AppCompatActivity implements Adapter
       setResult(RESULT_OK, resultIntent);
       finish();
     } else if(getCallingActivity() == null){
+      resultIntent.putExtra("start_from_search", 1);
       startActivity(resultIntent);
       // Gonna have to call a method in add edit here to get the text to the edit texts.
       // Or maybe if the request code isnt checked in the addedit result method it might work just setting the result code here in either situation.

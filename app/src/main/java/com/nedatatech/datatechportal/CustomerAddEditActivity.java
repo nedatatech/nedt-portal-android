@@ -35,6 +35,8 @@ public class CustomerAddEditActivity extends AppCompatActivity {
   private final int SEARCH_REQUEST_CODE = 1;
   private String CANT_CHANGE_TEXT = "  -  Cannot change, only shown for reference.";
   private String logtag = "Customer Add/Edit";
+  private Boolean startFromSearchAct; // may need to set false here to start.
+  Intent intentFromSearch;
 
   @Override
   protected void onCreate(final Bundle savedInstanceState) {
@@ -122,6 +124,20 @@ public class CustomerAddEditActivity extends AppCompatActivity {
         finish(); // Kill this activity so multiples aren't produced. (Back Stack).
       }
     });
+    intentFromSearch = getIntent();
+    checkForSearchStart();
+    if(startFromSearchAct){
+      showResultFromSearch(intentFromSearch);
+    }
+  }
+
+  private void checkForSearchStart() {
+
+    if(intentFromSearch.getIntExtra("start_from_search", 0) == 0){
+      startFromSearchAct = false;
+    } else {
+      startFromSearchAct = true;
+    }
   }
 
   @Override
@@ -146,6 +162,23 @@ public class CustomerAddEditActivity extends AppCompatActivity {
         zipcodeText.setText(data.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_ZIPCODE));
       }
     }
+  }
+
+  public void showResultFromSearch(Intent intent) { // May need to set the intent with getintent and also may need to set up the customer old
+                                                    // variable too. May need to searchById to get the database row to return to update the customer.
+    /*customerOld.setCustomerID(Long.parseLong(intent.getStringExtra(BaseColumns._ID)));
+    customerOld = dataOps.getCustomer(customerOld.getCustomerID());*/
+    customerIDText.setText(intent.getStringExtra(BaseColumns._ID));
+    firstNameText.setText(intent.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_FIRST_NAME));
+    lastNameText.setText(intent.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_LAST_NAME));
+    emailText.setText(intent.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_EMAIL));
+    phoneText.setText(intent.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_PHONE));
+    streetText.setText(intent.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_STREET));
+    cityText.setText(intent.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_CITY));
+    stateText.setText(intent.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_STATE));
+    zipcodeText.setText(intent.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_ZIPCODE));
+    searchByID();
+
   }
 
   // ToDo Make a method for calling the editTexts and pass in the data from the Search Activity into each field. ContentProvider or values.put() with an intent?
