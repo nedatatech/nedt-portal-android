@@ -1,7 +1,9 @@
 package com.nedatatech.datatechportal;
 
 import android.app.Application;
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.SyncStateContract;
@@ -25,7 +27,7 @@ import java.util.Map;
 import static com.nedatatech.datatechportal.InventoryActivity.recordId;
 
 class ApiInterface {
-  private static final String api_base_url = "http://www.nedatatech.com/api/nedt-portal";
+  private static final String api_base_url = "http://192.168.1.100:3000/api/nedt-portal";
   private Context mCtx;
   private int method;
   private String json_url;
@@ -34,8 +36,9 @@ class ApiInterface {
   //RequestQueue mRequestQueue = Volley.newRequestQueue; // 'this' is Context
   private SQLiteOpenHelper dbHelper = new DatabaseHelper(mCtx); /* This can be TestDBHelper dbHelper or the system default SQLiteOpenHelper dbHelper. Not sure what the difference is.
                                             Maybe either just methods used in TestDBHelper class or all from SQLiteOpenHelper and the overridden ones in TestDBHelper.*/
-  private SQLiteDatabase database;
-  private String auth_token;
+
+  public String auth_token;
+  private DatabaseOperations dataOps;
 
   void apiRequest(String request_type, Context context) {
 
@@ -79,6 +82,7 @@ class ApiInterface {
 
   private void sendRequest() {
     final JSONObject json = new JSONObject(params);
+    dataOps = new DatabaseOperations(mCtx);
     //json.putAll( data );
     JsonObjectRequest jsonObjReq = new JsonObjectRequest(
             method, json_url, json,
@@ -87,15 +91,26 @@ class ApiInterface {
               public void onResponse(JSONObject response) {
                 try {
 
-                 auth_token = response.get("auth_token").toString();
+                  auth_token = response.get("auth_token").toString();
+                 //auth_token = response.toString();
 
-                 database.execSQL("INSERT INTO " + DatabaseContract.ApiData.TABLE_API_DATA + " (" + DatabaseContract.ApiData.COLUMN_AUTH_TOKEN +") VALUES" + "(" + auth_token + ");");
+                 //String test = "INSERT INTO " + DatabaseContract.ApiDataColumns.TABLE_API_DATA + " (" + DatabaseContract.ApiDataColumns.COLUMN_AUTH_TOKEN +") VALUES" + "(" + auth_token + ");";
+
+                 //database.execSQL("INSERT INTO " + DatabaseContract.ApiDataColumns.TABLE_API_DATA + " (" + DatabaseContract.ApiDataColumns.COLUMN_AUTH_TOKEN +") VALUES" + "(" + auth_token + ");");
+                  //dataOps
+                  //ContentValues values = new ContentValues();
+                  //values.put("auth", auth_token);
+                  //dataOps.addToken(auth_token);
+                  ApiData test = new ApiData(auth_token);
+                  dataOps.addTokenToDB(auth_token);
+                 Toast.makeText(mCtx, test.getApiDataToken(),Toast.LENGTH_LONG) .show();
+
+
                 //msgResponse.setText(response.toString());
                 //hideProgressDialog();
                 } catch (JSONException e) {
                   e.printStackTrace();
                 }
-                Toast.makeText(mCtx, response.toString(),Toast.LENGTH_LONG) .show();
               }
             }, new Response.ErrorListener() {
 
