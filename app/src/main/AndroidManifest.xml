@@ -2,13 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.nedatatech.datatechportal">
 
+  <!--API23/android6.0 and higher are the reason the auto backup causes issues with the DB. when the app is uninstalled after being backed up the system tries to restore just the database
+       files and this in turn causes a conflict when trying to run the app for the first time again on that device. Will need to work around by setting up the OnUpgrade method in the Helper
+       Class to handle this situation. The alternative is to keep auto backup set to false. Not sure yet if compiling and targeting an SDK version lower than API23 could be a possible work around.-->
   <application
-      android:allowBackup="true"
+      android:allowBackup="false"
       android:icon="@mipmap/ic_launcher"
       android:label="@string/app_name"
       android:roundIcon="@mipmap/ic_launcher_round"
       android:supportsRtl="true"
-      android:theme="@style/AppTheme">
+      android:theme="@style/AppTheme"> <!--Allow Backup Default: true, Set To False Due To An Issue With The Database Name Being Backed Up On Samsung Phone, Weird Unknown Conflict????-->
     <activity android:name=".MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
@@ -42,7 +45,8 @@
         android:label="@string/customer_searchLabel"
         android:parentActivityName=".CustomerMainActivity"> <!-- Could be different based on how back stack is being managed. -->
     </activity>
-    <activity android:name=".CustomerListAllActivity">
+    <activity
+        android:name=".CustomerListAllActivity">
     </activity>
   </application>
 

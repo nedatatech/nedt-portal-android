@@ -13,7 +13,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
   public static final String logTag = "HELPER_SYSTEM"; // Debug info.
 
   // These strings are for Database/Table set up.
-  private static final String DATABASE_NAME = "DataTechRecords.db";
+  private static final String DATABASE_NAME = "DataTechRecords.db"; // ToDo WHY IS THE NAME CAUSING AN ISSUE ON PHONES??
   private static final int DATABASE_VERSION = 1;
 
   // This method is required for this class to help with creating the database. LEARN MORE ABOUT THIS.
@@ -26,7 +26,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
   @Override
   public void onCreate(SQLiteDatabase db) {
     db.execSQL(DatabaseContract.CustomerColumns.CREATE_CUSTOMER_TABLE);
-    Log.i(logTag, "Table has been created"); // Debug
+    Log.i(logTag, "TABLE HAS BEEN CREATED"); // Debug
   }
 
   /*This method is required for this class to help with upgrading the table on an app update.
@@ -34,6 +34,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
   @Override
   public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     // Have read that some logging is recommended here. Also likely better to use an if to see if the database version has changed.
+    Log.i(logTag, "TABLE UPGRADE ACCESSED"); // Debug
     db.execSQL("DROP TABLE IF EXISTS " + DatabaseContract.CustomerColumns.TABLE_CUSTOMERS + ";"); //ToDo Should use alter table instead if data needs to persist when upgraded.
     db.execSQL(DatabaseContract.CustomerColumns.CREATE_CUSTOMER_TABLE);
   }

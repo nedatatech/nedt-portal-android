@@ -59,6 +59,7 @@ public class CustomerAddEditActivity extends AppCompatActivity {
     zipcodeText = (EditText) findViewById(R.id.customerZipcode_editText);
 
     // ToDo Write code to check for empty fields before allowing the add to perform, delete and update should probably do it too.
+    // ToDo Need to set ID field editable or not editable based on what the current interaction with the activity is and in the proper places.
     addButton = (Button) findViewById(R.id.add_addEditBtn);
     addButton.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -92,7 +93,7 @@ public class CustomerAddEditActivity extends AppCompatActivity {
     updateButton = (Button) findViewById(R.id.update_addEditBtn);
     updateButton.setOnClickListener(new View.OnClickListener() {
       @Override
-      public void onClick(View v) {
+      public void onClick(View v) { // Will need to set the id field editable or not depending on type of operation.
         customerOld.setCustomerFirstName(firstNameText.getText().toString());
         customerOld.setCustomerLastName(lastNameText.getText().toString());
         customerOld.setCustomerEmail(emailText.getText().toString());
@@ -107,7 +108,7 @@ public class CustomerAddEditActivity extends AppCompatActivity {
     });
 
     // Will need a toast to make sure the user has searched for the person to delete before they can. will need it to check for input first or rethink the way that update and delete are being laid out.
-    deleteButton = (Button) findViewById(R.id.delete_addEditBtn);
+    deleteButton = (Button) findViewById(R.id.delete_addEditBtn); // Will need to set the id field editable or not depending on type of operation.
     deleteButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) { // ToDo Make a Dialog to confirm that deleting is meant to happen. Maybe also move the delete button more away from others.
@@ -126,14 +127,14 @@ public class CustomerAddEditActivity extends AppCompatActivity {
     });
     // The next few lines are ran every time the activity is created and handle the checker method to decide how to handle existing customer data, if any.
     intentFromSearch = getIntent();
-    checkForSearchStart(); // Will need to set the id field editable or not depending on type of operation.
+    checkForSearchStart();
     if(startFromSearchAct){
       showResultFromSearch(intentFromSearch);
     }
   }
 
   // This checks for how this activity was started and sets a boolean to keep track.
-  private void checkForSearchStart() {
+  private void checkForSearchStart() { // Will need to set the id field editable or not depending on type of operation.
     if(intentFromSearch.getIntExtra("start_from_search", 0) == 0){
       startFromSearchAct = false;
     } else {
@@ -141,10 +142,10 @@ public class CustomerAddEditActivity extends AppCompatActivity {
     }
   }
 
-  private boolean emptyText() {
-    if (firstNameText.getText().toString().trim().length() == 0 && phoneText.getText().toString().trim().length() == 0) {
+  private boolean emptyText() { // Will need to set the id field editable or not depending on type of operation.
+    if (firstNameText.getText().toString().trim().length() == 0 | phoneText.getText().toString().trim().length() == 0) {
       String[] fields = {firstNameText.getText().toString(), phoneText.getText().toString()};
-      if(fields[0] != "" && fields[1] != ""){
+      if(fields[0].equals("") | fields[1].equals("")){
         Toast.makeText(this, "Must Enter A First Name and Phone To Add To Record", Toast.LENGTH_SHORT).show();
         return false;
       }
@@ -158,7 +159,7 @@ public class CustomerAddEditActivity extends AppCompatActivity {
     if(requestCode == SEARCH_REQUEST_CODE) {
       Log.v(logtag, "Request Code Matched");
       Log.v(logtag, String.valueOf(resultCode));
-      if(resultCode == RESULT_OK){
+      if(resultCode == RESULT_OK){ // Will need to set the id field editable or not depending on type of operation.
 
         // Need to check for empty fields and show a message to the user here and in showResultFromSearch.
         // will need to set Id field editable or not editable here and where ever else it will need to be changed.
@@ -178,7 +179,7 @@ public class CustomerAddEditActivity extends AppCompatActivity {
 
   // This will only run if the search activity was started from the main customer page first and then the edit button is pressed from there.
   public void showResultFromSearch(Intent intent) {
-    customerIDText.setText(intent.getStringExtra(BaseColumns._ID));
+    customerIDText.setText(intent.getStringExtra(BaseColumns._ID)); // Will need to set the id field editable or not depending on type of operation.
     firstNameText.setText(intent.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_FIRST_NAME));
     lastNameText.setText(intent.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_LAST_NAME));
     emailText.setText(intent.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_EMAIL));
@@ -191,7 +192,7 @@ public class CustomerAddEditActivity extends AppCompatActivity {
   }
 
   // Needed for delete and update methods. For them to not throw an exception they must have a current customer object from the database to work with.
-  private void searchByID() {
+  private void searchByID() { // Will need to set the id field editable or not depending on type of operation.
     userInputID = Long.parseLong(customerIDText.getText().toString());
     customerOld = dataOps.getCustomer(userInputID);
   }
