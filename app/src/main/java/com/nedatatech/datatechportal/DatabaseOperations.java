@@ -21,11 +21,12 @@ public class DatabaseOperations {
   private SQLiteOpenHelper dbHelper; /* This can be TestDBHelper dbHelper or the system default SQLiteOpenHelper dbHelper. Not sure what the difference is.
                                             Maybe either just methods used in TestDBHelper class or all from SQLiteOpenHelper and the overridden ones in TestDBHelper.*/
   private SQLiteDatabase database;
-  private String[] CUSTOMER_ALL_COLUMNS = {BaseColumns._ID, DatabaseContract.CustomerColumns.COLUMN_FIRST_NAME,
+  private String[]CUSTOMER_ALL_COLUMNS = {BaseColumns._ID, DatabaseContract.CustomerColumns.COLUMN_FIRST_NAME,
           DatabaseContract.CustomerColumns.COLUMN_LAST_NAME, DatabaseContract.CustomerColumns.COLUMN_EMAIL,
           DatabaseContract.CustomerColumns.COLUMN_PHONE, DatabaseContract.CustomerColumns.COLUMN_STREET,
           DatabaseContract.CustomerColumns.COLUMN_CITY, DatabaseContract.CustomerColumns.COLUMN_STATE,
           DatabaseContract.CustomerColumns.COLUMN_ZIPCODE};
+  private String[]API_DATA_ALL_COLUMNS = {BaseColumns._ID, DatabaseContract.ApiDataColumns.COLUMN_AUTH_TOKEN};
 
   public DatabaseOperations(Context context) {
     Log.i(logTag, "Helper class has been accessed"); // Debug info.
@@ -144,12 +145,52 @@ public class DatabaseOperations {
   }
 
   public void addTokenToDB(String token) {
+
+    Cursor cursor = database.query(DatabaseContract.ApiDataColumns.TABLE_API_DATA , new String[]{DatabaseContract.ApiDataColumns.COLUMN_AUTH_TOKEN}, BaseColumns._ID,
+            null, null, null, null, null);
+    cursor.moveToFirst();
     ContentValues values = new ContentValues();
     //ApiData test = new ApiData();
     long test;
     values.put(DatabaseContract.ApiDataColumns.COLUMN_AUTH_TOKEN, token);
-    test = database.insert(DatabaseContract.ApiDataColumns.TABLE_API_DATA, null, values);
+    if(getTokenFromDB("_id", "1") != null){
+      test = database.update(DatabaseContract.ApiDataColumns.TABLE_API_DATA, values, "_id = 1", null);
+    }else {
+      test = database.insert(DatabaseContract.ApiDataColumns.TABLE_API_DATA, "1", values);
+    }
     //return apiData;
   }
+
+  public List<String> getAllFromDB() {
+    Cursor cursor = database.query(DatabaseContract.ApiDataColumns.TABLE_API_DATA  , API_DATA_ALL_COLUMNS , null, null, null, null, null);
+
+    List<String> tokenList = new ArrayList<>();
+    if (cursor.getCount() > 0) {
+      while (cursor.moveToNext()) {
+        tokenList.add(cursor.getString(cursor.getColumnIndex(BaseColumns._ID)) );
+        tokenList.add(cursor.getString(cursor.getColumnIndex(DatabaseContract.ApiDataColumns.COLUMN_AUTH_TOKEN)));
+      }
+    } cursor.close();
+    return tokenList;
+  }
+
+  public String getTokenFromDB(String columnType, String searchInput) {
+    Cursor cursor = database.query(DatabaseContract.ApiDataColumns.TABLE_API_DATA, API_DATA_ALL_COLUMNS,
+            columnType + " = " + searchInput, null, null, null, null, null);
+    if (cursor != null) {
+      cursor.moveToFirst();
+    }
+    String token = cursor.getString(cursor.getColumnIndex(DatabaseContract.ApiDataColumns.COLUMN_AUTH_TOKEN));
+    //List<String> tokenList = new ArrayList<>();
+    //if (cursor.getCount() > 0) {
+    //  while (cursor.moveToNext()) {
+    //    tokenList.add(cursor.getString(cursor.getColumnIndex(BaseColumns._ID)) );
+    //    tokenList.add(cursor.getString(cursor.getColumnIndex(DatabaseContract.ApiDataColumns.COLUMN_AUTH_TOKEN)));
+     // }
+    //} cursor.close();
+    cursor.close();
+    return token;
+  }
+
 
 }
