@@ -29,7 +29,7 @@ public class DatabaseOperations {
 
   public DatabaseOperations(Context context) {
     Log.i(logTag, "Helper class has been accessed"); // Debug info.
-    dbHelper = new DatabaseHelper(context); // Can this be getContext() instead of just context??
+    dbHelper = new DatabaseHelper(context);
   }
 
   public void openDB() {
@@ -69,7 +69,7 @@ public class DatabaseOperations {
     // Research this for more understanding.
     Customer customerResult = new Customer(Long.parseLong(cursor.getString(0)), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4),
             cursor.getString(5), cursor.getString(6), cursor.getString(7), cursor.getString(8));
-    cursor.close(); // Is closing the cursor here the proper place? Likely not when searching for multiple results.
+    cursor.close();
     return customerResult;
   }
 
@@ -118,7 +118,7 @@ public class DatabaseOperations {
         customer.setCustomerZipcode(cursor.getString(cursor.getColumnIndex(DatabaseContract.CustomerColumns.COLUMN_ZIPCODE)));
         customerList.add(customer);
       }
-    } cursor.close(); // Is closing the cursor here the proper place?
+    } cursor.close();
     return customerList;
   }
 

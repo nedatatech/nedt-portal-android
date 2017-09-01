@@ -18,6 +18,8 @@
   <string name="string_city">City</string>
   <string name="string_state">State</string>
   <string name="string_zipCode">Zip Code</string>
+  <string name="string_searchParam">Enter One Search Parameter</string>
+  <string name="string_searchInstr">Choose search parameter type from drop down</string>
 
   <string name="buttonText_add">ADD</string>
   <string name="buttonText_search">SEARCH</string>

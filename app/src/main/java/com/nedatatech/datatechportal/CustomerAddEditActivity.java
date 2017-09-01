@@ -2,7 +2,9 @@ package com.nedatatech.datatechportal;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.BaseColumns;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,9 +32,14 @@ public class CustomerAddEditActivity extends AppCompatActivity {
   private Customer customerNew;
   private Customer customerOld; // For working in this class with the search result.
   private long userInputID; // Temp variable for searching by user input primary key for now.
+  private final int SEARCH_REQUEST_CODE = 1;
+  private String CANT_CHANGE_TEXT = "  -  Cannot change, only shown for reference.";
+  private String logtag = "Customer Add/Edit";
+  private Boolean startFromSearchAct; // may need to set false here to start.
+  Intent intentFromSearch;
 
   @Override
-  protected void onCreate(Bundle savedInstanceState) {
+  protected void onCreate(final Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_customer_addedit);
 
@@ -50,7 +57,7 @@ public class CustomerAddEditActivity extends AppCompatActivity {
     stateText = (EditText) findViewById(R.id.customerState_editText);
     zipcodeText = (EditText) findViewById(R.id.customerZipcode_editText);
 
-    // Will need to keep the add button from adding blank entries to the database when there is absolutely no info in the text lines. i.e. Accidentally Pressing the button.
+    // ToDo Write code to check for empty fields before allowing the add to perform, delete and update should probably do it too.
     addButton = (Button) findViewById(R.id.add_addEditBtn);
     addButton.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -73,11 +80,11 @@ public class CustomerAddEditActivity extends AppCompatActivity {
     searchButton = (Button) findViewById(R.id.search_addEditBtn);
     searchButton.setOnClickListener(new View.OnClickListener() {
       @Override
-      public void onClick(View v) {
-        // Temp commented out until search is happening in the search class. Will need the intent for starting the search class when ready.
-        /*Intent startSearchActivity = new Intent(CustomerAddEditActivity.this, CustomerSearchActivity.class);
-        startActivity(startSearchActivity);*/ /* May need to finish here depending on how the search params will be retrieved and returned to this classes layout.*/
-        displayResult(); // Will likely change when search class and list view is done.
+      public void onClick(View v) { // startActivity for result likely how this should go then get the result of the search activities edit button.
+        Intent startSearchActivity = new Intent(CustomerAddEditActivity.this, CustomerSearchActivity.class);
+        startActivityForResult(startSearchActivity, SEARCH_REQUEST_CODE); /* May need to finish here depending on how the search params will be retrieved and returned to this classes layout.*/
+        // displayResult(); // Not needed until decided how to get search results from search activity.
+        // May be an error when getting the results of the search and returning them here due to the cursor not existing. But the object should persist.
       }
     });
 
@@ -113,16 +120,72 @@ public class CustomerAddEditActivity extends AppCompatActivity {
     cancelButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        dataOps.closeDB(); // Should close the database here in case the user won't come back to this activity.
+        dataOps.closeDB(); // Should close the database here??
         finish(); // Kill this activity so multiples aren't produced. (Back Stack).
       }
     });
+    intentFromSearch = getIntent();
+    checkForSearchStart();
+    if(startFromSearchAct){
+      showResultFromSearch(intentFromSearch);
+    }
   }
 
-  // Throws an error (cursor index out of bounds) when the entered id does not have a row to return. will need to catch this and display a toast or similar.
-  public void displayResult() { // Will need to pass an array here to display the results I think.
+  private void checkForSearchStart() {
+
+    if(intentFromSearch.getIntExtra("start_from_search", 0) == 0){
+      startFromSearchAct = false;
+    } else {
+      startFromSearchAct = true;
+    }
+  }
+
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) { // NEED TO SET RESULT IN SEARCH ACTIVITY.
+    Log.v(logtag, "Activity Result Triggered");
+    if(requestCode == SEARCH_REQUEST_CODE) {
+      Log.v(logtag, "Request Code Matched");
+      Log.v(logtag, String.valueOf(resultCode));
+      if(resultCode == RESULT_OK){
+        Log.v(logtag, "Result Code Matched"); // Will need to set the data to a customer object then set the text by that in order for update to work.
+        // long _id = getIntent().getLongExtra(BaseColumns._ID, 0);
+        //customerIDText.setText(getIntent().getStringExtra(BaseColumns._ID) + "%s" + CANT_CHANGE_TEXT); // MAY WANT TO JUST CHANGE THE LAYOUT TO AN UN-EDITABLE TEXT VIEW IN JAVA FOR JUST THIS PART.
+        String firstName = data.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_FIRST_NAME);
+        Log.v(logtag, firstName);
+        firstNameText.setText(firstName);
+        lastNameText.setText(data.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_LAST_NAME));
+        emailText.setText(data.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_EMAIL));
+        phoneText.setText(data.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_PHONE));
+        streetText.setText(data.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_STREET));
+        cityText.setText(data.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_CITY));
+        stateText.setText(data.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_STATE));
+        zipcodeText.setText(data.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_ZIPCODE));
+      }
+    }
+  }
+
+  public void showResultFromSearch(Intent intent) { // May need to set the intent with getintent and also may need to set up the customer old
+                                                    // variable too. May need to searchById to get the database row to return to update the customer.
+    /*customerOld.setCustomerID(Long.parseLong(intent.getStringExtra(BaseColumns._ID)));
+    customerOld = dataOps.getCustomer(customerOld.getCustomerID());*/
+    customerIDText.setText(intent.getStringExtra(BaseColumns._ID));
+    firstNameText.setText(intent.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_FIRST_NAME));
+    lastNameText.setText(intent.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_LAST_NAME));
+    emailText.setText(intent.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_EMAIL));
+    phoneText.setText(intent.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_PHONE));
+    streetText.setText(intent.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_STREET));
+    cityText.setText(intent.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_CITY));
+    stateText.setText(intent.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_STATE));
+    zipcodeText.setText(intent.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_ZIPCODE));
     searchByID();
-    customerIDText.setText(String.valueOf(customerOld.getCustomerID())); // The rest of these lines will probably change based on list views.
+
+  }
+
+  // ToDo Make a method for calling the editTexts and pass in the data from the Search Activity into each field. ContentProvider or values.put() with an intent?
+  // ToDo Rewrite this to do what the search activity should to pass editable results to this activity or delete this method when no longer used.
+  /*public void displayResult() { // Will need to pass an array here to display the results I think.
+    searchByID();
+    customerIDText.setText(String.valueOf(customerOld.getCustomerID()));
     firstNameText.setText(customerOld.getCustomerFirstName());
     lastNameText.setText(customerOld.getCustomerLastName());
     emailText.setText(customerOld.getCustomerEmail());
@@ -131,14 +194,15 @@ public class CustomerAddEditActivity extends AppCompatActivity {
     cityText.setText(customerOld.getCustomerCity());
     stateText.setText(customerOld.getCustomerState());
     zipcodeText.setText(customerOld.getCustomerZipcode());
-  }
+  }*/
 
+  // Needed for delete method for now. May be better to rewrite once search activity is properly linked to this activity.
   public void searchByID() {
-    userInputID = Long.parseLong(customerIDText.getText().toString()); // Getting this input from here is temp until more search methods are set up to populate the list view.
-    customerOld = dataOps.getCustomer(userInputID); // Line also temp until list view is ready.
+    userInputID = Long.parseLong(customerIDText.getText().toString());
+    customerOld = dataOps.getCustomer(userInputID);
   }
 
 
 
-  // ToDo Make a method for calling the editTexts and pass in the data from the Search Activity into each field. ContentProvider or values.put() with an intent?
+
 }

@@ -1,8 +1,8 @@
 package com.nedatatech.datatechportal;
 
-import android.util.Log;
 
-// This class is represents an object stored in the database. In this case a person plus their info.
+
+// This class is representing an object stored in the database. In this case a person plus their info.
 public class Customer {
 
   //Todo: Go through this class and check for things that may need to be done or improved.

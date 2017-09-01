@@ -102,6 +102,7 @@ class ApiInterface {
                   //values.put("auth", auth_token);
                   //dataOps.addToken(auth_token);
                   ApiData test = new ApiData(auth_token);
+                  dataOps.openDB();
                   dataOps.addTokenToDB(auth_token);
                  Toast.makeText(mCtx, test.getApiDataToken(),Toast.LENGTH_LONG) .show();
 
