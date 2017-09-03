@@ -2,16 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:layout_margin="8dp"
               android:orientation="vertical">
 
 
-  <EditText
-      android:id="@+id/customerId_editText"
+  <TextView
+      android:id="@+id/customerId_TextView"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:background="?attr/editTextBackground"
+      android:drawablePadding="16dp"
+      android:drawableStart="@android:drawable/ic_secure"
       android:ems="10"
       android:hint="@string/string_customerID"
-      android:inputType="number"/>
+      android:textColor="@color/colorPrimDarkCustom"
+      android:textSize="18sp"
+      android:textStyle="bold"/>
 
   <EditText
       android:id="@+id/customerFName_editText"
@@ -78,43 +84,54 @@
       android:inputType="number"/>
 
   <LinearLayout
+      style="@android:style/DeviceDefault.ButtonBar"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="horizontal">
 
     <Button
         android:id="@+id/add_addEditBtn"
+        style="@android:style/DeviceDefault.ButtonBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:background="@android:drawable/btn_default"
         android:text="@string/buttonText_add"/>
 
     <Button
         android:id="@+id/search_addEditBtn"
+        style="@android:style/DeviceDefault.ButtonBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:background="@android:drawable/btn_default"
         android:text="@string/buttonText_search"/>
 
     <Button
         android:id="@+id/update_addEditBtn"
+        style="@android:style/DeviceDefault.ButtonBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:background="@android:drawable/btn_default"
         android:text="@string/buttonText_update"/>
 
     <Button
         android:id="@+id/delete_addEditBtn"
+        style="@android:style/DeviceDefault.ButtonBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:background="@android:drawable/btn_default"
         android:text="@string/buttonText_delete"/>
 
     <Button
         android:id="@+id/cancel_addEditBtn"
+        style="@android:style/DeviceDefault.ButtonBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:background="@android:drawable/btn_default"
         android:text="@string/buttonText_cancel"/>
 
 

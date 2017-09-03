@@ -83,7 +83,6 @@ public class CustomerAdapter extends ArrayAdapter<Customer> {
     holder.editButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        // Toast.makeText((CustomerSearchActivity)getContext(), String.valueOf(dataListItem.get(position).getCustomerFirstName()), Toast.LENGTH_SHORT).show();
         CustomerSearchActivity se = (CustomerSearchActivity)getContext();
         se.getFromAdapter(dataListItem.get(position)); // Maybe good to learn more about the positions, tags, and the holder class for custom adapters in general.
       }

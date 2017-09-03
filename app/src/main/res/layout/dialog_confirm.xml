@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/confirmDialog_rootLayout"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:padding="@dimen/padding_confirmDialog">
+
+  <TextView
+      android:id="@+id/confirm_textView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:text="Debug Text"
+      android:textColor="@color/confirm_red"
+      android:textSize="@dimen/textSize_confirmDialog"
+      android:textStyle="bold|italic"/>
+</LinearLayout>

@@ -20,6 +20,8 @@
   <string name="string_zipCode">Zip Code</string>
   <string name="string_searchParam">Enter One Search Parameter</string>
   <string name="string_searchInstr">Choose search parameter type from drop down</string>
+  <string name="string_confirm">Please Confirm</string>
+  <string name="string_operation">Operation</string>
 
   <string name="buttonText_add">ADD</string>
   <string name="buttonText_search">SEARCH</string>
