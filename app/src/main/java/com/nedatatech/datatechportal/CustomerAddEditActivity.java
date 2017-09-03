@@ -36,7 +36,7 @@ public class CustomerAddEditActivity extends AppCompatActivity {
   private DatabaseOperations dataOps;
   private Customer customerNew;
   private Customer customerOld; // For working in this class with the search result.
-  private long userInputID; // Temp variable for searching by user input primary key for now.
+  private long idForEdit;
   private final int SEARCH_REQUEST_CODE = 1;
   private int toDialogCode = 0;
   private String CANT_CHANGE_TEXT = "  -  Cannot change, only shown for reference.";
@@ -63,7 +63,6 @@ public class CustomerAddEditActivity extends AppCompatActivity {
     stateText = (EditText) findViewById(R.id.customerState_editText);
     zipcodeText = (EditText) findViewById(R.id.customerZipcode_editText);
 
-    // ToDo Write code to check for empty fields before allowing the add to perform, delete and update should probably do it too.
     addButton = (Button) findViewById(R.id.add_addEditBtn);
     addButton.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -77,7 +76,7 @@ public class CustomerAddEditActivity extends AppCompatActivity {
         customerNew.setCustomerCity(cityText.getText().toString());
         customerNew.setCustomerState(stateText.getText().toString());
         customerNew.setCustomerZipcode(zipcodeText.getText().toString());
-        if (emptyText()) {
+        if (addReqNotEmpty()) {
           dataOps.addCustomer(customerNew);
           finish(); // This can go with a back to main or upwards navigation if it turns out we need to manage the back stack better.
         }
@@ -98,8 +97,10 @@ public class CustomerAddEditActivity extends AppCompatActivity {
     updateButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        toDialogCode = 1;
-        confirmDialog("Update", toDialogCode);
+        if(idTextNotEmpty()) {
+          toDialogCode = 1;
+          confirmDialog("Update", toDialogCode);
+        }
         // May end up wanting to close database here and finish the activity so accidental changes arent made. Could just clear the text fields and popup a toast.
       }
     });
@@ -109,8 +110,10 @@ public class CustomerAddEditActivity extends AppCompatActivity {
     deleteButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        toDialogCode = 2;
-        confirmDialog("Delete", toDialogCode);
+        if(idTextNotEmpty()) {
+          toDialogCode = 2;
+          confirmDialog("Delete", toDialogCode);
+        }
       }
     });
 
@@ -139,11 +142,22 @@ public class CustomerAddEditActivity extends AppCompatActivity {
     }
   }
 
-  private boolean emptyText() {
+  private boolean addReqNotEmpty() { // Should phone and/or email be required? Empty fields could just clutter the database. Also it would
+    // be possible for someone to add the required fields and then go back later and update the results with empty fields. Need to decide on design of this.
     if (firstNameText.getText().toString().trim().length() == 0 | phoneText.getText().toString().trim().length() == 0) {
       String[] fields = {firstNameText.getText().toString(), phoneText.getText().toString()};
       if(fields[0].equals("") | fields[1].equals("")){
         Toast.makeText(this, "Must Enter A First Name and Phone To Add To Record", Toast.LENGTH_SHORT).show();
+        return false;
+      }
+    } return true;
+  }
+
+  private Boolean idTextNotEmpty() {
+    if(customerIDText.getText().toString().trim().length() == 0){
+      String emptyID = customerIDText.getText().toString();
+      if(emptyID.equals("")){
+        Toast.makeText(this, "First Search For A Customer To Edit", Toast.LENGTH_SHORT).show();
         return false;
       }
     } return true;
@@ -167,7 +181,7 @@ public class CustomerAddEditActivity extends AppCompatActivity {
         cityText.setText(data.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_CITY));
         stateText.setText(data.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_STATE));
         zipcodeText.setText(data.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_ZIPCODE));
-        searchByID(); // Call from update and/or delete instead?
+        searchByID(); // Call from update and/or delete instead? Could Performance be an issue on where to run this search when the database grows?
       }
     }
   }
@@ -183,7 +197,7 @@ public class CustomerAddEditActivity extends AppCompatActivity {
     cityText.setText(intent.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_CITY));
     stateText.setText(intent.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_STATE));
     zipcodeText.setText(intent.getStringExtra(DatabaseContract.CustomerColumns.COLUMN_ZIPCODE));
-    searchByID(); // Call from update and/or delete instead?
+    searchByID(); // Call from update and/or delete instead? Could Performance be an issue on where to run this search when the database grows?
   }
 
   private void updateOperation() { // needs error handling for empty ID field.
@@ -202,7 +216,7 @@ public class CustomerAddEditActivity extends AppCompatActivity {
   }
 
   private void deleteOperation() { // Need error handling for empty ID field.
-    searchByID(); // Redundant due to already calling from showFromSearchResult or onActivityResult?
+    searchByID(); // Redundant due to already calling from showFromSearchResult or onActivityResult? Could Performance be an issue on where to run this search when the database grows?
     dataOps.removeCustomer(customerOld); // Gonna need to confirm that it worked, clear the text fields, and/or restart activity.
     toDialogCode = 0;
     Toast.makeText(this, "Customer has been removed.", Toast.LENGTH_SHORT).show();
@@ -210,8 +224,8 @@ public class CustomerAddEditActivity extends AppCompatActivity {
 
   // Needed for delete method. For it to not throw an exception it must have a current customer object from the database to work with.
   private void searchByID() {
-    userInputID = Long.parseLong(customerIDText.getText().toString());
-    customerOld = dataOps.getCustomer(userInputID);
+    idForEdit = Long.parseLong(customerIDText.getText().toString());
+    customerOld = dataOps.getCustomer(idForEdit);
   }
 
   private void confirmDialog(final String callingOperation, final int requestCode) { // Parameters used to determine which way to handle the dialog text and action.
