@@ -58,8 +58,7 @@ public class DatabaseOperations {
     return customer;
   }
 
-  //ToDo Do testing on the delete related code to see if this is even needed now that the new search method works for any criteria.
-  // Finds and returns one search result by Primary Key only. Needed to return customer when showing search result in order for update to work without throwing a null pointer.
+  // Finds and returns one search result by Primary Key only. Needed to return customer when showing search result in order for update or delete to work without throwing a null pointer.
   public Customer getCustomer(long searchID) { // Needed until final decision on handling delete.
     Cursor cursor = database.query(DatabaseContract.CustomerColumns.TABLE_CUSTOMERS, CUSTOMER_ALL_COLUMNS, BaseColumns._ID + " = ?",
             new String[]{String.valueOf(searchID)}, null, null, null, null);

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context="com.nedatatech.datatechportal.MainActivity"
     tools:layout_editor_absoluteY="81dp"
-    tools:layout_editor_absoluteX="0dp">
+    tools:layout_editor_absoluteX="0dp"><!--Need to get rid of Constraint Layout and make sure this and all others are optimized for smaller screens too.-->
 
   <LinearLayout
       android:layout_width="395dp"
@@ -59,5 +59,15 @@
         android:text="@string/string_companyPro"
         android:textAlignment="center"
         android:textStyle="bold"/>
+
+    <ProgressBar
+        android:id="@+id/mainActProgBar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight=".2"
+        android:progress="25"
+        />
   </LinearLayout>
 </android.support.constraint.ConstraintLayout>
