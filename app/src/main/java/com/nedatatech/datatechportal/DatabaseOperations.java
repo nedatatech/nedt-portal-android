@@ -144,6 +144,17 @@ public class DatabaseOperations {
     database.delete(DatabaseContract.CustomerColumns.TABLE_CUSTOMERS, BaseColumns._ID + " = " + customer.getCustomerID(), null);
   }
 
+
+
+
+  /*
+  ==================================================================================================
+  ======================================= Api Operations ===========================================
+  VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+  */
+
+
+  //Store auth token locally
   public void addTokenToDB(String token) {
 
     Cursor cursor = database.query(DatabaseContract.ApiDataColumns.TABLE_API_DATA , new String[]{DatabaseContract.ApiDataColumns.COLUMN_AUTH_TOKEN}, BaseColumns._ID,
@@ -153,14 +164,15 @@ public class DatabaseOperations {
     //ApiData test = new ApiData();
     long test;
     values.put(DatabaseContract.ApiDataColumns.COLUMN_AUTH_TOKEN, token);
-    if(getTokenFromDB("_id", "1") != null){
-      test = database.update(DatabaseContract.ApiDataColumns.TABLE_API_DATA, values, "_id = 1", null);
-    }else {
+    if(getTokenFromDB("_id", "1").toString().equals("")){
       test = database.insert(DatabaseContract.ApiDataColumns.TABLE_API_DATA, "1", values);
+    }else {
+      test = database.update(DatabaseContract.ApiDataColumns.TABLE_API_DATA, values, "_id = 1", null);
     }
     //return apiData;
   }
 
+  //Could potentially do things if there were things for it to do
   public List<String> getAllFromDB() {
     Cursor cursor = database.query(DatabaseContract.ApiDataColumns.TABLE_API_DATA  , API_DATA_ALL_COLUMNS , null, null, null, null, null);
 
@@ -174,13 +186,18 @@ public class DatabaseOperations {
     return tokenList;
   }
 
+  //Return local copy of server auth code
   public String getTokenFromDB(String columnType, String searchInput) {
+    String token = "";
     Cursor cursor = database.query(DatabaseContract.ApiDataColumns.TABLE_API_DATA, API_DATA_ALL_COLUMNS,
             columnType + " = " + searchInput, null, null, null, null, null);
-    if (cursor != null) {
+    Log.d("Cursor count: ", String.valueOf(cursor.getCount()));
+    if (cursor.getCount() > 0) {
       cursor.moveToFirst();
+      token = cursor.getString(cursor.getColumnIndex(DatabaseContract.ApiDataColumns.COLUMN_AUTH_TOKEN));
+      cursor.close();
     }
-    String token = cursor.getString(cursor.getColumnIndex(DatabaseContract.ApiDataColumns.COLUMN_AUTH_TOKEN));
+
     //List<String> tokenList = new ArrayList<>();
     //if (cursor.getCount() > 0) {
     //  while (cursor.moveToNext()) {
@@ -188,9 +205,13 @@ public class DatabaseOperations {
     //    tokenList.add(cursor.getString(cursor.getColumnIndex(DatabaseContract.ApiDataColumns.COLUMN_AUTH_TOKEN)));
      // }
     //} cursor.close();
-    cursor.close();
+
     return token;
   }
-
-
 }
+
+/*
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+======================================= Api Operations =============================================
+====================================================================================================
+*/

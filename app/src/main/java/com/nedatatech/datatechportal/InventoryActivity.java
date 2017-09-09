@@ -32,8 +32,11 @@ public class InventoryActivity extends AppCompatActivity {
   EditText mEdit =(EditText) findViewById(R.id.editText);
   recordId = mEdit.getText().toString();
   ApiInterface auth = new ApiInterface();
-  if (auth_token == null){
-    auth.apiRequest("authenticate",InventoryActivity.this);
-  }else{auth.apiRequest("create",InventoryActivity.this);}
+  //String test = auth.getAuthFromDB();
+  //if (auth_token == null){
+  //if(auth.getAuthFromDB().equals("")){
+    auth.setmCtx(this);
+    auth.apiRequest("authenticate");//, this);
+  //}else{auth.apiRequest("authenticate",InventoryActivity.this);}
   }
 }

@@ -23,13 +23,14 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+
 //import static com.nedatatech.datatechportal.ParseJSON.auth_token;
 import static com.nedatatech.datatechportal.InventoryActivity.recordId;
 
 class ApiInterface {
-  private static final String api_base_url = "http://192.168.1.100:3000/api/nedt-portal";
+  private static final String api_base_url = "http://192.168.1.101:3000/api/nedt-portal";
   private Context mCtx;
-  private int method;
+  //private int method;
   private String json_url;
   private final HashMap<String, String> params = new HashMap<>();
   private final HashMap<String, String> headers = new HashMap<>();
@@ -37,49 +38,162 @@ class ApiInterface {
   private SQLiteOpenHelper dbHelper = new DatabaseHelper(mCtx); /* This can be TestDBHelper dbHelper or the system default SQLiteOpenHelper dbHelper. Not sure what the difference is.
                                             Maybe either just methods used in TestDBHelper class or all from SQLiteOpenHelper and the overridden ones in TestDBHelper.*/
 
+  public void setmCtx(Context mCtx) {
+    this.mCtx = mCtx;
+  }
+
   public String auth_token;
   private DatabaseOperations dataOps;
 
-  void apiRequest(String request_type, Context context) {
+  void apiRequest(String request_type){ //, Context context) {
 
-    mCtx = context;
     switch (request_type) {
       case "authenticate":
-        this.method = Request.Method.POST;
+        //this.method = request.method.post;
         json_url = api_base_url + "/authenticate";
+        headers.put("Authorization:","N/A");
         params.put("email", "example@mail.com");
         params.put("password", "123123123");
+        getNewAuthToken(headers, params);
+        //Make toast to check if token was stored successfully
+        ApiData test = new ApiData(auth_token);
+        //Toast.makeText(mCtx, test.getApiDataToken(), Toast.LENGTH_LONG).show();
         break;
       case "read":
-        this.method = Request.Method.GET;
+        //this.method = Request.Method.GET;
         json_url = api_base_url + "/items/" + recordId;
         headers.put("Authorization:", auth_token);
+        //Needs custom listener in place of null
+//        sendRequest(Request.Method.GET, headers, params, null);
         break;
       case "update":
-        this.method = Request.Method.PUT;
+        //this.method = Request.Method.PUT;
         json_url = api_base_url + "/items/" + recordId;
         headers.put("Authorization:", auth_token);
         params.put("item[name]", "bullshit");
         params.put("item[description]", "also bullshit");
         params.put("item[quantity]", "numbers");
+        //Needs custom listener in place of null
+//        sendRequest(Request.Method.PUT, headers, params, null);
         break;
       case "create":
-        this.method = Request.Method.POST;
+        //this.method = Request.Method.POST;
         json_url = api_base_url + "/items/create";
         headers.put("Authorization:", auth_token);
         params.put("item[name]", "example@mail.com");
         params.put("item[description]", "123123123");
         params.put("item[quantity]", "7");
+        //Needs custom listener in place of null
+//        sendRequest(Request.Method.POST, headers, params, null);
         break;
       case "destroy":
-        this.method = Request.Method.DELETE;
+        //this.method = Request.Method.DELETE;
         json_url = api_base_url + "/items/" + recordId;
         headers.put("Authorization:", auth_token);
+        //Needs custom listener in place of null
+//        sendRequest(Request.Method.DELETE, headers, params, null);
         break;
     }
-    sendRequest();
   }
 
+  private void validateStoredAuthToken(){
+      String token = getAuthFromDB();
+  }
+
+  private void getNewAuthToken(HashMap<String, String> headers, HashMap<String, String> params) {
+    Response.Listener listener = new Response.Listener<JSONObject>() {
+      @Override
+      public void onResponse(JSONObject response) {
+        try {
+          auth_token = response.get("auth_token").toString();
+          store_Auth_Locally(auth_token);
+        } catch (JSONException e) {
+          e.printStackTrace();
+        }
+      }
+    };
+
+     Response.ErrorListener errorListener = new Response.ErrorListener() {
+      @Override
+      public void onErrorResponse(VolleyError error) {
+        //VolleyLog.d(TAG, "Error: " + error.getMessage());
+        //hideProgressDialog();
+      }
+    };
+
+    sendRequest(Request.Method.POST, headers, params, listener, errorListener);
+  }
+
+
+  private void sendRequest(int method, final HashMap<String, String> headers, final HashMap<String,
+                            String> params, Response.Listener listener, Response.ErrorListener errorListener){//Response.Listener listener) {
+
+    final JSONObject json = new JSONObject(params);
+
+    JsonObjectRequest jsonObjReq = new JsonObjectRequest(
+            method, json_url, json, listener, errorListener
+
+//            new Response.Listener<JSONObject>() {
+//      @Override
+//      public void onResponse(JSONObject response) {
+//        try {
+//          auth_token = response.get("auth_token").toString();
+//          store_Auth_Locally(auth_token);
+//        } catch (JSONException e) {
+//          e.printStackTrace();
+//        }
+//      }
+//    }
+
+//     new Response.ErrorListener() {
+//      @Override
+//      public void onErrorResponse(VolleyError error) {
+//        //VolleyLog.d(TAG, "Error: " + error.getMessage());
+//        //hideProgressDialog();
+//      }
+//    }
+
+    ) {
+
+      /*
+       * Passing some request headers
+       */
+      @Override
+      public Map<String, String> getHeaders() throws AuthFailureError {
+        return headers;
+      }
+
+      @Override
+      protected Map<String, String> getParams() throws com.android.volley.AuthFailureError {
+        return params;
+      }
+    };
+    //ApplicationController test = new ApplicationController();
+    //test.getInstance().addToRequestQueue(jsonObjReq);
+    RequestQueue requestQueue = Volley.newRequestQueue(mCtx.getApplicationContext());
+    requestQueue.add(jsonObjReq);
+    //test.getInstance().addToRequestQueue(jsonObjReq, "hghc");
+  }
+
+  private void store_Auth_Locally(String auth_token) {
+    dataOps = new DatabaseOperations(mCtx);
+    dataOps.openDB();
+    dataOps.addTokenToDB(auth_token);
+    dataOps.closeDB();
+  }
+
+  public String getAuthFromDB(){
+    dataOps = new DatabaseOperations(mCtx);
+    dataOps.openDB();
+
+    //broken
+    String token = dataOps.getTokenFromDB("_id", "1");
+    dataOps.closeDB();
+    return token;
+  }
+}
+
+  /*
   private void sendRequest() {
     final JSONObject json = new JSONObject(params);
     dataOps = new DatabaseOperations(mCtx);
@@ -122,9 +236,6 @@ class ApiInterface {
       }
     }) {
 
-      /*
-       * Passing some request headers
-       */
       @Override
       public Map<String, String> getHeaders() throws AuthFailureError {
         return headers;
@@ -142,6 +253,7 @@ class ApiInterface {
     //test.getInstance().addToRequestQueue(jsonObjReq, "hghc");
   }
 }
+*/
 //    StringRequest stringRequest;
 //    stringRequest = new StringRequest(method, json_url,
 //      new Response.Listener<String>() {
