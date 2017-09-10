@@ -44,10 +44,41 @@ class ApiInterface {
 
   public String auth_token;
   private DatabaseOperations dataOps;
+  private Response.ErrorListener defaultErrorListener = new Response.ErrorListener() {
+    @Override
+    public void onErrorResponse(VolleyError error) {
+      Toast.makeText(mCtx, "Default error listener", Toast.LENGTH_LONG).show();
+      //VolleyLog.d(TAG, "Error: " + error.getMessage());
+      //hideProgressDialog();
+    }
+  };
+  private Response.Listener defaultListener = new Response.Listener<JSONObject>() {
+    @Override
+    public void onResponse(JSONObject response) {
+      try {
+        //auth_token = response.get("auth_token").toString();
+        response.get("");
+        Toast.makeText(mCtx, "Default response listener", Toast.LENGTH_LONG).show();
+        //store_Auth_Locally(auth_token);
+      } catch (JSONException e) {
+        e.printStackTrace();
+      }
+    }
+  };
 
-  void apiRequest(String request_type){ //, Context context) {
+
+  /*
+TODO: 9/9/17 figure out how to validate a stored auth token before making a request
+      or how to detect and respond to a failed request.
+*/
+
+void apiRequest(String request_type){ //, Context context) {
 
     switch (request_type) {
+      case "test":
+        //testing create
+
+        break;
       case "authenticate":
         //this.method = request.method.post;
         json_url = api_base_url + "/authenticate";
@@ -56,7 +87,7 @@ class ApiInterface {
         params.put("password", "123123123");
         getNewAuthToken(headers, params);
         //Make toast to check if token was stored successfully
-        ApiData test = new ApiData(auth_token);
+        //ApiData test = new ApiData(auth_token);
         //Toast.makeText(mCtx, test.getApiDataToken(), Toast.LENGTH_LONG).show();
         break;
       case "read":
@@ -77,14 +108,16 @@ class ApiInterface {
 //        sendRequest(Request.Method.PUT, headers, params, null);
         break;
       case "create":
-        //this.method = Request.Method.POST;
         json_url = api_base_url + "/items/create";
-        headers.put("Authorization:", auth_token);
-        params.put("item[name]", "example@mail.com");
-        params.put("item[description]", "123123123");
-        params.put("item[quantity]", "7");
-        //Needs custom listener in place of null
-//        sendRequest(Request.Method.POST, headers, params, null);
+        String token = getAuthFromDB();
+        headers.clear();
+        headers.put("Authorization:", token);
+        params.clear();
+        params.put("name", "bullshit");
+        params.put("description", "also bullshit");
+        params.put("quantity", "numbers");
+//        params.put("item[min_stock]", "more numbers");
+        sendRequest(Request.Method.POST, headers, params, defaultListener, defaultErrorListener);
         break;
       case "destroy":
         //this.method = Request.Method.DELETE;
@@ -97,7 +130,30 @@ class ApiInterface {
   }
 
   private void validateStoredAuthToken(){
-      String token = getAuthFromDB();
+    String token = getAuthFromDB();
+    headers.put("Authorization:", token);
+
+    Response.Listener listener = new Response.Listener<JSONObject>() {
+      @Override
+      public void onResponse(JSONObject response) {
+        try {
+          auth_token = response.get("auth_token").toString();
+          store_Auth_Locally(auth_token);
+        } catch (JSONException e) {
+          e.printStackTrace();
+        }
+      }
+    };
+
+    Response.ErrorListener errorListener = new Response.ErrorListener() {
+      @Override
+      public void onErrorResponse(VolleyError error) {
+        //VolleyLog.d(TAG, "Error: " + error.getMessage());
+        //hideProgressDialog();
+      }
+    };
+
+    sendRequest(Request.Method.POST, headers, params, listener, errorListener);
   }
 
   private void getNewAuthToken(HashMap<String, String> headers, HashMap<String, String> params) {
@@ -131,30 +187,7 @@ class ApiInterface {
     final JSONObject json = new JSONObject(params);
 
     JsonObjectRequest jsonObjReq = new JsonObjectRequest(
-            method, json_url, json, listener, errorListener
-
-//            new Response.Listener<JSONObject>() {
-//      @Override
-//      public void onResponse(JSONObject response) {
-//        try {
-//          auth_token = response.get("auth_token").toString();
-//          store_Auth_Locally(auth_token);
-//        } catch (JSONException e) {
-//          e.printStackTrace();
-//        }
-//      }
-//    }
-
-//     new Response.ErrorListener() {
-//      @Override
-//      public void onErrorResponse(VolleyError error) {
-//        //VolleyLog.d(TAG, "Error: " + error.getMessage());
-//        //hideProgressDialog();
-//      }
-//    }
-
-    ) {
-
+            method, json_url, json, listener, errorListener) {
       /*
        * Passing some request headers
        */
@@ -168,11 +201,9 @@ class ApiInterface {
         return params;
       }
     };
-    //ApplicationController test = new ApplicationController();
-    //test.getInstance().addToRequestQueue(jsonObjReq);
+
     RequestQueue requestQueue = Volley.newRequestQueue(mCtx.getApplicationContext());
     requestQueue.add(jsonObjReq);
-    //test.getInstance().addToRequestQueue(jsonObjReq, "hghc");
   }
 
   private void store_Auth_Locally(String auth_token) {
