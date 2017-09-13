@@ -35,9 +35,13 @@ public class InventoryActivity extends AppCompatActivity {
   //String test = auth.getAuthFromDB();
   //if (auth_token == null){
   //if(auth.getAuthFromDB().equals("")){
+
+    //Pass current context to auth
     auth.setmCtx(this);
+    //authorize user
     //auth.apiRequest("authenticate");
-    auth.apiRequest("create");
+    //execute api request
+    auth.apiRequest("validate");
 
   //}else{auth.apiRequest("authenticate",InventoryActivity.this);}
   }

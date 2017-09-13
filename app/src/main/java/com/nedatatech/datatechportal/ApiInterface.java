@@ -10,6 +10,7 @@ import android.provider.SyncStateContract;
 import android.widget.Toast;
 import org.json.JSONException;
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -42,12 +43,34 @@ class ApiInterface {
     this.mCtx = mCtx;
   }
 
+  private String token;
+
   public String auth_token;
   private DatabaseOperations dataOps;
   private Response.ErrorListener defaultErrorListener = new Response.ErrorListener() {
     @Override
     public void onErrorResponse(VolleyError error) {
-      Toast.makeText(mCtx, "Default error listener", Toast.LENGTH_LONG).show();
+      //Toast.makeText(mCtx, "Default error listener: " + error.toString() + " || " + error.networkResponse.toString() , Toast.LENGTH_LONG).show();
+      String json = null;
+      NetworkResponse response = error.networkResponse;
+      if(response != null && response.data != null){
+        //switch(response.statusCode){
+        //  case 500:
+            json = new String(response.data);
+            //json = trimMessage(json,"message");
+            if(json != null) displayMessage(json);
+        //    break;
+        //}
+      }
+      switch(error.toString()){
+        case "com.android.volley.AuthFailureError":
+          json_url = api_base_url + "/authenticate";
+          headers.put("Authorization:","N/A");
+          params.put("email", "example@mail.com");
+          params.put("password", "123123123");
+          //getNewAuthToken(headers, params);
+        break;
+      }
       //VolleyLog.d(TAG, "Error: " + error.getMessage());
       //hideProgressDialog();
     }
@@ -57,8 +80,8 @@ class ApiInterface {
     public void onResponse(JSONObject response) {
       try {
         //auth_token = response.get("auth_token").toString();
-        response.get("");
-        Toast.makeText(mCtx, "Default response listener", Toast.LENGTH_LONG).show();
+        response.get("response");
+        Toast.makeText(mCtx, "Default response listener: " + response.toString(), Toast.LENGTH_LONG).show();
         //store_Auth_Locally(auth_token);
       } catch (JSONException e) {
         e.printStackTrace();
@@ -66,6 +89,22 @@ class ApiInterface {
     }
   };
 
+  public String trimMessage(String json, String key){
+    String trimmedString;
+
+    try{
+      JSONObject obj = new JSONObject(json);
+      trimmedString = obj.getString(key);
+    }catch(JSONException e){
+      e.printStackTrace();
+      return null;
+    }
+    return trimmedString;
+  }
+
+  public void displayMessage(String toastString){
+    Toast.makeText(mCtx, toastString , Toast.LENGTH_LONG).show();
+  }
 
   /*
 TODO: 9/9/17 figure out how to validate a stored auth token before making a request
@@ -75,9 +114,20 @@ TODO: 9/9/17 figure out how to validate a stored auth token before making a requ
 void apiRequest(String request_type){ //, Context context) {
 
     switch (request_type) {
+      //case validate
       case "test":
-        //testing create
-
+        break;
+      case "validate":
+        validateStoredAuthToken();
+        //testing validate
+        //token = getAuthFromDB();
+        ////test failed token
+        //token = token + "fail";
+        //json_url = api_base_url + "/validate";
+        //params.clear();
+        //headers.clear();
+        //headers.put("Authorization:", token);
+        //sendRequest(Request.Method.POST, headers, params, defaultListener, defaultErrorListener);
         break;
       case "authenticate":
         //this.method = request.method.post;
@@ -98,18 +148,19 @@ void apiRequest(String request_type){ //, Context context) {
 //        sendRequest(Request.Method.GET, headers, params, null);
         break;
       case "update":
-        //this.method = Request.Method.PUT;
+        recordId = "11";
+        token = getAuthFromDB();
         json_url = api_base_url + "/items/" + recordId;
-        headers.put("Authorization:", auth_token);
-        params.put("item[name]", "bullshit");
-        params.put("item[description]", "also bullshit");
-        params.put("item[quantity]", "numbers");
+        headers.put("Authorization:", token);
+        params.put("name", "bullshit2");
+        params.put("description", "also bullshit2");
+        params.put("quantity", "numbers2");
         //Needs custom listener in place of null
-//        sendRequest(Request.Method.PUT, headers, params, null);
+        sendRequest(Request.Method.PUT, headers, params, defaultListener, defaultErrorListener);
         break;
       case "create":
         json_url = api_base_url + "/items/create";
-        String token = getAuthFromDB();
+        token = getAuthFromDB();
         headers.clear();
         headers.put("Authorization:", token);
         params.clear();
@@ -120,17 +171,31 @@ void apiRequest(String request_type){ //, Context context) {
         sendRequest(Request.Method.POST, headers, params, defaultListener, defaultErrorListener);
         break;
       case "destroy":
-        //this.method = Request.Method.DELETE;
+        recordId = "9";
+        token = getAuthFromDB();
         json_url = api_base_url + "/items/" + recordId;
-        headers.put("Authorization:", auth_token);
-        //Needs custom listener in place of null
-//        sendRequest(Request.Method.DELETE, headers, params, null);
+        headers.put("Authorization:", token);
+        sendRequest(Request.Method.DELETE, headers, params, defaultListener, defaultErrorListener);
         break;
     }
   }
 
   private void validateStoredAuthToken(){
-    String token = getAuthFromDB();
+
+
+    //token = getAuthFromDB();
+    ////test failed token
+    //token = token + "fail";
+    json_url = api_base_url + "/validate";
+    params.clear();
+    headers.clear();
+    //headers.put("Authorization:", token);
+    //sendRequest(Request.Method.POST, headers, params, defaultListener, defaultErrorListener);
+
+
+    token = getAuthFromDB();
+    //test failed token
+    //token = token + "fail";
     headers.put("Authorization:", token);
 
     Response.Listener listener = new Response.Listener<JSONObject>() {
@@ -153,7 +218,7 @@ void apiRequest(String request_type){ //, Context context) {
       }
     };
 
-    sendRequest(Request.Method.POST, headers, params, listener, errorListener);
+    sendRequest(Request.Method.POST, headers, params, defaultListener, defaultErrorListener);
   }
 
   private void getNewAuthToken(HashMap<String, String> headers, HashMap<String, String> params) {
