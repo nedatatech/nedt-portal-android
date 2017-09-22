@@ -41,7 +41,7 @@ public class InventoryActivity extends AppCompatActivity {
     //authorize user
     //auth.apiRequest("authenticate");
     //execute api request
-    auth.apiRequest("validate");
+    auth.apiRequest("create");
 
   //}else{auth.apiRequest("authenticate",InventoryActivity.this);}
   }

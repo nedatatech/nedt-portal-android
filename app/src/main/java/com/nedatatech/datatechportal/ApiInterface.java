@@ -182,17 +182,9 @@ void apiRequest(String request_type){ //, Context context) {
 
   private void validateStoredAuthToken(){
 
-
-    //token = getAuthFromDB();
-    ////test failed token
-    //token = token + "fail";
     json_url = api_base_url + "/validate";
     params.clear();
     headers.clear();
-    //headers.put("Authorization:", token);
-    //sendRequest(Request.Method.POST, headers, params, defaultListener, defaultErrorListener);
-
-
     token = getAuthFromDB();
     //test failed token
     //token = token + "fail";
@@ -287,100 +279,9 @@ void apiRequest(String request_type){ //, Context context) {
     dataOps.closeDB();
     return token;
   }
-}
 
-  /*
-  private void sendRequest() {
-    final JSONObject json = new JSONObject(params);
-    dataOps = new DatabaseOperations(mCtx);
-    //json.putAll( data );
-    JsonObjectRequest jsonObjReq = new JsonObjectRequest(
-            method, json_url, json,
-            new Response.Listener<JSONObject>() {
-              @Override
-              public void onResponse(JSONObject response) {
-                try {
+  private void storePendingRequest(){
 
-                  auth_token = response.get("auth_token").toString();
-                 //auth_token = response.toString();
-
-                 //String test = "INSERT INTO " + DatabaseContract.ApiDataColumns.TABLE_API_DATA + " (" + DatabaseContract.ApiDataColumns.COLUMN_AUTH_TOKEN +") VALUES" + "(" + auth_token + ");";
-
-                 //database.execSQL("INSERT INTO " + DatabaseContract.ApiDataColumns.TABLE_API_DATA + " (" + DatabaseContract.ApiDataColumns.COLUMN_AUTH_TOKEN +") VALUES" + "(" + auth_token + ");");
-                  //dataOps
-                  //ContentValues values = new ContentValues();
-                  //values.put("auth", auth_token);
-                  //dataOps.addToken(auth_token);
-                  ApiData test = new ApiData(auth_token);
-                  dataOps.openDB();
-                  dataOps.addTokenToDB(auth_token);
-                 Toast.makeText(mCtx, test.getApiDataToken(),Toast.LENGTH_LONG) .show();
-
-
-                //msgResponse.setText(response.toString());
-                //hideProgressDialog();
-                } catch (JSONException e) {
-                  e.printStackTrace();
-                }
-              }
-            }, new Response.ErrorListener() {
-
-      @Override
-      public void onErrorResponse(VolleyError error) {
-        //VolleyLog.d(TAG, "Error: " + error.getMessage());
-        //hideProgressDialog();
-      }
-    }) {
-
-      @Override
-      public Map<String, String> getHeaders() throws AuthFailureError {
-        return headers;
-      }
-
-      @Override
-      protected Map<String, String> getParams() throws com.android.volley.AuthFailureError {
-        return params;
-      }
-    };
-    //ApplicationController test = new ApplicationController();
-    //test.getInstance().addToRequestQueue(jsonObjReq);
-    RequestQueue requestQueue = Volley.newRequestQueue(mCtx.getApplicationContext());
-    requestQueue.add(jsonObjReq);
-    //test.getInstance().addToRequestQueue(jsonObjReq, "hghc");
   }
-}
-*/
-//    StringRequest stringRequest;
-//    stringRequest = new StringRequest(method, json_url,
-//      new Response.Listener<String>() {
-//        @Override
-//        public void onResponse(String response) {
-//          showJSON(response);
-//          Toast.makeText(mCtx, response ,Toast.LENGTH_LONG) .show();
-//        }
-//      },
-//        new Response.ErrorListener() {
-//          @Override
-//          public void onErrorResponse(VolleyError error) {
-//            Toast.makeText(mCtx.getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG).show();
-//          }
-//        })
-//        {
-//          @Override
-//          public Map<String, String> getHeaders() throws com.android.volley.AuthFailureError {
-//            return headers;
-//          }
-//          @Override
-//          protected Map<String, String> getParams() throws com.android.volley.AuthFailureError {
-//            return params;
-//          }
-//        };
-//    RequestQueue requestQueue = Volley.newRequestQueue(mCtx.getApplicationContext());
-//    requestQueue.add(stringRequest);
-//  }
 
- // private void showJSON(String json){
-  //  ParseJSON pj = new ParseJSON(json);
-  //  pj.parseJSON();
-  //}
-//}
+}
