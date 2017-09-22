@@ -44,5 +44,12 @@ public class DatabaseContract {
     public static final String CREATE_API_DATA_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_API_DATA  + " (" + BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + COLUMN_AUTH_TOKEN + " TEXT)";
   }
-
+  public static class ToDoDataColumns implements BaseColumns {
+    public static final String TABLE_TODO_DATA = "todo_data";
+    public static final String COLUMN_PRIORITY = "priority";
+    public static final String COLUMN_DESCRIPTION = "description";
+    public static final String COLUMN_NOTES = "notes";
+    public static final String CREATE_TODO_DATA_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_TODO_DATA  + " (" + BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + COLUMN_PRIORITY  + " TEXT, " + COLUMN_DESCRIPTION + " TEXT, " + COLUMN_NOTES + " TEXT)";
+  }
 }

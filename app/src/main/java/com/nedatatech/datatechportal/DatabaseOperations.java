@@ -7,6 +7,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.EdgeEffect;
+import android.widget.EditText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,12 +23,14 @@ public class DatabaseOperations {
   private SQLiteOpenHelper dbHelper; /* This can be TestDBHelper dbHelper or the system default SQLiteOpenHelper dbHelper. Not sure what the difference is.
                                             Maybe either just methods used in TestDBHelper class or all from SQLiteOpenHelper and the overridden ones in TestDBHelper.*/
   private SQLiteDatabase database;
-  private String[]CUSTOMER_ALL_COLUMNS = {BaseColumns._ID, DatabaseContract.CustomerColumns.COLUMN_FIRST_NAME,
+  private String[] CUSTOMER_ALL_COLUMNS = {BaseColumns._ID, DatabaseContract.CustomerColumns.COLUMN_FIRST_NAME,
           DatabaseContract.CustomerColumns.COLUMN_LAST_NAME, DatabaseContract.CustomerColumns.COLUMN_EMAIL,
           DatabaseContract.CustomerColumns.COLUMN_PHONE, DatabaseContract.CustomerColumns.COLUMN_STREET,
           DatabaseContract.CustomerColumns.COLUMN_CITY, DatabaseContract.CustomerColumns.COLUMN_STATE,
           DatabaseContract.CustomerColumns.COLUMN_ZIPCODE};
-  private String[]API_DATA_ALL_COLUMNS = {BaseColumns._ID, DatabaseContract.ApiDataColumns.COLUMN_AUTH_TOKEN};
+  private String[] API_DATA_ALL_COLUMNS = {BaseColumns._ID, DatabaseContract.ApiDataColumns.COLUMN_AUTH_TOKEN};
+  private String[] TODO_DATA_ALL_COLUMNS = {BaseColumns._ID, DatabaseContract.ToDoDataColumns.COLUMN_PRIORITY,
+          DatabaseContract.ToDoDataColumns.COLUMN_DESCRIPTION, DatabaseContract.ToDoDataColumns.COLUMN_NOTES};
 
   public DatabaseOperations(Context context) {
     Log.i(logTag, "Helper class has been accessed"); // Debug info.
@@ -81,7 +85,7 @@ public class DatabaseOperations {
     ArrayList<Customer> customerList = new ArrayList<>();
     if (cursor.getCount() > 0) {
       int cursorCount = cursor.getCount();
-      for(int i = 1; i <= cursorCount; i++) {
+      for (int i = 1; i <= cursorCount; i++) {
         cursor.moveToNext();
         Customer customer = new Customer();
         customer.setCustomerID(cursor.getLong(cursor.getColumnIndex(BaseColumns._ID)));
@@ -96,8 +100,9 @@ public class DatabaseOperations {
         customerList.add(customer);
         Log.v(logTag, "Added Customer to Array");
       }
-    } cursor.close();
-   return customerList;
+    }
+    cursor.close();
+    return customerList;
   }
 
   // Finds and returns the entire table in a list.
@@ -119,7 +124,8 @@ public class DatabaseOperations {
         customer.setCustomerZipcode(cursor.getString(cursor.getColumnIndex(DatabaseContract.CustomerColumns.COLUMN_ZIPCODE)));
         customerList.add(customer);
       }
-    } cursor.close();
+    }
+    cursor.close();
     return customerList;
   }
 
@@ -157,16 +163,16 @@ public class DatabaseOperations {
   //Store auth token locally
   public void addTokenToDB(String token) {
 
-    Cursor cursor = database.query(DatabaseContract.ApiDataColumns.TABLE_API_DATA , new String[]{DatabaseContract.ApiDataColumns.COLUMN_AUTH_TOKEN}, BaseColumns._ID,
+    Cursor cursor = database.query(DatabaseContract.ApiDataColumns.TABLE_API_DATA, new String[]{DatabaseContract.ApiDataColumns.COLUMN_AUTH_TOKEN}, BaseColumns._ID,
             null, null, null, null, null);
     cursor.moveToFirst();
     ContentValues values = new ContentValues();
     //ApiData test = new ApiData();
     long test;
     values.put(DatabaseContract.ApiDataColumns.COLUMN_AUTH_TOKEN, token);
-    if(getTokenFromDB("_id", "1").toString().equals("")){
+    if (getTokenFromDB("_id", "1").toString().equals("")) {
       test = database.insert(DatabaseContract.ApiDataColumns.TABLE_API_DATA, "1", values);
-    }else {
+    } else {
       test = database.update(DatabaseContract.ApiDataColumns.TABLE_API_DATA, values, "_id = 1", null);
     }
     //return apiData;
@@ -174,15 +180,16 @@ public class DatabaseOperations {
 
   //Could potentially do things if there were things for it to do
   public List<String> getAllFromDB() {
-    Cursor cursor = database.query(DatabaseContract.ApiDataColumns.TABLE_API_DATA  , API_DATA_ALL_COLUMNS , null, null, null, null, null);
+    Cursor cursor = database.query(DatabaseContract.ApiDataColumns.TABLE_API_DATA, API_DATA_ALL_COLUMNS, null, null, null, null, null);
 
     List<String> tokenList = new ArrayList<>();
     if (cursor.getCount() > 0) {
       while (cursor.moveToNext()) {
-        tokenList.add(cursor.getString(cursor.getColumnIndex(BaseColumns._ID)) );
+        tokenList.add(cursor.getString(cursor.getColumnIndex(BaseColumns._ID)));
         tokenList.add(cursor.getString(cursor.getColumnIndex(DatabaseContract.ApiDataColumns.COLUMN_AUTH_TOKEN)));
       }
-    } cursor.close();
+    }
+    cursor.close();
     return tokenList;
   }
 
@@ -203,15 +210,44 @@ public class DatabaseOperations {
     //  while (cursor.moveToNext()) {
     //    tokenList.add(cursor.getString(cursor.getColumnIndex(BaseColumns._ID)) );
     //    tokenList.add(cursor.getString(cursor.getColumnIndex(DatabaseContract.ApiDataColumns.COLUMN_AUTH_TOKEN)));
-     // }
+    // }
     //} cursor.close();
 
     return token;
   }
-}
+
 
 /*
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ======================================= Api Operations =============================================
 ====================================================================================================
+
+
+==================================================================================================
+======================================= To-Do List Operations ===========================================
+VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
 */
+
+  public void saveToDoItem(ContentValues values) {
+    long insertID = database.insert(DatabaseContract.ToDoDataColumns.TABLE_TODO_DATA,  null, values);
+  }
+
+  public List<String> getToDoItems() {
+      Cursor cursor = database.query(DatabaseContract.ToDoDataColumns.TABLE_TODO_DATA , TODO_DATA_ALL_COLUMNS, null, null, null, null, null);
+
+      List<String> toDoList = new ArrayList<>();
+      if (cursor.getCount() > 0) {
+        while (cursor.moveToNext()) {
+          toDoList.add(cursor.getString(cursor.getColumnIndex(DatabaseContract.ToDoDataColumns.COLUMN_DESCRIPTION)));
+        }
+      }
+      cursor.close();
+      return toDoList;
+    }
+/*
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+======================================= To-Do List Operations =============================================
+====================================================================================================
+*/
+
+}
