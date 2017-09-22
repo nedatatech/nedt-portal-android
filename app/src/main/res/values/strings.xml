@@ -30,6 +30,8 @@
   <string name="buttonText_customerAddEdit">Add/Edit/Delete</string>
   <string name="buttonText_customerSearch">Search Customer</string>
   <string name="buttonText_customerList">List All Customers</string>
+  <string name="buttonText_toDoAdd">Add</string>
+
 
   <string name="button_test">Test Button</string> <!--not needed-->
   <string name="input_text">Text Field</string> <!--not needed-->

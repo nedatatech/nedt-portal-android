@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.nedatatech.datatechportal.ToDoActivity.ToDoMain;
+
 import static com.nedatatech.datatechportal.ParseJSON.auth_token;
 
 public class InventoryActivity extends AppCompatActivity {
@@ -22,7 +24,7 @@ public class InventoryActivity extends AppCompatActivity {
     buttonList.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-    Intent startListActivity = new Intent(InventoryActivity.this, DatabaseTester.class);
+    Intent startListActivity = new Intent(InventoryActivity.this, ToDoMain.class);
     startActivity(startListActivity);
       }
     });
