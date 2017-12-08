@@ -238,6 +238,10 @@ VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
     long insertID = database.insert(DatabaseContract.ToDoDataColumns.TABLE_TODO_DATA,  null, values);
   }
 
+  public void deleteToDoItem(String itemId) {
+    database.delete(DatabaseContract.ToDoDataColumns.TABLE_TODO_DATA, BaseColumns._ID + " = " + itemId, null);
+  }
+
   public void refreshToDoList(){
     todoCursor = getToDoItems();
     todoAdapter.swapCursor(todoCursor);

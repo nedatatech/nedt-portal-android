@@ -54,7 +54,10 @@ public class ToDoMain extends Activity {
   @Override
   public boolean onContextItemSelected(MenuItem item){
     if(item.getTitle()=="Delete"){
-      Toast.makeText(getApplicationContext(),"Deletes the item",Toast.LENGTH_LONG).show();
+      //Toast.makeText(getApplicationContext(),"Deletes the item",Toast.LENGTH_LONG).show();
+      final String itemId = dataOps.todoCursor.getString(dataOps.todoCursor.getColumnIndex("_id"));
+      dataOps.deleteToDoItem(itemId);
+      dataOps.refreshToDoList();
     }
     else if(item.getTitle()=="Edit"){
       Toast.makeText(getApplicationContext(),"Edits the item",Toast.LENGTH_LONG).show();
