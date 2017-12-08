@@ -1,25 +1,18 @@
 package com.nedatatech.datatechportal.ToDoActivity;
 
-import android.app.ListActivity;
+import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 
 import com.nedatatech.datatechportal.DatabaseOperations;
-import com.nedatatech.datatechportal.InventoryActivity;
 import com.nedatatech.datatechportal.R;
 
-import java.util.List;
+public class ToDoMain extends Activity {
 
-public class ToDoMain extends ListActivity {
-
-  private Button buttonAdd;
   private DatabaseOperations dataOps;
-  private List<String> toDoList;
-  ArrayAdapter<String> toDoListAdapter;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -28,13 +21,14 @@ public class ToDoMain extends ListActivity {
 
     dataOps = new DatabaseOperations(this);
     dataOps.openDB();
-    toDoList = dataOps.getToDoItems();
-    // Should close database when access will not be needed anymore. MainActivity?
 
-    toDoListAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, toDoList);
-    setListAdapter(toDoListAdapter);
+    dataOps.todoCursor = dataOps.getToDoItems();
 
-    buttonAdd = (Button) findViewById(R.id.toDoAdd_button);
+    ListView lvItems = (ListView) findViewById(R.id.lvItems);
+    dataOps.todoAdapter = new ToDoAdapter(this, dataOps.todoCursor);
+    lvItems.setAdapter(dataOps.todoAdapter);
+
+    Button buttonAdd = (Button) findViewById(R.id.toDoAdd_button);
     buttonAdd.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -42,5 +36,11 @@ public class ToDoMain extends ListActivity {
         startActivity(startListActivity);
       }
     });
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    dataOps.refreshToDoList();
   }
 }

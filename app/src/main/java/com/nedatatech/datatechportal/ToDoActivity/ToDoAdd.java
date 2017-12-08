@@ -51,6 +51,7 @@ public class ToDoAdd extends AppCompatActivity {
         values.put(DatabaseContract.ToDoDataColumns.COLUMN_NOTES, notes);
         dataOps.saveToDoItem(values);
         dataOps.closeDB();
+        finish();
       }
     });
   }

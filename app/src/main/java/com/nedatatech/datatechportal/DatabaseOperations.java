@@ -10,6 +10,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.EdgeEffect;
 import android.widget.EditText;
 
+import com.nedatatech.datatechportal.ToDoActivity.ToDoAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -228,22 +230,24 @@ public class DatabaseOperations {
 VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
 */
 
+  public Cursor todoCursor;
+  public ToDoAdapter todoAdapter;
+
+
   public void saveToDoItem(ContentValues values) {
     long insertID = database.insert(DatabaseContract.ToDoDataColumns.TABLE_TODO_DATA,  null, values);
   }
 
-  public List<String> getToDoItems() {
-      Cursor cursor = database.query(DatabaseContract.ToDoDataColumns.TABLE_TODO_DATA , TODO_DATA_ALL_COLUMNS, null, null, null, null, null);
+  public void refreshToDoList(){
+    todoCursor = getToDoItems();
+    todoAdapter.swapCursor(todoCursor);
+    todoAdapter.notifyDataSetChanged();
+  }
 
-      List<String> toDoList = new ArrayList<>();
-      if (cursor.getCount() > 0) {
-        while (cursor.moveToNext()) {
-          toDoList.add(cursor.getString(cursor.getColumnIndex(DatabaseContract.ToDoDataColumns.COLUMN_DESCRIPTION)));
-        }
-      }
-      cursor.close();
-      return toDoList;
+  public Cursor getToDoItems(){
+      return database.rawQuery("SELECT  * FROM " + DatabaseContract.ToDoDataColumns.TABLE_TODO_DATA, null);
     }
+
 /*
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ======================================= To-Do List Operations =============================================
