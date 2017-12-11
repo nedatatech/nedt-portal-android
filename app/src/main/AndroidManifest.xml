@@ -49,6 +49,14 @@
     </activity>
     <activity android:name=".ToDoActivity.ToDoView">
     </activity>
+    <activity android:name=".FundsActivity.FundsMain">
+    </activity>
+    <activity android:name=".FundsActivity.FundsNew">
+    </activity>
+    <activity android:name=".FundsActivity.FundsView">
+    </activity>
+    <activity android:name=".FundsActivity.FundsEdit">
+    </activity>
   </application>
 
 </manifest>

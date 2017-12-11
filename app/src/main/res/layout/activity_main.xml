@@ -23,8 +23,7 @@
     <Button
         android:id="@+id/buttonCustomer"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight=".25"
+        android:layout_height="64dp"
         android:onClick="customerButton"
         android:text="@string/string_cusData"
         android:textAlignment="center"
@@ -34,7 +33,7 @@
         android:id="@+id/buttonJob"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight=".25"
+        android:layout_weight="0.12"
         android:onClick="jobButton"
         android:text="@string/string_jobData"
         android:textAlignment="center"
@@ -57,6 +56,15 @@
         android:layout_weight=".25"
         android:onClick="companyButton"
         android:text="@string/string_companyPro"
+        android:textAlignment="center"
+        android:textStyle="bold"/>
+    <Button
+        android:id="@+id/buttonFunds"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".25"
+        android:onClick="fundsButton"
+        android:text="@string/string_funds"
         android:textAlignment="center"
         android:textStyle="bold"/>
   </LinearLayout>

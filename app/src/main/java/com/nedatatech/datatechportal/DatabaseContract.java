@@ -52,4 +52,30 @@ public class DatabaseContract {
     public static final String CREATE_TODO_DATA_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_TODO_DATA  + " (" + BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + COLUMN_PRIORITY  + " TEXT, " + COLUMN_DESCRIPTION + " TEXT, " + COLUMN_NOTES + " TEXT)";
   }
+
+  public static class FundsDataColumns implements BaseColumns {
+    public static final String TABLE_FUNDS_DATA = "funds_data";
+    public static final String COLUMN_TIM = "tim";
+    public static final String COLUMN_DAVE = "dave";
+    public static final String COLUMN_INVENTORY = "inventory";
+    public static final String COLUMN_CASH = "cash";
+    public static final String COLUMN_MISC = "misc";
+    public static final String COLUMN_FUEL = "fuel";
+    //public static final String COLUMN_TRANSACTIONS = "transactions";
+    public static final String CREATE_FUNDS_DATA_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_FUNDS_DATA + " (" + BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + COLUMN_TIM + " TEXT, " + COLUMN_DAVE + " TEXT, " + COLUMN_INVENTORY + " TEXT, " + COLUMN_CASH + " TEXT, " + COLUMN_MISC + " TEXT, " + COLUMN_FUEL + " TEXT)";
+  }
+
+  public static class FundsHistoryColumns implements BaseColumns {
+    public static final String TABLE_FUNDS_HISTORY_DATA = "funds_history_data";
+    public static final String COLUMN_TIM = "tim";
+    public static final String COLUMN_DAVE = "dave";
+    public static final String COLUMN_INVENTORY = "inventory";
+    public static final String COLUMN_CASH = "cash";
+    public static final String COLUMN_MISC = "misc";
+    public static final String COLUMN_FUEL = "fuel";
+    //public static final String COLUMN_TRANSACTIONS = "transactions";
+    public static final String CREATE_FUNDS_HISTORY_DATA_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_FUNDS_HISTORY_DATA + " (" + BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + COLUMN_TIM + " TEXT, " + COLUMN_DAVE + " TEXT, " + COLUMN_INVENTORY + " TEXT, " + COLUMN_CASH + " TEXT, " + COLUMN_MISC + " TEXT, " + COLUMN_FUEL + " TEXT)";
+  }
 }

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.nedatatech.datatechportal.FundsActivity.FundsMain;
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -36,6 +38,11 @@ public class MainActivity extends AppCompatActivity {
   public void companyButton(View view){
     Intent companyStart = new Intent(this, CompanyActivity.class);
     startActivity(companyStart);
+  }
+
+  public void fundsButton(View view){
+    Intent fundsStart = new Intent(this, FundsMain.class);
+    startActivity(fundsStart);
   }
 
   // Calling this method just to make sure the App gets closed out and the database closed properly.

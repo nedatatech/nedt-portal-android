@@ -8,6 +8,7 @@
   <string name="string_jobData">Job Database</string>
   <string name="string_invData">Inventory Database</string>
   <string name="string_companyPro">Company Profile</string>
+  <string name="string_funds">Funds</string>
 
   <string name="string_customerID">Customer ID</string>
   <string name="string_firstName">First Name</string>
@@ -31,10 +32,20 @@
   <string name="buttonText_customerSearch">Search Customer</string>
   <string name="buttonText_customerList">List All Customers</string>
   <string name="buttonText_toDoAdd">Add</string>
-
+  <string name="buttonText_FundsNew">New Transaction</string>
 
   <string name="button_test">Test Button</string> <!--not needed-->
   <string name="input_text">Text Field</string> <!--not needed-->
   <string name="input_float">Number Field</string>
-  <string name="test">test</string> <!--not needed-->
+  <string name="test">test</string>
+  <string name="tv_total_amt_rec">Total Amount Received:</string>
+  <string name="et_total_amt_rec">Enter Total Amount Received</string>
+  <string name="tv_fuel_cost">Fuel Cost:</string>
+  <string name="et_enter_fuel_cost">Enter fuel cost</string>
+  <string name="tv_inventory_cost">Inventory Cost:</string>
+  <string name="btn_save">Save</string>
+  <string name="btn_cancel">Cancel</string>
+  <string name="et_enter_inventory_cost">Enter Inventory Expenses:</string>
+  <string name="enter_misc_acct_per">Enter Misc Acct. Percentage</string>
+  <string name="tv_misc_acct_per">Misc Acct %:</string> <!--not needed-->
 </resources>

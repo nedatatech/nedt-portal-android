@@ -8,10 +8,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.nedatatech.datatechportal.FundsActivity.FundsAdapter;
 import com.nedatatech.datatechportal.ToDoActivity.ToDoAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.database.DatabaseUtils.dumpCursor;
 
 // This class will set up and use our specific database operations.
 public class DatabaseOperations {
@@ -266,5 +269,51 @@ VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
 ======================================= To-Do List Operations =============================================
 ====================================================================================================
 */
+
+/*
+==================================================================================================
+======================================= Funds Operations ===========================================
+VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+*/
+
+  public Cursor fundsCursor;
+  public FundsAdapter fundsAdapter;
+
+
+  public void saveFundsItem(ContentValues values) {
+    long insertID = database.insert(DatabaseContract.FundsDataColumns.TABLE_FUNDS_DATA, "1" , values);
+  }
+
+  public void updateFundsItem(ContentValues values, String updateID) {
+    //long insertID = database.insert(DatabaseContract.FundsDataColumns.TABLE_FUNDS_DATA,  null, values);
+    long bs = database.update(DatabaseContract.FundsDataColumns.TABLE_FUNDS_DATA, values,
+            BaseColumns._ID + " = " + updateID, null);
+
+  }
+
+  public void deleteFundsItem(String itemId) {
+    database.delete(DatabaseContract.FundsDataColumns.TABLE_FUNDS_DATA, BaseColumns._ID + " = " + itemId, null);
+  }
+
+  public void refreshFundsList(){
+    fundsCursor = getAllFundsItems();
+    fundsAdapter.swapCursor(fundsCursor);
+    fundsAdapter.notifyDataSetChanged();
+  }
+
+  public Cursor getAllFundsItems(){
+    return database.rawQuery("SELECT  * FROM " + DatabaseContract.FundsDataColumns.TABLE_FUNDS_DATA, null);
+  }
+
+  public Cursor getSingleFundsItem(String itemId){
+    return database.rawQuery("SELECT  * FROM " + DatabaseContract.FundsDataColumns.TABLE_FUNDS_DATA + " WHERE ROWID = " + itemId + " Limit 1", null);
+  }
+
+/*
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+======================================= Funds Operations =============================================
+====================================================================================================
+*/
+
 
 }
