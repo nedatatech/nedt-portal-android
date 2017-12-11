@@ -7,8 +7,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.EdgeEffect;
-import android.widget.EditText;
 
 import com.nedatatech.datatechportal.ToDoActivity.ToDoAdapter;
 
@@ -238,19 +236,30 @@ VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
     long insertID = database.insert(DatabaseContract.ToDoDataColumns.TABLE_TODO_DATA,  null, values);
   }
 
+  public void updateToDoItem(ContentValues values, String updateID) {
+    //long insertID = database.insert(DatabaseContract.ToDoDataColumns.TABLE_TODO_DATA,  null, values);
+    long bs = database.update(DatabaseContract.ToDoDataColumns.TABLE_TODO_DATA, values,
+            BaseColumns._ID + " = " + updateID, null);
+
+  }
+
   public void deleteToDoItem(String itemId) {
     database.delete(DatabaseContract.ToDoDataColumns.TABLE_TODO_DATA, BaseColumns._ID + " = " + itemId, null);
   }
 
   public void refreshToDoList(){
-    todoCursor = getToDoItems();
+    todoCursor = getAllToDoItems();
     todoAdapter.swapCursor(todoCursor);
     todoAdapter.notifyDataSetChanged();
   }
 
-  public Cursor getToDoItems(){
-      return database.rawQuery("SELECT  * FROM " + DatabaseContract.ToDoDataColumns.TABLE_TODO_DATA, null);
+  public Cursor getAllToDoItems(){
+      return database.rawQuery("SELECT  * FROM " + DatabaseContract.ToDoDataColumns.TABLE_TODO_DATA + " ORDER BY " + DatabaseContract.ToDoDataColumns.COLUMN_PRIORITY, null);
     }
+
+  public Cursor getSingleToDoItem(String itemId){
+    return database.rawQuery("SELECT  * FROM " + DatabaseContract.ToDoDataColumns.TABLE_TODO_DATA + " WHERE ROWID = " + itemId + " Limit 1", null);
+  }
 
 /*
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

@@ -30,11 +30,16 @@ public class ToDoAdapter extends CursorAdapter {
     // Find fields to populate in inflated template
     TextView tvBody = (TextView) view.findViewById(R.id.tvBody);
     TextView tvPriority = (TextView) view.findViewById(R.id.tvPriority);
+    TextView tvNotes = (TextView) view.findViewById(R.id.tvNotes);
     // Extract properties from cursor
     String body = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.ToDoDataColumns.COLUMN_DESCRIPTION));
     String priority = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.ToDoDataColumns.COLUMN_PRIORITY));
+    String notes = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.ToDoDataColumns.COLUMN_NOTES));
     // Populate fields with extracted properties
     tvBody.setText(body);
     tvPriority.setText(priority);
+    tvNotes.setText(notes);
+
   }
+
 }

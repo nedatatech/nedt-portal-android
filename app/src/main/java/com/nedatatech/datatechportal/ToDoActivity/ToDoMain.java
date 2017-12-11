@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.nedatatech.datatechportal.DatabaseOperations;
 import com.nedatatech.datatechportal.R;
@@ -25,7 +24,7 @@ public class ToDoMain extends Activity {
     dataOps = new DatabaseOperations(this);
     dataOps.openDB();
 
-    dataOps.todoCursor = dataOps.getToDoItems();
+    dataOps.todoCursor = dataOps.getAllToDoItems();
 
     ListView lvItems = (ListView) findViewById(R.id.lvItems);
     dataOps.todoAdapter = new ToDoAdapter(this, dataOps.todoCursor);
@@ -49,6 +48,7 @@ public class ToDoMain extends Activity {
     menu.setHeaderTitle("Select The Action");
     menu.add(0, v.getId(), 0, "Delete");
     menu.add(0, v.getId(), 0, "Edit");
+    menu.add(0, v.getId(), 0, "View");
   }
 
   @Override
@@ -59,8 +59,16 @@ public class ToDoMain extends Activity {
       dataOps.deleteToDoItem(itemId);
       dataOps.refreshToDoList();
     }
-    else if(item.getTitle()=="Edit"){
-      Toast.makeText(getApplicationContext(),"Edits the item",Toast.LENGTH_LONG).show();
+    else if(item.getTitle()=="Edit") {
+      //Toast.makeText(getApplicationContext(),"Edits the item",Toast.LENGTH_LONG).show();
+      String itemId = dataOps.todoCursor.getString(dataOps.todoCursor.getColumnIndex("_id"));
+      dataOps.getSingleToDoItem(itemId);
+      Intent startListActivity = new Intent(ToDoMain.this, ToDoEdit.class);
+      startListActivity.putExtra("itemId", itemId);
+      startActivity(startListActivity);
+    }else if(item.getTitle()=="View"){
+      Intent startListActivity = new Intent(ToDoMain.this, ToDoView.class);
+      startActivity(startListActivity);
     }else{
       return false;
     }
@@ -71,5 +79,11 @@ public class ToDoMain extends Activity {
   protected void onResume() {
     super.onResume();
     dataOps.refreshToDoList();
+  }
+
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    dataOps.closeDB();
   }
 }

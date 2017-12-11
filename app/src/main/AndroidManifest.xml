@@ -45,6 +45,10 @@
     </activity>
     <activity android:name=".ToDoActivity.ToDoAdd">
     </activity>
+    <activity android:name=".ToDoActivity.ToDoEdit">
+    </activity>
+    <activity android:name=".ToDoActivity.ToDoView">
+    </activity>
   </application>
 
 </manifest>
