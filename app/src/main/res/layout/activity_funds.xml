@@ -19,6 +19,7 @@
       android:id="@+id/FundsNew_button"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:onClick="newButtonPressed"
       android:layout_weight="1"
       android:paddingEnd="16dp"
       android:paddingStart="16dp"

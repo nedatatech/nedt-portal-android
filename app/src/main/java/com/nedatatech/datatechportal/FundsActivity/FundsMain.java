@@ -4,21 +4,28 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.Spinner;
 
 import com.nedatatech.datatechportal.DatabaseOperations;
 import com.nedatatech.datatechportal.R;
-import com.nedatatech.datatechportal.FundsActivity.FundsAdapter;
-import com.nedatatech.datatechportal.FundsActivity.FundsNew;
-import com.nedatatech.datatechportal.FundsActivity.FundsEdit;
-import com.nedatatech.datatechportal.FundsActivity.FundsView;
 
 public class FundsMain extends Activity {
 
   private DatabaseOperations dataOps;
+  PopupWindow popupWindow;
+  String[] TransType = {"Check", "Cash", "Purchase", "Payment",
+          "Borrow"};
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -35,14 +42,60 @@ public class FundsMain extends Activity {
     lvFundsItems.setAdapter(dataOps.fundsAdapter);
     registerForContextMenu(lvFundsItems);
 
-    Button buttonNew = (Button) findViewById(R.id.FundsNew_button);
-    buttonNew.setOnClickListener(new View.OnClickListener() {
+    //Button buttonNew = (Button) findViewById(R.id.FundsNew_button);
+    //buttonNew.setOnClickListener(new View.OnClickListener() {
+    //  @Override
+    //  public void onClick(View v) {
+        //Intent startListActivity = new Intent(com.nedatatech.datatechportal.FundsActivity.FundsMain.this, FundsNew.class);
+        //Intent startListActivity = new Intent(com.nedatatech.datatechportal.FundsActivity.FundsMain.this, FundsNew.class);
+        //startActivity(startListActivity);
+     // }
+    //});
+  }
+
+  public void newButtonPressed(View view){
+    //Intent startListActivity = new Intent(com.nedatatech.datatechportal.FundsActivity.FundsMain.this, FundsNew.class);
+    //startActivity(startListActivity);
+    // get a reference to the already created main layout
+    //LinearLayout mainLayout = (LinearLayout)
+    //findViewById(R.id.activity_funds);
+
+    // inflate the layout of the popup window
+    LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+    final ViewGroup nullParent = null;
+    View popupView = inflater.inflate(R.layout.transaction_type_select_popup, nullParent);
+
+    // create the popup window
+    int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+    int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+
+    popupWindow = new PopupWindow(popupView, width, height, true);
+
+    //Spinner popupSpinner = (Spinner)popupView.findViewById(R.id.spTransType);
+    ListView listview = (ListView) popupView.findViewById(R.id.lvTransType);
+
+
+    ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, TransType);
+ //   adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+ //   popupSpinner.setAdapter(adapter);
+    listview.setAdapter(adapter);
+    listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override
-      public void onClick(View v) {
-        Intent startListActivity = new Intent(com.nedatatech.datatechportal.FundsActivity.FundsMain.this, FundsNew.class);
-        startActivity(startListActivity);
+      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        // Get the selected item text from ListView
+        String selectedItem = (String) parent.getItemAtPosition(position);
+        // Display the selected item text on TextView
+        //tv.setText("Your favorite : " + selectedItem);
+        switch(selectedItem) {
+          case "Check":
+            popupWindow.dismiss();
+            Intent startListActivity = new Intent(com.nedatatech.datatechportal.FundsActivity.FundsMain.this, FundsNew.class);
+            startActivity(startListActivity);
+        }
       }
     });
+    // show the popup window
+    popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
   }
 
   @Override
