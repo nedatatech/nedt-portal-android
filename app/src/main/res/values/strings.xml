@@ -47,5 +47,19 @@
   <string name="btn_cancel">Cancel</string>
   <string name="et_enter_inventory_cost">Enter Inventory Expenses:</string>
   <string name="enter_misc_acct_per">Enter Misc Acct. Percentage</string>
-  <string name="tv_misc_acct_per">Misc Acct %:</string> <!--not needed-->
+  <string name="tv_misc_acct_per">Misc Acct %:</string>
+  <string name="transaction_date">Transaction Date:</string>
+  <string name="transaction_type">Transaction Type:</string>
+  <string name="customer_name">Customer Name:</string>
+  <string name="tim_owed">Tim Owed:</string>
+  <string name="dave_owed">Dave Owed:</string>
+  <string name="inventory_acct">Inventory Acct:</string>
+  <string name="fuel_acct">Fuel Acct:</string>
+  <string name="misc_acct">Misc Acct:</string>
+  <string name="notes">Notes</string>
+  <string name="priority">Priority #</string>
+  <string name="enter_a_description">Enter a description</string>
+  <string name="save">Save</string>
+  <string name="cancel">Cancel</string>
+  <string name="description">Description:</string> <!--not needed-->
 </resources>

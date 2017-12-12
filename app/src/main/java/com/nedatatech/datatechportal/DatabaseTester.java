@@ -26,7 +26,7 @@ public class DatabaseTester extends ListActivity {
     dataOps = new DatabaseOperations(this);
     dataOps.openDB();
     token = dataOps.getTokenFromDB(BaseColumns._ID,"1");
-    // Should close database when access will not be needed anymore. MainActivity?
+    // Should close database when access will not be needed anymore. mainactivity?
     tokenList.add(token);
     tokenAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, tokenList);
     setListAdapter(tokenAdapter);

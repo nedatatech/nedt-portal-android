@@ -1,4 +1,4 @@
-package com.nedatatech.datatechportal.ToDoActivity;
+package com.nedatatech.datatechportal.todoactivity;
 
 import android.app.Activity;
 import android.content.Intent;

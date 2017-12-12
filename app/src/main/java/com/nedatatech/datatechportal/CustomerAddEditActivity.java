@@ -44,7 +44,7 @@ public class CustomerAddEditActivity extends AppCompatActivity {
     setContentView(R.layout.activity_customer_addedit);
 
     dataOps = new DatabaseOperations(this);
-    dataOps.openDB(); // Not sure if needed here because main should have already done this unless its killed by onBackPressed? See notes in MainActivity as well.
+    dataOps.openDB(); // Not sure if needed here because main should have already done this unless its killed by onBackPressed? See notes in mainactivity as well.
     customerNew = new Customer();
 
     customerIDText = (EditText) findViewById(R.id.customerId_editText);

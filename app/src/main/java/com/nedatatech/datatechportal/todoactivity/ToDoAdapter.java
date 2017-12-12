@@ -1,4 +1,4 @@
-package com.nedatatech.datatechportal.ToDoActivity;
+package com.nedatatech.datatechportal.todoactivity;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -12,7 +12,7 @@ import com.nedatatech.datatechportal.DatabaseContract;
 import com.nedatatech.datatechportal.R;
 
 public class ToDoAdapter extends CursorAdapter {
-  public ToDoAdapter(Context context, Cursor cursor) {
+  ToDoAdapter(Context context, Cursor cursor) {
     super(context, cursor, 0);
   }
 

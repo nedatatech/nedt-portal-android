@@ -1,4 +1,4 @@
-package com.nedatatech.datatechportal.FundsActivity;
+package com.nedatatech.datatechportal.fundsactivity;
 
 
 import android.content.Context;
@@ -13,7 +13,7 @@ import com.nedatatech.datatechportal.DatabaseContract;
 import com.nedatatech.datatechportal.R;
 
 public class FundsAdapter extends CursorAdapter {
-  public FundsAdapter(Context context, Cursor cursor) {
+  FundsAdapter(Context context, Cursor cursor) {
     super(context, cursor, 0);
   }
 

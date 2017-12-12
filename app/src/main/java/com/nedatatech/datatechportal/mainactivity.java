@@ -5,9 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.nedatatech.datatechportal.FundsActivity.FundsMain;
+import com.nedatatech.datatechportal.fundsactivity.FundsMain;
 
-public class MainActivity extends AppCompatActivity {
+public class mainactivity extends AppCompatActivity {
 
 
   private DatabaseOperations dataOps;

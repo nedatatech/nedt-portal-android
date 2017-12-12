@@ -1,6 +1,7 @@
-package com.nedatatech.datatechportal.FundsActivity;
+package com.nedatatech.datatechportal.fundsactivity;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,18 +14,21 @@ import com.nedatatech.datatechportal.R;
 
 import static android.database.DatabaseUtils.dumpCursor;
 
-public class FundsNew extends AppCompatActivity {
+public class FundsCheck extends AppCompatActivity {
 
   private Button buttonCancel;
   private Button buttonSave;
   private DatabaseOperations dataOps;
-  private final String transType = "Check";
+  private String transType;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_funds_new);
 
+    Intent intent = getIntent();
+
+    transType = intent.getStringExtra("TransType");
 
 
     //final ContentValues oldBalances = loadBalances();
@@ -44,7 +48,7 @@ public class FundsNew extends AppCompatActivity {
     buttonSave.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        dataOps = new DatabaseOperations(FundsNew.this);
+        dataOps = new DatabaseOperations(FundsCheck.this);
         ContentValues oldBalances = loadBalances();
         dataOps.openDB();
 
@@ -119,7 +123,7 @@ public class FundsNew extends AppCompatActivity {
   public ContentValues loadBalances(){
     ContentValues oldBalances = new ContentValues();
 
-    dataOps = new DatabaseOperations(FundsNew.this);
+    dataOps = new DatabaseOperations(FundsCheck.this);
     dataOps.openDB();
 
     //dataOps.fundsCursor = dataOps.getSingleFundsItem("1");

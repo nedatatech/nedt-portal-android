@@ -7,9 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.nedatatech.datatechportal.ToDoActivity.ToDoMain;
-
-import static com.nedatatech.datatechportal.ParseJSON.auth_token;
+import com.nedatatech.datatechportal.todoactivity.ToDoMain;
 
 public class InventoryActivity extends AppCompatActivity {
   public static String recordId;

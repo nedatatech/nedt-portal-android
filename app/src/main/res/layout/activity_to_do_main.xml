@@ -7,7 +7,7 @@
               android:orientation="vertical"
               android:paddingBottom="8dp"
               android:paddingTop="8dp"
-              tools:context="com.nedatatech.datatechportal.ToDoActivity.ToDoMain">
+              tools:context="com.nedatatech.datatechportal.todoactivity.ToDoMain">
 
 <ListView
     android:id="@+id/lvItems"

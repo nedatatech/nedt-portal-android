@@ -1,4 +1,4 @@
-package com.nedatatech.datatechportal.FundsActivity;
+package com.nedatatech.datatechportal.fundsactivity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,7 +7,6 @@ import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -15,12 +14,13 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.Spinner;
 
 import com.nedatatech.datatechportal.DatabaseOperations;
 import com.nedatatech.datatechportal.R;
 
 public class FundsMain extends Activity {
+
+  //private final String transType = "Check";
 
   private DatabaseOperations dataOps;
   PopupWindow popupWindow;
@@ -46,15 +46,15 @@ public class FundsMain extends Activity {
     //buttonNew.setOnClickListener(new View.OnClickListener() {
     //  @Override
     //  public void onClick(View v) {
-        //Intent startListActivity = new Intent(com.nedatatech.datatechportal.FundsActivity.FundsMain.this, FundsNew.class);
-        //Intent startListActivity = new Intent(com.nedatatech.datatechportal.FundsActivity.FundsMain.this, FundsNew.class);
+        //Intent startListActivity = new Intent(com.nedatatech.datatechportal.FundsActivity.FundsMain.this, FundsCheck.class);
+        //Intent startListActivity = new Intent(com.nedatatech.datatechportal.FundsActivity.FundsMain.this, FundsCheck.class);
         //startActivity(startListActivity);
      // }
     //});
   }
 
   public void newButtonPressed(View view){
-    //Intent startListActivity = new Intent(com.nedatatech.datatechportal.FundsActivity.FundsMain.this, FundsNew.class);
+    //Intent startListActivity = new Intent(com.nedatatech.datatechportal.FundsActivity.FundsMain.this, FundsCheck.class);
     //startActivity(startListActivity);
     // get a reference to the already created main layout
     //LinearLayout mainLayout = (LinearLayout)
@@ -89,7 +89,8 @@ public class FundsMain extends Activity {
         switch(selectedItem) {
           case "Check":
             popupWindow.dismiss();
-            Intent startListActivity = new Intent(com.nedatatech.datatechportal.FundsActivity.FundsMain.this, FundsNew.class);
+            Intent startListActivity = new Intent(com.nedatatech.datatechportal.fundsactivity.FundsMain.this, FundsCheck.class);
+            startListActivity.putExtra("TransType", "Check");
             startActivity(startListActivity);
         }
       }
@@ -120,11 +121,11 @@ public class FundsMain extends Activity {
       //Toast.makeText(getApplicationContext(),"Edits the item",Toast.LENGTH_LONG).show();
       String itemId = dataOps.fundsCursor.getString(dataOps.fundsCursor.getColumnIndex("_id"));
       dataOps.getSingleFundsItem(itemId);
-      Intent startListActivity = new Intent(com.nedatatech.datatechportal.FundsActivity.FundsMain.this, FundsEdit.class);
+      Intent startListActivity = new Intent(com.nedatatech.datatechportal.fundsactivity.FundsMain.this, FundsEdit.class);
       startListActivity.putExtra("itemId", itemId);
       startActivity(startListActivity);
     }else if(item.getTitle()=="View"){
-      Intent startListActivity = new Intent(com.nedatatech.datatechportal.FundsActivity.FundsMain.this, FundsView.class);
+      Intent startListActivity = new Intent(com.nedatatech.datatechportal.fundsactivity.FundsMain.this, FundsView.class);
       startActivity(startListActivity);
     }else{
       return false;

@@ -11,25 +11,43 @@
       android:roundIcon="@mipmap/ic_launcher_round"
       android:supportsRtl="true"
       android:theme="@style/AppTheme">
-    <activity android:name=".MainActivity">
-      <intent-filter>
+    <activity android:name=".mainactivity">
+
+      <!-- <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
 
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
+      -->
+      <intent-filter android:label="@string/filter_title_viewgizmos">
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <!-- Accepts URIs that begin with "http://www.example.com/gizmos” -->
+        <data android:scheme="http"
+              android:host="www.nedatatech.com"
+              android:pathPrefix="/datatechportal" />
+        <!-- note that the leading "/" is required for pathPrefix-->
+        <!-- Accepts URIs that begin with "example://gizmos” -->
+        <data android:scheme="example"
+              android:host="gizmos" />
+
+      </intent-filter>
+
+
     </activity>
     <activity
         android:name=".CustomerMainActivity"
-        android:parentActivityName=".MainActivity"/>
+        android:parentActivityName=".mainactivity"/>
     <activity
         android:name=".JobActivity"
-        android:parentActivityName=".MainActivity"/>
+        android:parentActivityName=".mainactivity"/>
     <activity
         android:name=".InventoryActivity"
-        android:parentActivityName=".MainActivity"/>
+        android:parentActivityName=".mainactivity"/>
     <activity
         android:name=".CompanyActivity"
-        android:parentActivityName=".MainActivity"/>
+        android:parentActivityName=".mainactivity"/>
     <activity
         android:name=".CustomerAddEditActivity"
         android:label="@string/customer_editLabel"
@@ -41,21 +59,23 @@
     </activity>
     <activity android:name=".CustomerListAllActivity"/>
     <activity android:name=".DatabaseTester"/>
-    <activity android:name=".ToDoActivity.ToDoMain">
+    <activity android:name=".todoactivity.ToDoMain">
     </activity>
-    <activity android:name=".ToDoActivity.ToDoAdd">
+    <activity android:name=".todoactivity.ToDoAdd">
     </activity>
-    <activity android:name=".ToDoActivity.ToDoEdit">
+    <activity android:name=".todoactivity.ToDoEdit">
     </activity>
-    <activity android:name=".ToDoActivity.ToDoView">
+    <activity android:name=".todoactivity.ToDoView">
     </activity>
-    <activity android:name=".FundsActivity.FundsMain">
+    <activity android:name=".fundsactivity.FundsMain">
     </activity>
-    <activity android:name=".FundsActivity.FundsNew">
+    <activity android:name=".fundsactivity.FundsCheck">
     </activity>
-    <activity android:name=".FundsActivity.FundsView">
+    <activity android:name=".fundsactivity.FundsView">
     </activity>
-    <activity android:name=".FundsActivity.FundsEdit">
+    <activity android:name=".fundsactivity.FundsEdit">
+    </activity>
+    <activity android:name=".fundsactivity.FundsPayment">
     </activity>
   </application>
 

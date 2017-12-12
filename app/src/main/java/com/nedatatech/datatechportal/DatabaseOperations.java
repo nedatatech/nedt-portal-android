@@ -9,8 +9,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.nedatatech.datatechportal.FundsActivity.FundsAdapter;
-import com.nedatatech.datatechportal.ToDoActivity.ToDoAdapter;
+import com.nedatatech.datatechportal.fundsactivity.FundsAdapter;
+import com.nedatatech.datatechportal.todoactivity.ToDoAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ public class DatabaseOperations {
 
   //Todo: Go through this class and check for things that may need to be done or improved.
 
-  public static final String logTag = "DB_OPERATION_SYSTEM"; // Debug info.
+  private static final String logTag = "DB_OPERATION_SYSTEM"; // Debug info.
 
   private SQLiteOpenHelper dbHelper; /* This can be TestDBHelper dbHelper or the system default SQLiteOpenHelper dbHelper. Not sure what the difference is.
                                             Maybe either just methods used in TestDBHelper class or all from SQLiteOpenHelper and the overridden ones in TestDBHelper.*/

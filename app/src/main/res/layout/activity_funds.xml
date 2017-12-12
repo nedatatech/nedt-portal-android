@@ -7,7 +7,7 @@
               android:orientation="vertical"
               android:paddingBottom="8dp"
               android:paddingTop="8dp"
-              tools:context="com.nedatatech.datatechportal.FundsActivity.FundsMain">
+              tools:context="com.nedatatech.datatechportal.fundsactivity.FundsMain">
 
   <ListView
       android:id="@+id/lvFundsItems"

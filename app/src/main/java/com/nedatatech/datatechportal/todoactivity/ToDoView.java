@@ -1,10 +1,8 @@
-package com.nedatatech.datatechportal.ToDoActivity;
+package com.nedatatech.datatechportal.todoactivity;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.nedatatech.datatechportal.DatabaseOperations;
 import com.nedatatech.datatechportal.R;
 
 public class ToDoView extends AppCompatActivity {
