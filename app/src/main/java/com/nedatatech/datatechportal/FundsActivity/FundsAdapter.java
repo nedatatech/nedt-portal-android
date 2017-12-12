@@ -31,6 +31,7 @@ public class FundsAdapter extends CursorAdapter {
     // Find fields to populate in inflated template
     //TextView tvTotalRec = (TextView) view.findViewById(R.id.tvTotalRec);
     TextView tvDate = (TextView) view.findViewById(R.id.tvDate);
+    TextView tvTransType = (TextView) view.findViewById(R.id.tvTransType);
     TextView tvFuel = (TextView) view.findViewById(R.id.tvFuel);
     TextView tvInventory = (TextView) view.findViewById(R.id.tvInventory);
     TextView tvMisc = (TextView) view.findViewById(R.id.tvMisc);
@@ -40,6 +41,7 @@ public class FundsAdapter extends CursorAdapter {
 
     // Extract properties from cursor
     String Date = "Transaction Date: " + cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.FundsHistoryColumns.COLUMN_TRANS_DATE));
+    String transType = "Transaction Type: " + cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.FundsHistoryColumns.COLUMN_TRANS_TYPE));
     String fuel = "Fuel Acct: " + cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.FundsHistoryColumns.COLUMN_FUEL_ACCT_BAL));
     String inventory = "Inventory Acct: " + cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.FundsHistoryColumns.COLUMN_INVENTORY_ACCT_BAL));
     String misc = "Misc Acct: " + cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.FundsHistoryColumns.COLUMN_MISC_ACCT_BAL));
@@ -48,6 +50,7 @@ public class FundsAdapter extends CursorAdapter {
     // Populate fields with extracted properties
 
     tvDate.setText(Date);
+    tvTransType.setText(transType);
     tvFuel.setText(fuel);
     tvInventory.setText(inventory);
     tvMisc.setText(misc);

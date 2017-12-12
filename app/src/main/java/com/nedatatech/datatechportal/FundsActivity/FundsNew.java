@@ -18,11 +18,13 @@ public class FundsNew extends AppCompatActivity {
   private Button buttonCancel;
   private Button buttonSave;
   private DatabaseOperations dataOps;
+  private final String transType = "Check";
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_funds_new);
+
 
 
     //final ContentValues oldBalances = loadBalances();
@@ -71,7 +73,7 @@ public class FundsNew extends AppCompatActivity {
         ContentValues values = processAmtRec(transactions, oldBalances);//processAmtRec(Short.valueOf(totalRec),Short.valueOf(fuelAcctOwed), Short.valueOf(inventoryOwed), Double.valueOf(miscAcctPer));
 
         ContentValues newBalances = updateBalances(oldBalances, values);
-        dataOps.storeTransaction(transactions, newBalances, oldBalances);
+        dataOps.storeTransaction(transType,transactions, newBalances, oldBalances);
 
         /*
         if(dataOps.getSingleFundsItem("1").getCount()>0){
@@ -177,6 +179,7 @@ public class FundsNew extends AppCompatActivity {
   public ContentValues parseTransactionsToContentValues(ContentValues transactions){
     ContentValues historyItem = new ContentValues();
     historyItem.put(DatabaseContract.FundsHistoryColumns.COLUMN_TRANS_DATE, "12/11/17");
+    historyItem.put(DatabaseContract.FundsHistoryColumns.COLUMN_TRANS_TYPE, transType);
     historyItem.putAll(transactions);
     //historyItem.put(DatabaseContract.FundsHistoryColumns.COLUMN_CUST_PAID, transactions.get(DatabaseContract ));
     //historyItem.put(transactions.get(DatabaseContract.FundsDataColumns.));

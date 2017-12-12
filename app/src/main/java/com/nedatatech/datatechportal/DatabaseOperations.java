@@ -310,12 +310,13 @@ VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
     return database.rawQuery("SELECT  * FROM " + DatabaseContract.FundsHistoryColumns.TABLE_FUNDS_HISTORY_DATA + " WHERE ROWID = " + itemId + " Limit 1", null);
   }
 
-  public void storeTransaction(ContentValues transactions, ContentValues newBalance, ContentValues oldBalance){
+  public void storeTransaction(String transType, ContentValues transactions, ContentValues newBalance, ContentValues oldBalance){
     ContentValues values = new ContentValues();
     //Long tsLong = System.currentTimeMillis()/1000;
     //String ts = tsLong.toString();
     String date = (DateFormat.format("dd-MM-yyyy hh:mm:ss", new java.util.Date()).toString());
     values.put(DatabaseContract.FundsHistoryColumns.COLUMN_TRANS_DATE, date);
+    values.put(DatabaseContract.FundsHistoryColumns.COLUMN_TRANS_TYPE, transType);
     values.putAll(transactions);
     values.putAll(newBalance);
     //values.putAll(oldBalance);
