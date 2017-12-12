@@ -30,6 +30,7 @@ public class FundsAdapter extends CursorAdapter {
   public void bindView(View view, Context context, Cursor cursor) {
     // Find fields to populate in inflated template
     //TextView tvTotalRec = (TextView) view.findViewById(R.id.tvTotalRec);
+    TextView tvDate = (TextView) view.findViewById(R.id.tvDate);
     TextView tvFuel = (TextView) view.findViewById(R.id.tvFuel);
     TextView tvInventory = (TextView) view.findViewById(R.id.tvInventory);
     TextView tvMisc = (TextView) view.findViewById(R.id.tvMisc);
@@ -38,13 +39,15 @@ public class FundsAdapter extends CursorAdapter {
 
 
     // Extract properties from cursor
-    String fuel = "Fuel Acct: " + cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.FundsDataColumns.COLUMN_FUEL));
-    String inventory = "Inventory Acct: " + cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.FundsDataColumns.COLUMN_INVENTORY));
-    String misc = "Misc Acct: " + cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.FundsDataColumns.COLUMN_MISC));
-    String tim = "Tim Owed: " + cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.FundsDataColumns.COLUMN_TIM));
-    String dave = "Dave Owed: " + cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.FundsDataColumns.COLUMN_DAVE));
+    String Date = "Transaction Date: " + cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.FundsHistoryColumns.COLUMN_TRANS_DATE));
+    String fuel = "Fuel Acct: " + cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.FundsHistoryColumns.COLUMN_FUEL_ACCT_BAL));
+    String inventory = "Inventory Acct: " + cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.FundsHistoryColumns.COLUMN_INVENTORY_ACCT_BAL));
+    String misc = "Misc Acct: " + cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.FundsHistoryColumns.COLUMN_MISC_ACCT_BAL));
+    String tim = "Tim Owed: " + cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.FundsHistoryColumns.COLUMN_TIM_BAL));
+    String dave = "Dave Owed: " + cursor.getString(cursor.getColumnIndexOrThrow(DatabaseContract.FundsHistoryColumns.COLUMN_DAVE_BAL));
     // Populate fields with extracted properties
 
+    tvDate.setText(Date);
     tvFuel.setText(fuel);
     tvInventory.setText(inventory);
     tvMisc.setText(misc);

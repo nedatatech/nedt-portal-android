@@ -1,6 +1,7 @@
 package com.nedatatech.datatechportal;
 
 import android.provider.BaseColumns;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.content.ContentValues;
 import android.content.Context;
@@ -281,18 +282,18 @@ VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
 
 
   public void saveFundsItem(ContentValues values) {
-    long insertID = database.insert(DatabaseContract.FundsDataColumns.TABLE_FUNDS_DATA, "1" , values);
+    long insertID = database.insert(DatabaseContract.FundsHistoryColumns.TABLE_FUNDS_HISTORY_DATA, null , values);
   }
 
   public void updateFundsItem(ContentValues values, String updateID) {
     //long insertID = database.insert(DatabaseContract.FundsDataColumns.TABLE_FUNDS_DATA,  null, values);
-    long bs = database.update(DatabaseContract.FundsDataColumns.TABLE_FUNDS_DATA, values,
+    long bs = database.update(DatabaseContract.FundsHistoryColumns.TABLE_FUNDS_HISTORY_DATA, values,
             BaseColumns._ID + " = " + updateID, null);
 
   }
 
   public void deleteFundsItem(String itemId) {
-    database.delete(DatabaseContract.FundsDataColumns.TABLE_FUNDS_DATA, BaseColumns._ID + " = " + itemId, null);
+    database.delete(DatabaseContract.FundsHistoryColumns.TABLE_FUNDS_HISTORY_DATA, BaseColumns._ID + " = " + itemId, null);
   }
 
   public void refreshFundsList(){
@@ -302,11 +303,24 @@ VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
   }
 
   public Cursor getAllFundsItems(){
-    return database.rawQuery("SELECT  * FROM " + DatabaseContract.FundsDataColumns.TABLE_FUNDS_DATA, null);
+    return database.rawQuery("SELECT  * FROM " + DatabaseContract.FundsHistoryColumns.TABLE_FUNDS_HISTORY_DATA, null);
   }
 
   public Cursor getSingleFundsItem(String itemId){
-    return database.rawQuery("SELECT  * FROM " + DatabaseContract.FundsDataColumns.TABLE_FUNDS_DATA + " WHERE ROWID = " + itemId + " Limit 1", null);
+    return database.rawQuery("SELECT  * FROM " + DatabaseContract.FundsHistoryColumns.TABLE_FUNDS_HISTORY_DATA + " WHERE ROWID = " + itemId + " Limit 1", null);
+  }
+
+  public void storeTransaction(ContentValues transactions, ContentValues newBalance, ContentValues oldBalance){
+    ContentValues values = new ContentValues();
+    //Long tsLong = System.currentTimeMillis()/1000;
+    //String ts = tsLong.toString();
+    String date = (DateFormat.format("dd-MM-yyyy hh:mm:ss", new java.util.Date()).toString());
+    values.put(DatabaseContract.FundsHistoryColumns.COLUMN_TRANS_DATE, date);
+    values.putAll(transactions);
+    values.putAll(newBalance);
+    //values.putAll(oldBalance);
+
+    long insertID = database.insert(DatabaseContract.FundsHistoryColumns.TABLE_FUNDS_HISTORY_DATA, null , values);
   }
 
 /*

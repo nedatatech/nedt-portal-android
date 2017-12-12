@@ -68,14 +68,26 @@ public class DatabaseContract {
 
   public static class FundsHistoryColumns implements BaseColumns {
     public static final String TABLE_FUNDS_HISTORY_DATA = "funds_history_data";
-    public static final String COLUMN_TIM = "tim";
-    public static final String COLUMN_DAVE = "dave";
-    public static final String COLUMN_INVENTORY = "inventory";
-    public static final String COLUMN_CASH = "cash";
-    public static final String COLUMN_MISC = "misc";
-    public static final String COLUMN_FUEL = "fuel";
+    public static final String COLUMN_TRANS_DATE = "trans_date";
+    public static final String COLUMN_CUST_ADDR = "customer_addr";
+    public static final String COLUMN_CUST_PHONE = "customer_phone";
+    public static final String COLUMN_CUST_PAID = "customer_paid";
+    public static final String COLUMN_TIM_OWED = "tim_owed";
+    public static final String COLUMN_TIM_BAL = "tim_bal";
+    public static final String COLUMN_DAVE_OWED = "dave_owed";
+    public static final String COLUMN_DAVE_BAL = "dave_bal";
+    public static final String COLUMN_INVENTORY_ACCT_OWED = "inventory_acct_owed";
+    public static final String COLUMN_INVENTORY_ACCT_BAL = "inventory_acct_bal";
+    public static final String COLUMN_FUEL_ACCT_OWED = "fuel_acct_owed";
+    public static final String COLUMN_FUEL_ACCT_BAL = "fuel_acct_bal";
+    public static final String COLUMN_CASH_ACCT_OWED = "cash_acct_owed";
+    public static final String COLUMN_CASH_ACCT_BAL = "cash_acct_bal";
+    public static final String COLUMN_MISC_ACCT_PERCENT = "misc_acct_percent";
+    public static final String COLUMN_MISC_ACCT_OWED = "misc_acct_owed";
+    public static final String COLUMN_MISC_ACCT_BAL = "misc_acct_bal";
+
     //public static final String COLUMN_TRANSACTIONS = "transactions";
     public static final String CREATE_FUNDS_HISTORY_DATA_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_FUNDS_HISTORY_DATA + " (" + BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + COLUMN_TIM + " TEXT, " + COLUMN_DAVE + " TEXT, " + COLUMN_INVENTORY + " TEXT, " + COLUMN_CASH + " TEXT, " + COLUMN_MISC + " TEXT, " + COLUMN_FUEL + " TEXT)";
+            + COLUMN_TRANS_DATE + " TEXT, " + COLUMN_CUST_ADDR + " TEXT, " + COLUMN_CUST_PHONE + " TEXT, "  + COLUMN_CUST_PAID + " TEXT, "  + COLUMN_TIM_OWED + " TEXT, "  + COLUMN_TIM_BAL + " TEXT, "  + COLUMN_DAVE_OWED + " TEXT, "  + COLUMN_DAVE_BAL + " TEXT, "  + COLUMN_INVENTORY_ACCT_OWED + " TEXT, "  + COLUMN_INVENTORY_ACCT_BAL + " TEXT, "  + COLUMN_FUEL_ACCT_OWED + " TEXT, "  + COLUMN_FUEL_ACCT_BAL + " TEXT, "  + COLUMN_CASH_ACCT_OWED + " TEXT, "  + COLUMN_CASH_ACCT_BAL + " TEXT, "  + COLUMN_MISC_ACCT_PERCENT + " TEXT, "  + COLUMN_MISC_ACCT_OWED + " TEXT, "  + COLUMN_MISC_ACCT_BAL + " TEXT)";
   }
 }

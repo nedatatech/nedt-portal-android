@@ -29,6 +29,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     db.execSQL(DatabaseContract.CustomerColumns.CREATE_CUSTOMER_TABLE);
     db.execSQL(DatabaseContract.ToDoDataColumns.CREATE_TODO_DATA_TABLE);
     db.execSQL(DatabaseContract.FundsDataColumns.CREATE_FUNDS_DATA_TABLE);
+    db.execSQL(DatabaseContract.FundsHistoryColumns.CREATE_FUNDS_HISTORY_DATA_TABLE);
     Log.i(logTag, "Table has been created"); // Debug
   }
 
@@ -48,5 +49,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     db.execSQL("DROP TABLE IF EXISTS " + DatabaseContract.FundsDataColumns.TABLE_FUNDS_DATA + ";"); //ToDo Should use alter table instead if data needs to persist when upgraded.
     db.execSQL(DatabaseContract.FundsDataColumns.CREATE_FUNDS_DATA_TABLE);
+
+    db.execSQL("DROP TABLE IF EXISTS " + DatabaseContract.FundsHistoryColumns.TABLE_FUNDS_HISTORY_DATA + ";"); //ToDo Should use alter table instead if data needs to persist when upgraded.
+    db.execSQL(DatabaseContract.FundsHistoryColumns.CREATE_FUNDS_HISTORY_DATA_TABLE);
   }
 }
