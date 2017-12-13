@@ -92,6 +92,12 @@ public class FundsMain extends Activity {
             Intent startListActivity = new Intent(com.nedatatech.datatechportal.fundsactivity.FundsMain.this, FundsCheck.class);
             startListActivity.putExtra("TransType", "Check");
             startActivity(startListActivity);
+            break;
+          case "Payment":
+            popupWindow.dismiss();
+            Intent startPaymentActivity = new Intent(com.nedatatech.datatechportal.fundsactivity.FundsMain.this, FundsPayment.class);
+            startPaymentActivity.putExtra("TransType", "Payment");
+            startActivity(startPaymentActivity);
         }
       }
     });

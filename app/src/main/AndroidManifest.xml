@@ -19,10 +19,10 @@
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
       -->
-      <intent-filter android:label="@string/filter_title_viewgizmos">
-        <action android:name="android.intent.action.VIEW" />
+      <intent-filter android:label="gizmos">
+        <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.DEFAULT" />
-        <category android:name="android.intent.category.BROWSABLE" />
+        <category android:name="android.intent.category.LAUNCHER" />
         <!-- Accepts URIs that begin with "http://www.example.com/gizmos” -->
         <data android:scheme="http"
               android:host="www.nedatatech.com"
