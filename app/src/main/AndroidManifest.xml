@@ -12,29 +12,11 @@
       android:supportsRtl="true"
       android:theme="@style/AppTheme">
     <activity android:name=".mainactivity">
-
-      <!-- <intent-filter>
+      <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
 
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
-      -->
-      <intent-filter android:label="gizmos">
-        <action android:name="android.intent.action.MAIN" />
-        <category android:name="android.intent.category.DEFAULT" />
-        <category android:name="android.intent.category.LAUNCHER" />
-        <!-- Accepts URIs that begin with "http://www.example.com/gizmos” -->
-        <data android:scheme="http"
-              android:host="www.nedatatech.com"
-              android:pathPrefix="/datatechportal" />
-        <!-- note that the leading "/" is required for pathPrefix-->
-        <!-- Accepts URIs that begin with "example://gizmos” -->
-        <data android:scheme="example"
-              android:host="gizmos" />
-
-      </intent-filter>
-
-
     </activity>
     <activity
         android:name=".CustomerMainActivity"

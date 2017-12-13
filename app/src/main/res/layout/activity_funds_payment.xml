@@ -1,25 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
-
-  <TextView
-      android:id="@+id/textView13"
-      android:layout_width="wrap_content"
+  <LinearLayout
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_alignParentStart="true"
-      android:layout_alignParentTop="true"
-      android:layout_marginStart="60dp"
-      android:layout_marginTop="44dp"
-      android:text="Pay From: "/>
+      android:orientation="vertical">
 
-  <TextView
-      android:id="@+id/textView14"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+      <TextView
+          android:id="@+id/tvFromAcct"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:gravity="center"
+          android:text="@string/from_acct"/>
+
+      <Spinner
+          android:id="@+id/spFromAcct"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+      <TextView
+          android:id="@+id/tvToAcct"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:gravity="center"
+          android:text="@string/select_to_acct"/>
+
+      <Spinner
+          android:id="@+id/spToAcct"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+      <TextView
+          android:id="@+id/tvAmount"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/amount"/>
+
+      <EditText
+          android:id="@+id/etPaymentAmt"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:ems="10"
+          android:inputType="number"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+      <Button
+          android:id="@+id/btnAddToAcct"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:onClick="addToAcct"
+          android:text="@string/add"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+  </LinearLayout>
+
+  <ListView
+      android:id="@+id/lvPayment"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignStart="@+id/textView13"
-      android:layout_below="@+id/textView13"
-      android:layout_marginTop="28dp"
-      android:text="Pay To: "/>
-</RelativeLayout>
+      android:layout_height="wrap_content"/>
+
+</LinearLayout>
