@@ -36,7 +36,7 @@ public class FundsCheck extends AppCompatActivity {
 //    String inventoryAcctBal = oldBalances.get("inventoryAcctBal").toString();
 //    String miscAcctBal = oldBalances.get("miscAcctBal").toString();
 
-    buttonCancel = (Button) findViewById(R.id.buttonCancel);
+    buttonCancel = (Button) findViewById(R.id.btnCancel);
     buttonCancel.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {

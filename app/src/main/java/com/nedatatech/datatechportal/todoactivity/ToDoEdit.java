@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 
 import com.nedatatech.datatechportal.DatabaseContract;
 import com.nedatatech.datatechportal.DatabaseOperations;
@@ -41,20 +42,26 @@ public class ToDoEdit extends AppCompatActivity {
       String Description = dataOps.todoCursor.getString(dataOps.todoCursor.getColumnIndexOrThrow(DatabaseContract.ToDoDataColumns.COLUMN_DESCRIPTION));
       String Priority = dataOps.todoCursor.getString(dataOps.todoCursor.getColumnIndexOrThrow(DatabaseContract.ToDoDataColumns.COLUMN_PRIORITY));
       String Notes = dataOps.todoCursor.getString(dataOps.todoCursor.getColumnIndexOrThrow(DatabaseContract.ToDoDataColumns.COLUMN_NOTES));
-      EditText txtDescription = (EditText) findViewById(R.id.editTextDescription);
-      EditText txtNotes = (EditText) findViewById(R.id.editTextNotes);
-      txtDescription.setText(Description);
+      EditText etDescription = (EditText) findViewById(R.id.etDescription);
+      EditText etNotes = (EditText) findViewById(R.id.etNotes);
+      TextView tvPriority = (TextView) findViewById(R.id.tvPriority);
+      TextView tvNotes = (TextView) findViewById(R.id.tvNotes);
+
       npPriority.setMinValue(1);
       npPriority.setMaxValue(50);
       npPriority.setValue(Integer.valueOf(Priority));
-      txtNotes.setText(Notes);
+      String test = String.valueOf(npPriority.getHeight());
+      //tvPriority.setHeight(npPriority.getHeight());
+      etDescription.setText(Description);
+      //tvNotes.setHeight(etNotes.getHeight());
+      etNotes.setText(Notes);
     }
     //ListView lvItems = (ListView) findViewById(R.id.lvItems);
     //dataOps.todoAdapter = new ToDoAdapter(this, dataOps.todoCursor);
     //lvItems.setAdapter(dataOps.todoAdapter);
     //registerForContextMenu(lvItems);
 
-    buttonCancel = (Button) findViewById(R.id.buttonCancel);
+    buttonCancel = (Button) findViewById(R.id.btnCancel);
     buttonCancel.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -71,9 +78,9 @@ public class ToDoEdit extends AppCompatActivity {
         //dataOps.addTokenToDB(auth_token);
         //EditText editText = (EditText) findViewById(R.id.editTextPriority);
         String priority = String.valueOf(npPriority.getValue());
-        EditText txtDescription = (EditText) findViewById(R.id.editTextDescription);
+        EditText txtDescription = (EditText) findViewById(R.id.etDescription);
         String description = txtDescription.getText().toString();
-        EditText txtNotes = (EditText) findViewById(R.id.editTextNotes);
+        EditText txtNotes = (EditText) findViewById(R.id.etNotes);
         String notes = txtNotes.getText().toString();
 
         ContentValues values = new ContentValues();

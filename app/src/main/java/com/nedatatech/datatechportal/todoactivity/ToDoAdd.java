@@ -28,7 +28,7 @@ public class ToDoAdd extends AppCompatActivity {
     npPriority.setMaxValue(50);
     npPriority.setValue(5);
 
-    buttonCancel = (Button) findViewById(R.id.buttonCancel);
+    buttonCancel = (Button) findViewById(R.id.btnCancel);
     buttonCancel.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -45,9 +45,9 @@ public class ToDoAdd extends AppCompatActivity {
         //dataOps.addTokenToDB(auth_token);
         //EditText editText = (EditText) findViewById(R.id.editTextPriority);
         String priority = String.valueOf(npPriority.getValue());
-        EditText txtDescription = (EditText) findViewById(R.id.editTextDescription);
+        EditText txtDescription = (EditText) findViewById(R.id.etDescription);
         String description = txtDescription.getText().toString();
-        EditText txtNotes = (EditText) findViewById(R.id.editTextNotes);
+        EditText txtNotes = (EditText) findViewById(R.id.etNotes);
         String notes = txtNotes.getText().toString();
 
         ContentValues values = new ContentValues();

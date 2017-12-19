@@ -1,6 +1,5 @@
 package com.nedatatech.datatechportal.fundsactivity;
 
-import android.content.ContentValues;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,12 +9,12 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.nedatatech.datatechportal.DatabaseContract;
 import com.nedatatech.datatechportal.R;
+import com.nedatatech.datatechportal.baseactivity.BaseActivity;
 
 import java.util.ArrayList;
 
-public class FundsPayment extends AppCompatActivity {
+public class FundsPayment extends BaseActivity {
 
   String[] accounts = {"Misc", "Cash", "Fuel", "Inventory", "Tim", "Dave"};
   ArrayList<FundsPaymentItem> arrayOfFundsPaymentItems = new ArrayList<>();
