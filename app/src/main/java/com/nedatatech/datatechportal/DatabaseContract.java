@@ -90,6 +90,7 @@ public class DatabaseContract {
     public static final String COLUMN_PAY_TO_ACCT = "pay_to_acct";
     public static final String COLUMN_PAYMENT_AMT = "payment_amt";
 
+
     //public static final String COLUMN_TRANSACTIONS = "transactions";
     public static final String CREATE_FUNDS_HISTORY_DATA_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_FUNDS_HISTORY_DATA + " (" + BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + COLUMN_TRANS_DATE + " TEXT, " + COLUMN_TRANS_TYPE + " TEXT, " + COLUMN_PAY_FROM_ACCT + " TEXT, " + COLUMN_PAY_TO_ACCT + " TEXT, " + COLUMN_PAYMENT_AMT  + " TEXT, " + COLUMN_CUST_ADDR + " TEXT, " + COLUMN_CUST_PHONE + " TEXT, "  + COLUMN_CUST_PAID + " TEXT, "  + COLUMN_TIM_OWED + " TEXT, "  + COLUMN_TIM_BAL + " TEXT, "  + COLUMN_DAVE_OWED + " TEXT, "  + COLUMN_DAVE_BAL + " TEXT, "  + COLUMN_INVENTORY_ACCT_OWED + " TEXT, "  + COLUMN_INVENTORY_ACCT_BAL + " TEXT, "  + COLUMN_FUEL_ACCT_OWED + " TEXT, "  + COLUMN_FUEL_ACCT_BAL + " TEXT, "  + COLUMN_CASH_ACCT_OWED + " TEXT, "  + COLUMN_CASH_ACCT_BAL + " TEXT, "  + COLUMN_MISC_ACCT_PERCENT + " TEXT, "  + COLUMN_MISC_ACCT_OWED + " TEXT, "  + COLUMN_MISC_ACCT_BAL + " TEXT)";

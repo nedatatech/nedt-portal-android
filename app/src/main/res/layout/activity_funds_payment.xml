@@ -118,6 +118,7 @@
 
     <Button
         android:id="@+id/btnSave"
+        android:onClick="saveClick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -125,10 +126,12 @@
 
     <Button
         android:id="@+id/btnCancel"
+        android:onClick="cancelClick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="@string/btn_cancel"/>
+
   </LinearLayout>
 
 </LinearLayout>

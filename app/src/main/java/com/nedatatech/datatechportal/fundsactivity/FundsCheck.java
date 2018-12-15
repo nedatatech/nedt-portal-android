@@ -11,10 +11,11 @@ import android.widget.EditText;
 import com.nedatatech.datatechportal.DatabaseContract;
 import com.nedatatech.datatechportal.DatabaseOperations;
 import com.nedatatech.datatechportal.R;
+import com.nedatatech.datatechportal.baseactivity.BaseActivity;
 
 import static android.database.DatabaseUtils.dumpCursor;
 
-public class FundsCheck extends AppCompatActivity {
+public class FundsCheck extends BaseActivity {
 
   private Button buttonCancel;
   private Button buttonSave;
@@ -44,7 +45,7 @@ public class FundsCheck extends AppCompatActivity {
       }
     });
 
-    buttonSave = (Button) findViewById(R.id.buttonSave);
+    buttonSave = (Button) findViewById(R.id.btnSave);
     buttonSave.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -120,39 +121,7 @@ public class FundsCheck extends AppCompatActivity {
 
   }
 
-  public ContentValues loadBalances(){
-    ContentValues oldBalances = new ContentValues();
 
-    dataOps = new DatabaseOperations(FundsCheck.this);
-    dataOps.openDB();
-
-    //dataOps.fundsCursor = dataOps.getSingleFundsItem("1");
-    dataOps.fundsCursor = dataOps.getAllFundsItems();
-
-
-    if (dataOps.fundsCursor.moveToLast()) {
-      String inventoryAcctBal = dataOps.fundsCursor.getString(dataOps.fundsCursor.getColumnIndexOrThrow(DatabaseContract.FundsHistoryColumns.COLUMN_INVENTORY_ACCT_BAL));
-      String miscAcctBal = dataOps.fundsCursor.getString(dataOps.fundsCursor.getColumnIndexOrThrow(DatabaseContract.FundsHistoryColumns.COLUMN_MISC_ACCT_BAL));
-      String daveAcctBal = dataOps.fundsCursor.getString(dataOps.fundsCursor.getColumnIndexOrThrow(DatabaseContract.FundsHistoryColumns.COLUMN_DAVE_BAL));
-      String timAcctBal = dataOps.fundsCursor.getString(dataOps.fundsCursor.getColumnIndexOrThrow(DatabaseContract.FundsHistoryColumns.COLUMN_TIM_BAL));
-      String fuelAcctBal = dataOps.fundsCursor.getString(dataOps.fundsCursor.getColumnIndexOrThrow(DatabaseContract.FundsHistoryColumns.COLUMN_FUEL_ACCT_BAL));
-      //dumpCursor(dataOps.fundsCursor);
-      oldBalances.put(DatabaseContract.FundsHistoryColumns.COLUMN_INVENTORY_ACCT_BAL, replaceNull(inventoryAcctBal));
-      oldBalances.put(DatabaseContract.FundsHistoryColumns.COLUMN_MISC_ACCT_BAL, replaceNull(miscAcctBal));
-      oldBalances.put(DatabaseContract.FundsHistoryColumns.COLUMN_DAVE_BAL, replaceNull(daveAcctBal));
-      oldBalances.put(DatabaseContract.FundsHistoryColumns.COLUMN_TIM_BAL, replaceNull(timAcctBal));
-      oldBalances.put(DatabaseContract.FundsHistoryColumns.COLUMN_FUEL_ACCT_BAL, replaceNull(fuelAcctBal));
-    }else {
-      oldBalances.put(DatabaseContract.FundsHistoryColumns.COLUMN_INVENTORY_ACCT_BAL, "0");
-      oldBalances.put(DatabaseContract.FundsHistoryColumns.COLUMN_MISC_ACCT_BAL, replaceNull("0"));
-      oldBalances.put(DatabaseContract.FundsHistoryColumns.COLUMN_DAVE_BAL, replaceNull("0"));
-      oldBalances.put(DatabaseContract.FundsHistoryColumns.COLUMN_TIM_BAL, replaceNull("0"));
-      oldBalances.put(DatabaseContract.FundsHistoryColumns.COLUMN_FUEL_ACCT_BAL, replaceNull("0"));
-    }
-    dataOps.closeDB();
-
-    return oldBalances;
-  }
 
   public ContentValues updateBalances(ContentValues oldBalances, ContentValues values){
     double daveTotalOwed = Double.valueOf(oldBalances.get(DatabaseContract.FundsHistoryColumns.COLUMN_DAVE_BAL).toString());
@@ -188,10 +157,6 @@ public class FundsCheck extends AppCompatActivity {
     //historyItem.put(DatabaseContract.FundsHistoryColumns.COLUMN_CUST_PAID, transactions.get(DatabaseContract ));
     //historyItem.put(transactions.get(DatabaseContract.FundsDataColumns.));
     return historyItem;
-  }
-
-  public static String replaceNull(String input) {
-    return input == null ? "0" : input;
   }
 
 }

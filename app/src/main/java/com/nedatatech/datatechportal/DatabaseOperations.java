@@ -157,11 +157,11 @@ public class DatabaseOperations {
 
 
 
-  /*
-  ==================================================================================================
-  ======================================= Api Operations ===========================================
-  VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
-  */
+/*
+====================================================================================================
+======================================= Api Operations =============================================
+VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+*/
 
 
   //Store auth token locally
@@ -225,11 +225,9 @@ public class DatabaseOperations {
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ======================================= Api Operations =============================================
 ====================================================================================================
-
-
-==================================================================================================
-======================================= To-Do List Operations ===========================================
-VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+====================================================================================================
+======================================= To-Do List Operations ======================================
+VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
 */
 
   public Cursor todoCursor;
@@ -267,14 +265,11 @@ VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
 
 /*
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-======================================= To-Do List Operations =============================================
+======================================= To-Do List Operations ======================================
 ====================================================================================================
-*/
-
-/*
-==================================================================================================
+====================================================================================================
 ======================================= Funds Operations ===========================================
-VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
 */
 
   public Cursor fundsCursor;
@@ -324,9 +319,12 @@ VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
     long insertID = database.insert(DatabaseContract.FundsHistoryColumns.TABLE_FUNDS_HISTORY_DATA, null , values);
   }
 
+  public void saveTransaction(ContentValues transaction) {
+    long insertID = database.insert(DatabaseContract.FundsHistoryColumns.TABLE_FUNDS_HISTORY_DATA, null , transaction);
+  }
 /*
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-======================================= Funds Operations =============================================
+======================================= Funds Operations ===========================================
 ====================================================================================================
 */
 

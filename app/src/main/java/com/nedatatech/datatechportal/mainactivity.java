@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.nedatatech.datatechportal.fundsactivity.FundsMain;
+import com.nedatatech.datatechportal.todoactivity.ToDoMain;
 
 public class mainactivity extends AppCompatActivity {
 
@@ -23,6 +24,11 @@ public class mainactivity extends AppCompatActivity {
   public void customerButton(View view){
     Intent customerStart = new Intent(this, CustomerMainActivity.class);
     startActivity(customerStart);
+  }
+
+  public void todoButton(View view){
+    Intent jobStart = new Intent(this, ToDoMain.class);
+    startActivity(jobStart);
   }
 
   public void jobButton(View view){
